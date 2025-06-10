@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+
+    function num1(){
+    const score = Math.floor(Math.random() * 101);//ランダムな数を生成　１から１００までの
+
+    if(score%3==0 && score%6==0){
+      document.write('<p>3と6の倍数です</p>')
+
+    }
+    else if(score%3==0 && score%6!==0){
+      document.write('<p>3の倍数で、6の倍数ではありません</p>')
+    }
+    else if(score%3!==0){
+      document.write('<p>倍数ではありません</p>')
+    }
+    // 0潰し  
+    else if(score==0){
+      const score = Math.floor(Math.random() * 101)
+
+    }  
+   }
+
+function num2(){
+  const random01 = Math.floor(Math.random() * 101);
+  const random02 = Math.floor(Math.random() * 101);
+
+  if(random01!==random02){
+    document.write('<p>random01=$random01,random02=$random02です。</p>')
+  }
+
+
+
+
+}
+
+
+  
+  </script>
+
+  
+
+  
+</body>
+</html>
