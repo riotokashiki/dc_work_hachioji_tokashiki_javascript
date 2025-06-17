@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <script>
+        //課題１
+
+        //assignment1();
+
+        function assignment1(){
+     let ransuu=Math.floor(Math.random()*100+1);
+     let textOutput =""
+
+     document.write(ransuu+"<br>");
+     
+
+     if(ransuu%3==0 && ransuu%6==0){
+        textOutput+="3と6の倍数です";
+     }
+     else if(ransuu%3==0 && ransuu%6!==0){
+        textOutput+="3の倍数で、6の倍数ではありません";
+
+     }
+     else if(ransuu%3!==0){
+        textOutput+="倍数ではありません";
+     }
+
+    
+     document.write(textOutput);
+    }
+
+     //課題２
+
+     assignment2();
+
+     function assignment2(){
+
+        let random01=Math.floor(Math.random()*10+1);
+        let random02=Math.floor(Math.random()*10+1);
+        document.write(random01+"<br>"+random02+"<br>");
+
+        let outputText =`random01=${random01},random02=${random02}です。`
+
+        if(random01>random02){
+            outputText +="random01の方が大きいです。";
+
+        }
+        else if(random01<random02){
+            outputText +="2つは同じ数です。";
+        }
+        else{
+            outputText +="random02の方が大きいです。";
+        }
+
+
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     }
+
+
+
+
+    </script> 
+</body>
+</html>

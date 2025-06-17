@@ -8,6 +8,10 @@
 <body>
   <script>
 
+    num1();
+    num2();
+
+
     function num1(){
     const score = Math.floor(Math.random() * 101);//ランダムな数を生成　１から１００までの
 
@@ -29,12 +33,36 @@
    }
 
 function num2(){
+  
   const random01 = Math.floor(Math.random() * 101);
   const random02 = Math.floor(Math.random() * 101);
+  let outputText=`random01=${random01},random02=${random02}です。`
 
-  if(random01!==random02){
-    document.write('<p>random01=$random01,random02=$random02です。</p>')
+  if(random01>random02){
+    outputText +="random01の方が大きいです。"
   }
+  else if(random01<random02){
+    outputText +="random02の方が大きいです。"
+  }
+  else{
+    outputText +="2つは同じ数です。"
+  }
+
+  let multipleOf3 =0
+  
+  if(random01%3==0){
+     multipleOf3 ++
+  }
+  if(random02%3==0){
+    multipleOf3 ++
+  }
+
+  outputText +=`2つの数字のうち、3の倍数となる数字は${multipleOf3}つです。`;
+
+
+
+
+  document.write(outputText);
 
 
 
