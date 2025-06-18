@@ -49,17 +49,42 @@
 
         }
         else if(random01<random02){
-            outputText +="2つは同じ数です。";
-        }
-        else{
             outputText +="random02の方が大きいです。";
         }
+        else{
+            outputText +="2つは同じ数です。";
+        }
 
 
+        let multipleCount=0;
+
+
+        if(random01%3==0 && random02%3==0){
+            multipleCount=multipleCount+2;
+            outputText+=`2つの数字のうち、3の倍数になるのは${multipleCount}つです。`;
+        }
+        else if(random01%3==0 || random02%3==0){
+            multipleCount++;
+            outputText+=`2つの数字のうち、3の倍数になるのは${multipleCount}つです。`;
+        }
+        else{
+            outputText+=`2つの数字のうち、3の倍数となる数はありません。`;
+        }
+        
+
+
+       
+
+
+
+
+
+
+        document.write(outputText);
 
 
         
-
+       
 
 
 
