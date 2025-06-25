@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>WORK12</title>
+</head>
+<body>
+    <script>
+
+    let randomNum(){return Math.floor(Math.random()*100+1)};
+
+    let classRoom01={"tokugawa":randomNum(),"oda":randomNum(),"toyotomi":randomNum(),"takeda":randomNum()};
+    let classRoom02={"minamoto":randomNum(),"taira":randomNum(),"sugawara":randomNum(),"fujiwara":randomNum()};
+
+
+    let textOutput="";
+
+
+    classRoom01.forEach(function(person)){
+        document.write(person);
+    }
+
+
+
+        
+    </script> 
+</body>
+</html>
