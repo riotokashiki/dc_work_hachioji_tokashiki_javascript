@@ -7,21 +7,33 @@
 <body>
     <script>
 
-    let randomNum(){return Math.floor(Math.random()*100+1)};
+    let randomNum=()=>Math.floor(Math.random()*100+1);
 
-    let classRoom01={"tokugawa":randomNum(),"oda":randomNum(),"toyotomi":randomNum(),"takeda":randomNum()};
-    let classRoom02={"minamoto":randomNum(),"taira":randomNum(),"sugawara":randomNum(),"fujiwara":randomNum()};
-
-
-    let textOutput="";
+    const classRoom01={"tokugawa":randomNum(),"oda":randomNum(),"toyotomi":randomNum(),"takeda":randomNum()};
+    const classRoom02={"minamoto":randomNum(),"taira":randomNum(),"sugawara":randomNum(),"fujiwara":randomNum()};
 
 
-    classRoom01.forEach(function(person)){
-        document.write(person);
+    
+
+    console.log(classRoom01);
+    console.log(classRoom02);
+
+    if(classRoom01.oda>classRoom02.sugawara){
+        document.write(`odaさんの点数が高いです。oda${classRoom01.oda},sugawara${classRoom02.sugawara}<br>`);
+
+    }
+    else if(classRoom01.oda==classRoom02.sugawara){
+        document.write("両者の点数は同じです。"+'<br>')
+    }
+    else{
+        document.write(`sugawaraさんの点数が高いです。oda${classRoom01.oda},sugawara${classRoom02.sugawara}<br>`)
     }
 
 
+    let average01=(classRoom01.tokugawa+classRoom01.oda+classRoom01.toyotomi+classRoom01.takeda)/4;
+    let average02=(classRoom02.minamoto+classRoom02.taira+classRoom02.sugawara+classRoom02.fujiwara)/4;
 
+    document.write(`classRoom01平均点${average01}<br>classRoom01平均点${average02}`)
         
     </script> 
 </body>
