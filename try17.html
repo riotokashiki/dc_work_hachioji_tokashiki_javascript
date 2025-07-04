@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>TRY17</title>
+</head>
+<body>
+<script> 
+    const output_function = function (){
+        document.write(`<p>引数：なし、返り値：なしの関数</p>`);
+    }
+    const output_function_num = function (num){
+        document.write(`<p>引数：${num}、返り値：なしの関数</p>`);
+    }
+    const make_function_num = function (num){
+        let string = `<p>引数：${num}、返り値：ありの関数</p>`;
+        return string;
+    }
+
+    output_function();
+    output_function_num(10);
+    let function_num = make_function_num(10);
+    document.write(function_num);
+</script> 
+</body>
+</html>
