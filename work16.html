@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>WORK16</title>
+</head>
+<body>
+    <script>
+
+    class human{
+        constructor(name,age){
+            this.name=name;
+            this.age=age;
+
+        }
+
+
+         
+
+         
+
+        calc_age(){
+           const yearsAfterMature=this.age-20
+
+            if(this.age-20>=0){
+               document.write(`${this.name}さんは成人してから${yearsAfterMature}年経っています`)
+            }
+            else{
+                document.write(`${this.name}さんは成人していません`)
+            }
+        };
+
+    }
+
+
+
+
+
+    const taro= new human("太郎",28);
+
+    document.write(taro.name ,taro.age );
+    taro.calc_age();
+
+    document.write("<br>"+"<br>"+"<br>")
+
+
+    const jiro= new human("次郎",22);
+    document.write(jiro.name,jiro.age);
+    jiro.calc_age();
+
+
+
+
+        
+    </script> 
+</body>
+</html>
