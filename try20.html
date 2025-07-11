@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>TRY20</title>
+</head>
+<body>
+    <script>
+        class Product {
+            constructor(name, stock) {
+                this.name = name;          
+                this.stock = stock;  
+                this.stock_conf = function(){
+                    document.write(`<p>${this.name}の在庫は${this.stock}箱あります</p>`);     
+                }
+            }
+        }
+        //マスクのインスタンス生成と処理
+        let mask = new Product("マスク", 30);
+        document.write(mask.name);
+        mask.stock_conf();
+        //えんぴつのインスタンス生成と処理
+        let pencil = new Product("えんぴつ", 200);
+        document.write(pencil.name);
+        pencil.stock_conf();
+    </script> 
+</body>
+</html>
