@@ -10,7 +10,15 @@
     </div>
     <script> 
        document.getElementById(element_1);
-       id.style.
+       element_1.textContent="変更後テキスト";
+
+       document.getElementById(textbox);
+       textbox.style.backgroundColor="#ffff00";
+        let addedText=document.createElement('p');
+        addedText.textContent="追加テキスト";
+       element_1.appendChild(addedText);
+       addedText.style.color="#ff0000";
+       addedText.style.fontSize='30px';
     </script>
 </body>
 </html>
