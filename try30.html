@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>JavaScriptの実行タイミング</title>
+</head>
+    <body>
+        <div id="before">scriptタグより前</div>
+            <script> 
+                const before = document.getElementById(`before`); 
+                document.write(`前:${before != null}`);
+
+                const after = document.getElementById(`after`); 
+                document.write(`後:${after != null}`);
+            </script>
+        <div id="after">scriptタグより後</div>
+    </body>
+</html>

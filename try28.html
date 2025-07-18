@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>TRY28</title>
+</head>
+<body>
+    <p id="id">id指定</p>
+    <p class="class_name">class指定：1行目</p>
+    <p class="class_name">class指定：2行目</p>
+    <script> 
+        const id = document.getElementById('id'); 	//idを指定して要素を取得
+        id.style.color = '#ff0000';            		//文字色を赤にする
+
+        //classを指定して要素を取得
+        const class_name = document.getElementsByClassName('class_name');
+        class_name[0].textContent = 'テキストを変更';	//テキスト変更
+        class_name[1].style.fontSize = 18 + 'px';		//文字サイズ変更
+    </script>
+</body>
+</html>

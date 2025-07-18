@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>TRY23</title>
+</head>
+<body>
+    <script> 
+        function scope_in_function() {
+            const str = 'local';		// ローカル変数を定義
+            document.write(`<p>関数内：${typeof(str)} </p>`);	//変数strの型を表示
+        }
+        scope_in_function();
+        document.write(`<p>関数外：${typeof(str)} </p>`);	//変数strの型を表示
+    </script> 
+</body>
+</html>
