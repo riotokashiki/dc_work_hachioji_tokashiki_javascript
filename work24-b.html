@@ -6,8 +6,11 @@
 </head>
 <body>
     <script>
-        const text = document.getElementById('text');
-       text.onload=function(){ text .textContent = 'テキストを変更しました' };
+       
+       window.onload=function(){
+         const text = document.getElementById('text');
+         document.write("テキストを変更しました。");
+       }
     </script>
     <div id="text">テキストを変更してください。</div>
 </body>
