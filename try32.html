@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>TRY32</title>
+</head>
+<body>
+    <div id="container"></div>
+    <div id="scroll_area">scroll:0</div>
+   
+    <style>
+        #container{
+            height:1200px;
+        }
+        #scroll_area{
+            position: fixed;
+            top:10px;
+            left:10px;
+        }
+    </style>
+    <script> 
+        const scroll_area = document.getElementById('scroll_area');
+        window.onscroll = function() {
+            let scroll_val = window.scrollY;
+            scroll_area.textContent = `scroll:${scroll_val}`;
+        }
+    </script>
+</body>
+</html>

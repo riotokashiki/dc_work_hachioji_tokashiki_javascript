@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>TRY38</title>
+</head>
+<body>
+    <div id="check_value">チェックしていません</div>
+    <label for="check">
+        <input type="checkbox" id="check">チェックボックス
+    </label>
+    <script>
+        //idを指定して要素を取得
+        const check = document.getElementById('check');
+
+        function change_event(){
+            //idを指定して要素を取得
+            const check_value = document.getElementById('check_value');
+
+            if (check.checked) {
+                check_value.textContent = 'チェックしました';
+            }else{
+                check_value.textContent = 'チェックしていません';
+            }
+        }
+
+    check.addEventListener('change', change_event); 
+    </script>
+</body>
+</html>

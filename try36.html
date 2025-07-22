@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>TRY36</title>
+</head>
+<body>
+    <div id="container"></div>
+    <div id="scroll">scroll:0</div>
+    <style>
+        #container{
+            height:1200px;
+        }
+        #scroll{
+            position: fixed;
+            top:10px;
+            left:10px;
+        }
+    </style>
+    <script> 
+        const scroll = document.getElementById('scroll');
+        function scroll_event(){
+            let scroll_val = window.scrollY;
+            scroll.textContent = `scroll:${scroll_val}`;
+        }
+
+        window.addEventListener('scroll', scroll_event); 
+    </script>
+</body>
+</html>
