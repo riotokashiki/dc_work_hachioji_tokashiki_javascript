@@ -11,6 +11,16 @@
     <input type="button" value="ボタン" id="button">
     <script> 
         // 処理を追加
+        let button=document.getElementById("button");
+        button.addEventListener("click",()=>{ document.getElementById(element_1);
+       element_1.textContent="変更後テキスト"});
+        button.addEventListener("click",()=>{  document.getElementById(textbox);
+       textbox.style.backgroundColor="#ffff00";  });
+       button.addEventListener("click",()=>{ let addedText=document.createElement('p');
+        addedText.textContent="追加テキスト";
+       element_1.appendChild(addedText);
+       addedText.style.color="#ff0000";
+       addedText.style.fontSize='30px'; });
     </script>
 </body>
 </html>
