@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>TRY39</title>
+</head>
+<body>
+    <div id="count_down">20</div>
+    <input type="button" id="start" value="スタート">
+    <script>
+        //処理を記述していきます
+
+           let timer;
+             let start = document.getElementById("start");  
+                  function count_start(){
+            // 「count_down」関数を1000ミリ秒毎に呼び出す
+            timer = setInterval(count_down,1000); 
+        };
+
+
+        function count_down(){
+            const count_down = document.getElementById('count_down');
+            let sec = count_down.textContent;	// 表示されているテキストを取得
+             sec--;
+                   if (sec <= 0){
+                alert("時間です。");
+                count_down.textContent = 20;
+                clearInterval(timer); 		//「SetInterval」を停止させる
+            } else {
+            count_down.textContent = sec;	// テキストを変数の値に書き換える
+        }
+      }
+        start.addEventListener("click", count_start);
+    </script>
+</body>
+</html>
