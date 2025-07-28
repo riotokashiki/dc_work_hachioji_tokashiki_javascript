@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>TRY39</title>
+</head>
+<body>
+    <div id="count_down">20</div>
+    <input type="button" id="start" value="スタート">
+    <input type="button" id="stop" value="ストップ">
+    <script>
+        let timer;
+        let start = document.getElementById("start");
+        function count_start(){
+            timer = setInterval(count_down,1000); 
+        }
+        
+        
+        function count_stop(){
+          clearInterval(timer);
+        }
+
+        function count_down(){
+            const count_down = document.getElementById('count_down');
+            let sec = count_down.textContent;
+            sec--;
+            if (sec <= 0){
+                alert("時間です。");
+                count_down.textContent = 20;
+                clearInterval(timer);
+            } else {
+                count_down.textContent = sec;
+            }
+        }
+        start.addEventListener("click", count_start);
+    </script>
+</body>
+</html>
