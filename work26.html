@@ -4,31 +4,60 @@
     <meta charset="UTF-8">
     <title>Work26 stop watch</title>
     <style>
+      body{
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        height:100vh;
+      }
       .container{
         background-color:green;
-        min-
+        height :300px;
+        width:200px;
+        border-radius:16px;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        flex-direction:column;
+        
+      }
+      .displayScreen{
+        height:50%;
+        width:80%;
+        background-color:blue;
+        border-radius:16px;
+         display:flex;
+        justify-content:center;
+        align-items:center;
+        
+
       }
 
-
-
+      .numbers{
+        color:white;
+      }
+      input{
+        border-radius:7px;
+      }
 
     </style>
 </head>
 <body>
     <div class="container">
       <div class="displayScreen">
-        <p class="numbers">
-
+        <p class="numbers" id="numbers">
+          <span id="hours">00</span>:<span id="minutes">00</span>:<span id="seconds">00</span>
 
         </p>
 
       </div>
-      <input type="button" id="start" value="Start">
-      <input type="button" id="stop" value="Stop" disabled>
-      <input type="button" id="reset" value="Reset" disabled>
+      <div class="buttonContainer">
+        <input type="button" id="start" value="Start">
+        <input type="button" id="stop" value="Stop" disabled>
+        <input type="button" id="reset" value="Reset" disabled>
 
 
-
+      </div>
 
     </div>
     
@@ -40,7 +69,40 @@
 
 
     <script>
-        
+        function startStopWatch(){
+           let secondValue=document.getElementById("seconds")
+           let minuteValue=document.getElementById("minutes") 
+           let hourValue=document.getElementById("hours") 
+           let secondCount=0
+           let minuteCount=0
+           let hourCount=0
+
+          function countUp(){
+            if(secondCount<60){
+            secondCount=secondCount+1;
+            secondValue.textContent= secondCount;
+            }
+            else{
+              secondCount=0;
+              secondValue.textContent= secondCount;
+              minuteCount=minuteCount+1;
+              minuteValue.textContent=minuteCount;
+            }
+          }
+
+           setInterval(countUp,1000)
+           
+      
+
+        };
+
+       
+        let startButton=document.getElementById("start")
+        startButton.addEventListener("click",startStopWatch)
+
+
+
+
     </script>
 </body>
 </html>
