@@ -39,6 +39,12 @@
       input{
         border-radius:7px;
       }
+      #additionalZeroToSeconds{
+        display:none;
+      }
+       #additionalZeroToMinutes{
+        display:none;
+      }
 
     </style>
 </head>
@@ -46,7 +52,7 @@
     <div class="container">
       <div class="displayScreen">
         <p class="numbers" id="numbers">
-          <span id="hours">00</span>:<span id="minutes">00</span>:<span id="seconds">00</span>
+          <span id="hours">00</span>:<span id="additionalZeroToMinutes">0</span><span id="minutes">00</span>:<span id="additionalZeroToSeconds">0</span><span id="seconds">00</span>
 
         </p>
 
@@ -78,15 +84,31 @@
            let hourCount=0
 
           function countUp(){
-            if(secondCount<60){
+            if(secondCount>=10 &&secondCount<=60){
+            document.getElementById("additionalZeroToSeconds").style.display = "none";
             secondCount=secondCount+1;
             secondValue.textContent= secondCount;
             }
-            else{
+
+            else if(secondCount<10){
+              
+                document.getElementById("additionalZeroToSeconds").style.display = "inline";
+                secondCount=secondCount+1;
+                secondValue.textContent= secondCount;
+            }
+           
+            
+            else if (secondCount>=60){
               secondCount=0;
               secondValue.textContent= secondCount;
               minuteCount=minuteCount+1;
               minuteValue.textContent=minuteCount;
+            }
+
+            else if(minuteCount<10){
+            document.getElementById("additionalZeroToMinutes").style.display = "inline";
+               /* minuteCount=minuteCount+1;
+                minuteValue.textContent= minuteCount;*/
             }
           }
 
