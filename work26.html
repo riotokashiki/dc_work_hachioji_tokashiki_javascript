@@ -39,12 +39,7 @@
       input{
         border-radius:7px;
       }
-      #additionalZeroToSeconds{
-        display:none;
-      }
-       #additionalZeroToMinutes{
-        display:none;
-      }
+      
 
     </style>
 </head>
@@ -52,7 +47,7 @@
     <div class="container">
       <div class="displayScreen">
         <p class="numbers" id="numbers">
-          <span id="hours">00</span>:<span id="additionalZeroToMinutes">0</span><span id="minutes">00</span>:<span id="additionalZeroToSeconds">0</span><span id="seconds">00</span>
+          <span id="hours">00</span>:<span id="minutes">00</span>:<span id="seconds">00</span>
 
         </p>
 
@@ -79,37 +74,48 @@
            let secondValue=document.getElementById("seconds")
            let minuteValue=document.getElementById("minutes") 
            let hourValue=document.getElementById("hours") 
-           let secondCount=0
-           let minuteCount=0
+           let secondCount=50
+           let minuteCount=58
            let hourCount=0
 
           function countUp(){
-            if(secondCount>=10 &&secondCount<=60){
-            document.getElementById("additionalZeroToSeconds").style.display = "none";
+
+            if(secondCount<=8){
+              secondCount=secondCount+1;
+              secondValue.textContent= "0"+secondCount;
+            }
+
+            else if(secondCount>=9 &&secondCount<=58){
+            
             secondCount=secondCount+1;
             secondValue.textContent= secondCount;
             }
 
-            else if(secondCount<10){
-              
-                document.getElementById("additionalZeroToSeconds").style.display = "inline";
-                secondCount=secondCount+1;
-                secondValue.textContent= secondCount;
-            }
            
             
-            else if (secondCount>=60){
+            else if (secondCount>=59){
               secondCount=0;
-              secondValue.textContent= secondCount;
+              secondValue.textContent= "0"+secondCount;
               minuteCount=minuteCount+1;
               minuteValue.textContent=minuteCount;
+
+              if(minuteCount<10 && minuteCount>0){
+              minuteValue.textContent="0"+minuteCount;
             }
 
-            else if(minuteCount<10){
-            document.getElementById("additionalZeroToMinutes").style.display = "inline";
-               /* minuteCount=minuteCount+1;
-                minuteValue.textContent= minuteCount;*/
+            else if(minuteCount>59){
+              minuteCount=0;
+              minuteValue.textContent=minuteCount;
+              hourCount=hourCount+1;
+              hourValue.textContent=hourCount;
+              if(hourCount<10 && hourCount>0){
+              hourValue.textContent="0"+hourCount
+            } 
+          }
+
             }
+
+            
           }
 
            setInterval(countUp,1000)
