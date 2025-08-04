@@ -71,18 +71,23 @@
 
     <script>
         function startStopWatch(){
-           let secondValue=document.getElementById("seconds")
-           let minuteValue=document.getElementById("minutes") 
-           let hourValue=document.getElementById("hours") 
-           let secondCount=50
-           let minuteCount=58
-           let hourCount=0
+           let secondValue=document.getElementById("seconds")  //秒針要素の取得
+           let minuteValue=document.getElementById("minutes")   //分針要素の取得
+           let hourValue=document.getElementById("hours")       //時針要素の取得
+           let secondCount=0  //秒針
+           let minuteCount=0  //分針
+           let hourCount=0     //時針
+
+           document.getElementById("start").disabled=true;
+           document.getElementById("stop").disabled=false;
+           document.getElementById("reset").disabled=true;
+
 
           function countUp(){
 
-            if(secondCount<=8){
+            if(secondCount<=8){    
               secondCount=secondCount+1;
-              secondValue.textContent= "0"+secondCount;
+              secondValue.textContent= "0"+secondCount; //secondCount 1桁時の zero padding
             }
 
             else if(secondCount>=9 &&secondCount<=58){
@@ -93,22 +98,22 @@
 
            
             
-            else if (secondCount>=59){
-              secondCount=0;
-              secondValue.textContent= "0"+secondCount;
-              minuteCount=minuteCount+1;
+            else if (secondCount>=59){    //secondCountが一分に到達する時
+              secondCount=0;         //secondCountを0にもどす
+              secondValue.textContent= "0"+secondCount; //そして0に0をつけ足して00と表記させる
+              minuteCount=minuteCount+1; // minuteCountに1プラスする
               minuteValue.textContent=minuteCount;
 
-              if(minuteCount<10 && minuteCount>0){
+              if(minuteCount<10 && minuteCount>0){ //  #NESTED If
               minuteValue.textContent="0"+minuteCount;
             }
 
-            else if(minuteCount>59){
-              minuteCount=0;
-              minuteValue.textContent=minuteCount;
-              hourCount=hourCount+1;
+            else if(minuteCount>59){  //minuteCountが1時間になるとき  // #NESTED else if
+              minuteCount=0;          //minuteCountを0にもどす
+              minuteValue.textContent="0"+minuteCount;//そしてminuteCountの0に0をつけ足して00と表記させる
+              hourCount=hourCount+1; //hourCountに1プラス
               hourValue.textContent=hourCount;
-              if(hourCount<10 && hourCount>0){
+              if(hourCount<10 && hourCount>0){  //  hourCountのzero padding  #NESTED NESTED if
               hourValue.textContent="0"+hourCount
             } 
           }
@@ -124,9 +129,27 @@
 
         };
 
+
+        function stopStopWatch(){
+          clearInterval(intervalID);
+
+
+
+        }
+
+
+
+
+
+
        
-        let startButton=document.getElementById("start")
-        startButton.addEventListener("click",startStopWatch)
+        let startButton=document.getElementById("start") //Start button要素を取得
+        startButton.addEventListener("click",startStopWatch) //クリック時に 関数 startStopWatchを実行
+
+        let intervalID =setInterval(countUp,1000) // setIntervalの返り値をintervalIDとして保存
+
+        let stopButton=document.getElementById("stop") 
+        stopButton.addEventListener("click",stopStopWatch) 
 
 
 
