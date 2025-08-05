@@ -70,13 +70,17 @@
 
 
     <script>
+          let secondCount=0  //秒針   初期化
+           let minuteCount=0  //分針  初期化
+           let hourCount=0     //時針 初期化
+
+          let secondValue=document.getElementById("seconds")  //秒針要素の取得を 変数へ格納
+          let minuteValue=document.getElementById("minutes")   //分針要素の取得を 変数へ格納
+          let hourValue=document.getElementById("hours")       //時針要素の取得を 変数へ格納
+      
+
         function startStopWatch(){
-           let secondValue=document.getElementById("seconds")  //秒針要素の取得
-           let minuteValue=document.getElementById("minutes")   //分針要素の取得
-           let hourValue=document.getElementById("hours")       //時針要素の取得
-           let secondCount=0  //秒針
-           let minuteCount=0  //分針
-           let hourCount=0     //時針
+          
 
            document.getElementById("start").disabled=true;
            document.getElementById("stop").disabled=false;
@@ -123,21 +127,31 @@
             
           }
 
-           setInterval(countUp,1000)
-           
-      
+          intervalID =setInterval(countUp,1000); //setIntervalの戻り値を変数に格納,と同時にsetInterval機能を実行
 
         };
 
 
         function stopStopWatch(){
           clearInterval(intervalID);
-
-
+          document.getElementById("start").disabled=false;
+          document.getElementById("reset").disabled=false;
+          document.getElementById("stop").disabled=true;
 
         }
 
+        function resetStopWatch(){
+          secondCount=0;
+          minuteCount=0;
+          hourCount=0;
 
+          secondValue.textContent="00";
+          minuteValue.textContent="00";
+          hourValue.textContent="00";
+        
+          document.getElementById("reset").disabled=true;
+
+        }
 
 
 
@@ -146,10 +160,13 @@
         let startButton=document.getElementById("start") //Start button要素を取得
         startButton.addEventListener("click",startStopWatch) //クリック時に 関数 startStopWatchを実行
 
-        let intervalID =setInterval(countUp,1000) // setIntervalの返り値をintervalIDとして保存
+        let intervalID =null
 
-        let stopButton=document.getElementById("stop") 
-        stopButton.addEventListener("click",stopStopWatch) 
+        let stopButton=document.getElementById("stop") //Stop button要素を取得 
+        stopButton.addEventListener("click",stopStopWatch) //クリック時に 関数 stopStopWatch を実行
+
+        let resetButton=document.getElementById("reset") //Reset button要素を取得
+        resetButton.addEventListener("click",resetStopWatch) //クリック時に関数 resetStopWatch を実行
 
 
 
