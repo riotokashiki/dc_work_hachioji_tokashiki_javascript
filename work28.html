@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Work26 stop watch</title>
+    <style>
+      body{
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        height:100vh;
+      }
+      .container{
+        background-color:green;
+        height :300px;
+        width:200px;
+        border-radius:16px;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        flex-direction:column;
+        
+      }
+      .displayScreen{
+        height:50%;
+        width:80%;
+        background-color:blue;
+        border-radius:16px;
+         display:flex;
+        justify-content:center;
+        align-items:center;
+        
+
+      }
+
+      .numbers{
+        color:white;
+      }
+      input{
+        border-radius:7px;
+      }
+      
+
+    </style>
+    <script src="jquery-3.7.1.min.js"></script>
+</head>
+<body>
+    <div class="container">
+      <div class="displayScreen">
+        <p class="numbers" id="numbers">
+          <span id="hours">00</span>:<span id="minutes">00</span>:<span id="seconds">00</span>
+
+        </p>
+
+      </div>
+      <div class="buttonContainer">
+        <input type="button" id="start" value="Start">
+        <input type="button" id="stop" value="Stop" disabled>
+        <input type="button" id="reset" value="Reset" disabled>
+
+
+      </div>
+
+    </div>
+    
+
+
+
+
+
+
+
+    <script>
+          let secondCount=0  //秒針   初期化
+           let minuteCount=0  //分針  初期化
+           let hourCount=0     //時針 初期化
+
+          let secondValue=document.getElementById("seconds")  //秒針要素の取得を 変数へ格納
+          let minuteValue=document.getElementById("minutes")   //分針要素の取得を 変数へ格納
+          let hourValue=document.getElementById("hours")       //時針要素の取得を 変数へ格納
+      
+
+        function startStopWatch(){
+          
+
+           document.getElementById("start").disabled=true;
+           document.getElementById("stop").disabled=false;
+           document.getElementById("reset").disabled=true;
+
+
+          function countUp(){
+
+            if(secondCount<=8){    
+              secondCount=secondCount+1;
+              secondValue.textContent= "0"+secondCount; //secondCount 1桁時の zero padding
+            }
+
+            else if(secondCount>=9 &&secondCount<=58){
+            
+            secondCount=secondCount+1;
+            secondValue.textContent= secondCount;
+            }
+
+           
+            
+            else if (secondCount>=59){    //secondCountが一分に到達する時
+              secondCount=0;         //secondCountを0にもどす
+              secondValue.textContent= "0"+secondCount; //そして0に0をつけ足して00と表記させる
+              minuteCount=minuteCount+1; // minuteCountに1プラスする
+              minuteValue.textContent=minuteCount;
+
+              if(minuteCount<10 && minuteCount>0){ //  #NESTED If
+              minuteValue.textContent="0"+minuteCount;
+            }
+
+            else if(minuteCount>59){  //minuteCountが1時間になるとき  // #NESTED else if
+              minuteCount=0;          //minuteCountを0にもどす
+              minuteValue.textContent="0"+minuteCount;//そしてminuteCountの0に0をつけ足して00と表記させる
+              hourCount=hourCount+1; //hourCountに1プラス
+              hourValue.textContent=hourCount;
+              if(hourCount<10 && hourCount>0){  //  hourCountのzero padding  #NESTED NESTED if
+              hourValue.textContent="0"+hourCount
+            } 
+          }
+
+            }
+
+            
+          }
+
+          intervalID =setInterval(countUp,1000); //setIntervalの戻り値を変数に格納,と同時にsetInterval機能を実行
+
+        };
+
+
+        function stopStopWatch(){
+          clearInterval(intervalID);
+          document.getElementById("start").disabled=false;
+          document.getElementById("reset").disabled=false;
+          document.getElementById("stop").disabled=true;
+
+        }
+
+        function resetStopWatch(){
+          secondCount=0;
+          minuteCount=0;
+          hourCount=0;
+
+          secondValue.textContent="00";
+          minuteValue.textContent="00";
+          hourValue.textContent="00";
+        
+          document.getElementById("reset").disabled=true;
+
+        }
+
+
+
+
+       
+        let startButton=document.getElementById("start") //Start button要素を取得
+        startButton.addEventListener("click",startStopWatch) //クリック時に 関数 startStopWatchを実行
+
+        let intervalID =null
+
+        let stopButton=document.getElementById("stop") //Stop button要素を取得 
+        stopButton.addEventListener("click",stopStopWatch) //クリック時に 関数 stopStopWatch を実行
+
+        let resetButton=document.getElementById("reset") //Reset button要素を取得
+        resetButton.addEventListener("click",resetStopWatch) //クリック時に関数 resetStopWatch を実行
+
+
+
+
+    </script>
+</body>
+</html>
