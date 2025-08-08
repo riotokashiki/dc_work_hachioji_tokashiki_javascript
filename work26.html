@@ -47,7 +47,7 @@
     <div class="container">
       <div class="displayScreen">
         <p class="numbers" id="numbers">
-          <span id="hours">00</span>:<span id="minutes">00</span>:<span id="seconds">00</span>
+          <span id="hours">00</span>:<span id="minutes">00</span>:<span id="seconds">00</span>.<span id="milliSeconds">00</span>
 
         </p>
 
@@ -85,10 +85,34 @@
            document.getElementById("start").disabled=true;
            document.getElementById("stop").disabled=false;
            document.getElementById("reset").disabled=true;
+           let startTime=Date.now()
 
 
-          function countUp(){
+          function countUp(){ 
+            
+            let currentTime=Date.now()
+            let elapsedTime=currentTime-startTime
+            let totalSeconds=Math.floor(elapsedTime/1000)
+            let totalMinutes=Math.floor(elapsedTime/60000)
+            let totalHours=Math.floor(elapsedTime/3600000)
 
+            let displaySeconds=String(totalSeconds%60).padStart(2,0)
+            let displayMinutes=String(totalMinutes%60).padStart(2,0)
+            let displayHours=totalHours
+
+            hourValue.textContent=displayHours;
+            minuteValue.textContent=displayMinutes;
+            secondValue.textContent=displaySeconds;
+            
+            
+            
+            
+            
+            
+            
+            
+            /*
+            
             if(secondCount<=8){    
               secondCount=secondCount+1;
               secondValue.textContent= "0"+secondCount; //secondCount 1桁時の zero padding
@@ -120,11 +144,11 @@
               if(hourCount<10 && hourCount>0){  //  hourCountのzero padding  #NESTED NESTED if
               hourValue.textContent="0"+hourCount
             } 
-          }
+            }
 
             }
 
-            
+            */
           }
 
           intervalID =setInterval(countUp,1000); //setIntervalの戻り値を変数に格納,と同時にsetInterval機能を実行
