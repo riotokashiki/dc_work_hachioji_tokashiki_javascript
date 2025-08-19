@@ -11,9 +11,9 @@
         height:100vh;
       }
       .container{
-        background-color:green;
+        background-color:#08FF32;
         height :300px;
-        width:200px;
+        width:550px;
         border-radius:16px;
         display:flex;
         justify-content:center;
@@ -22,9 +22,9 @@
         
       }
       .displayScreen{
-        height:50%;
-        width:80%;
-        background-color:blue;
+        height:40%;
+        width:70%;
+        background-color:black;
         border-radius:16px;
          display:flex;
         justify-content:center;
@@ -33,22 +33,46 @@
 
       }
 
+
+
       .numbers{
         color:white;
+        /*height:60%;
+        width:60%;*/
+        text-align: center;
+        font-size:60px;
       }
+
+      .buttonContainer{
+        height:20%;
+        width:70%;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+      }
+
       input{
-        border-radius:7px;
+        border-radius:14px;
+        background-color: black;
+        color: white;
+        height:70%;
+        width:33%;
+      }
+
+      input[type="button"]:disabled{
+        opacity:0.3;
       }
       
 
     </style>
     <script src="jquery-3.7.1.min.js"></script>
+
 </head>
 <body>
     <div class="container">
       <div class="displayScreen">
         <p class="numbers" id="numbers">
-          <span id="hours">00</span>:<span id="minutes">00</span>:<span id="seconds">00</span>
+          <span id="minutes">00</span>:<span id="seconds">00</span>.<span id="milliSeconds">00</span>
 
         </p>
 
@@ -71,66 +95,77 @@
 
 
     <script>
+
+      //Grobal Variables
+        let milliSecond=0
           let secondCount=0  //秒針   初期化
            let minuteCount=0  //分針  初期化
-           let hourCount=0     //時針 初期化
+           //let hourCount=0     //時針 初期化
 
+          let milliSecondValue=document.getElementById("milliSeconds")
           let secondValue=document.getElementById("seconds")  //秒針要素の取得を 変数へ格納
           let minuteValue=document.getElementById("minutes")   //分針要素の取得を 変数へ格納
-          let hourValue=document.getElementById("hours")       //時針要素の取得を 変数へ格納
-      
+          //let hourValue=document.getElementById("hours")       //時針要素の取得を 変数へ格納
+          let elapsedTime=0
+          let startTime=0
+          let resumePoint=null
+          let savedTime=null
 
         function startStopWatch(){
+        console.log("START clicked - creating new startTime");//デバッグの為表記
           
 
            document.getElementById("start").disabled=true;
            document.getElementById("stop").disabled=false;
            document.getElementById("reset").disabled=true;
+          
 
-
-          function countUp(){
-
-            if(secondCount<=8){    
-              secondCount=secondCount+1;
-              secondValue.textContent= "0"+secondCount; //secondCount 1桁時の zero padding
-            }
-
-            else if(secondCount>=9 &&secondCount<=58){
-            
-            secondCount=secondCount+1;
-            secondValue.textContent= secondCount;
-            }
-
+           if(elapsedTime===0){
+           startTime=Date.now() //開始時間のepoch timeを取得 startTimeへ格納
+           console.log("startTime:", startTime);
+           }
+           else{
+            resumePoint=Date.now()
+           }
+          
            
-            
-            else if (secondCount>=59){    //secondCountが一分に到達する時
-              secondCount=0;         //secondCountを0にもどす
-              secondValue.textContent= "0"+secondCount; //そして0に0をつけ足して00と表記させる
-              minuteCount=minuteCount+1; // minuteCountに1プラスする
-              minuteValue.textContent=minuteCount;
 
-              if(minuteCount<10 && minuteCount>0){ //  #NESTED If
-              minuteValue.textContent="0"+minuteCount;
+          function countUp(){ 
+            
+            let currentTime=Date.now() //epoch timeを取得し currentTimeへ格納
+
+            if(savedTime!==null){
+            elapsedTime=currentTime-resumePoint+savedTime //経過時間をcurrentTimeからstartTimeを引いたものとする
+            console.log("elapsedTime:", elapsedTime); //デバッグの為表記
+            }
+            else{
+              elapsedTime=currentTime-startTime //経過時間をcurrentTimeからstartTimeを引いたものとする
+            console.log("elapsedTime:", elapsedTime); //デバッグの為表記
             }
 
-            else if(minuteCount>59){  //minuteCountが1時間になるとき  // #NESTED else if
-              minuteCount=0;          //minuteCountを0にもどす
-              minuteValue.textContent="0"+minuteCount;//そしてminuteCountの0に0をつけ足して00と表記させる
-              hourCount=hourCount+1; //hourCountに1プラス
-              hourValue.textContent=hourCount;
-              if(hourCount<10 && hourCount>0){  //  hourCountのzero padding  #NESTED NESTED if
-              hourValue.textContent="0"+hourCount
-            } 
-          }
 
-            }
+            let totalMilliSeconds=Math.floor(elapsedTime/10)
+            let totalSeconds=Math.floor(elapsedTime/1000)
+            let totalMinutes=Math.floor(elapsedTime/60000)
+            //let totalHours=Math.floor(elapsedTime/3600000)
 
+            let displayMilliSeconds=String(totalMilliSeconds%100).padStart(2,0)
+            let displaySeconds=String(totalSeconds%60).padStart(2,0)
+            let displayMinutes=String(totalMinutes%60).padStart(2,0)
+            //let displayHours=totalHours
+
+            //hourValue.textContent=displayHours;
+            minuteValue.textContent=displayMinutes;
+            secondValue.textContent=displaySeconds;
+            milliSecondValue.textContent=displayMilliSeconds;
             
+          
           }
-
-          intervalID =setInterval(countUp,1000); //setIntervalの戻り値を変数に格納,と同時にsetInterval機能を実行
-
+          
+          intervalID =setInterval(countUp,10); //setIntervalの戻り値を変数に格納,と同時にsetInterval機能を実行
+          
         };
+        
 
 
         function stopStopWatch(){
@@ -138,26 +173,35 @@
           document.getElementById("start").disabled=false;
           document.getElementById("reset").disabled=false;
           document.getElementById("stop").disabled=true;
-
+          console.log("STOP clicked - timer paused");  //デバッグの為表記
+          console.log("elapsedTime:", elapsedTime);   //デバッグの為表記
+           
+          savedTime=elapsedTime
+          console.log("savedTime",savedTime)
         }
 
         function resetStopWatch(){
+          milliSecond=0;
           secondCount=0;
           minuteCount=0;
           hourCount=0;
+          startTime=null
+          savedTime=null
+          elapsedTime=0
 
+          milliSecondValue.textContent="00";
           secondValue.textContent="00";
           minuteValue.textContent="00";
-          hourValue.textContent="00";
+          //hourValue.textContent="00";
         
           document.getElementById("reset").disabled=true;
+          console.log("elapsedTime:", elapsedTime);  //デバッグの為表記
 
         }
 
 
 
 
-       
         let startButton=document.getElementById("start") //Start button要素を取得
         startButton.addEventListener("click",startStopWatch) //クリック時に 関数 startStopWatchを実行
 
