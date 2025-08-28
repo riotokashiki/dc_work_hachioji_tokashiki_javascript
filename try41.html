@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>TRY41</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <style>
+        body {
+            margin: 0;
+        }
+             #back_layer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            opacity: 0.6;
+            z-index: 998;
+                 display: none;
+        }
+        #modal {
+            position: absolute;
+            min-width: 50%;
+            min-height: 50%;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #c0c0c0;
+            text-align: center;
+            z-index: 999;
+                 display: none;
+        }
+    </style>
+    <div id="modal">
+        <p>モーダルウィンドウの表示</p>
+        <button id="close">閉じる</button>
+    </div>
+    <div id="back_layer"></div>
+    <button id="button">ボタン</button>
+      <script>
+        $('#button').click(function(){
+            $('#back_layer, #modal').fadeIn();	//ゆっくりと要素を表示する
+        });
+        $('#close').click(function(){
+            $('#back_layer, #modal').fadeOut();	//ゆっくりと要素を非表示にする
+        });
+    </script>
+</body>
+</html>

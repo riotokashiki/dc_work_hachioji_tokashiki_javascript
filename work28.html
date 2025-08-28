@@ -115,9 +115,9 @@
         console.log("START clicked - creating new startTime");//デバッグの為表記
           
 
-           $('#start').prop('disabled',true)
-           $('#stop').prop('disabled',false)
-           $('#reset').prop('disabled',true)
+           $('#start').prop('disabled',true);
+           $('#stop').prop('disabled',false);
+           $('#reset').prop('disabled',true);
           
 
            if(elapsedTime===0){
@@ -155,9 +155,9 @@
             //let displayHours=totalHours
 
             //hourValue.textContent=displayHours;
-            minuteValue.textContent=displayMinutes;
-            secondValue.textContent=displaySeconds;
-            milliSecondValue.textContent=displayMilliSeconds;
+            minuteValue.text(displayMinutes);
+            secondValue.text(displaySeconds);
+            milliSecondValue.text(displayMilliSeconds);
             
           
           }
@@ -170,9 +170,9 @@
 
         function stopStopWatch(){
           clearInterval(intervalID);
-          document.getElementById("start").disabled=false;
-          document.getElementById("reset").disabled=false;
-          document.getElementById("stop").disabled=true;
+          $('#start').prop('disabled',false);
+          $('#reset').prop('disabled',false);
+          $('#stop').prop('disabled',true);
           console.log("STOP clicked - timer paused");  //デバッグの為表記
           console.log("elapsedTime:", elapsedTime);   //デバッグの為表記
            
@@ -189,12 +189,12 @@
           savedTime=null
           elapsedTime=0
 
-          milliSecondValue.textContent="00";
-          secondValue.textContent="00";
-          minuteValue.textContent="00";
+          milliSecondValue.text("00");
+          secondValue.text("00");
+          minuteValue.text("00");
           //hourValue.textContent="00";
         
-          document.getElementById("reset").disabled=true;
+          $('#reset').prop('disabled',true);
           console.log("elapsedTime:", elapsedTime);  //デバッグの為表記
 
         }
@@ -202,13 +202,13 @@
 
 
 
-        $('#start').click(startStopWatch) //クリック時に 関数 startStopWatchを実行
+        $('#start').click(startStopWatch); //クリック時に 関数 startStopWatchを実行
 
         let intervalID =null
 
-        $('#stop').click(stopStopWatch) //クリック時に 関数 stopStopWatch を実行
+        $('#stop').click(stopStopWatch); //クリック時に 関数 stopStopWatch を実行
 
-        $('#reset').click(resetStopWatch) //クリック時に関数 resetStopWatch を実行
+        $('#reset').click(resetStopWatch);//クリック時に関数 resetStopWatch を実行
 
 
 
