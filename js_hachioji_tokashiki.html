@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Piano App</title>
+    <style>
+      body{
+        display:flex;
+        justify-content: center;
+      }
+      .container{
+        width:800px;
+        height:700px;
+        background-color:rgb(255, 0, 157);
+        display:flex;
+        flex-direction:column;
+        vertical-align:center;
+        justify-content:space-around;
+        border-radius:50px;
+      }
+      .display{
+        background-color:rgb(0, 158, 250);
+        width:60%;
+        height:30%;
+        margin:0 auto;
+        display:flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .keys{
+        background-color:white;
+        width:80%;
+        height:40%;
+        margin:0 auto;
+        display:flex;
+       
+      }
+
+      .key{
+         border:1px solid black;
+         width:15%;
+         height:99%;
+      }
+
+      .letter{
+        color:white;
+        font-size:50px;
+        font-weight:bold;
+        font-family:Georgia;
+      }
+
+    </style>
+    <script src="jquery-3.7.1.min.js"></script>
+
+</head>
+<body>
+<div class="container">
+  <div class="display">
+    <div class="letter">
+
+
+    </div>
+
+
+  </div>
+  <div class="keys">
+    <input class="key do" onclick="display('ド')"></input>
+    <input class="key re" onclick="display('レ')"></input>
+    <input class="key mi"onclick="display('ミ')"></input>
+    <input class="key fa" onclick="display('ファ？')"></input>
+    <input class="key so" onclick="display('ソ')"></input>
+    <input class="key ra" onclick="display('ラ')"></input>
+    <input class="key shi"onclick="display('シ')"></input>
+
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+<script>
+function display(note){
+$('.letter').text(note);
+
+
+  setTimeout(function(){
+    $('.letter').text("");
+  },1000)
+
+  
+
+}
+
+
+
+
+</script>
+
+</body>
+</html>
