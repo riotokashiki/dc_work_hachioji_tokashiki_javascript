@@ -21,14 +21,15 @@
       .display{
         background-color:rgb(0, 158, 250);
         width:60%;
-        height:30%;
+        height:100%;
         margin:0 auto;
         display:flex;
         justify-content: center;
         align-items: center;
+        border-radius:20px;
       }
       .keys{
-        background-color:white;
+        background-color:pink;
         width:80%;
         height:40%;
         margin:0 auto;
@@ -40,6 +41,8 @@
          border:1px solid black;
          width:15%;
          height:99%;
+         border-radius:20px;
+         background-color:white;
       }
 
       .letter{
@@ -49,48 +52,52 @@
         font-family:Georgia;
       }
 
+      .displayContainer{
+        width:100%;
+        height:30%;
+        display:flex;
+        justify-content: center;
+        position:relative;
+        
+      }
+
+      .autoPlay{
+        position:absolute;
+        bottom:0px;
+        right:0px;
+      }
+
     </style>
     <script src="jquery-3.7.1.min.js"></script>
 
 </head>
 <body>
 <div class="container">
-  <div class="display">
-    <div class="letter">
+  <div class="displayContainer">
+    <div class="display">
+      <div class="letter">
+      </div>
 
+      </div>
+          <div class="autoPlay">
+            <button class="autoPlay" onclick="">
+              AutoPlay
+            </button>
 
-    </div>
-
-
+          </div>
   </div>
+  
   <div class="keys">
     <input class="key do" onclick="display('ド');playSound('ド')"></input>
     <input class="key re" onclick="display('レ');playSound('レ')"></input>
     <input class="key mi"onclick="display('ミ');playSound('ミ')"></input>
-    <input class="key fa" onclick="display('ファ？');playSound('ファ')"></input>
+    <input class="key fa" onclick="display('ファ');playSound('ファ')"></input>
     <input class="key so" onclick="display('ソ');playSound('ソ')"></input>
     <input class="key ra" onclick="display('ラ');playSound('ラ')"></input>
     <input class="key shi"onclick="display('シ');playSound('シ')"></input>
 
 
   </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 </div>
 
@@ -99,6 +106,7 @@
 
 
 <script>
+/////////////////global variables /////////////////////////////////////////////////////////////////////////
 
 const notes={ //creating an object
   "ド":261.63,  // those numbers are frequencies that will be given to the function
@@ -109,6 +117,90 @@ const notes={ //creating an object
   "ラ":440.00,
   "シ":493.88,
 }
+
+
+const scoreData={
+"きらきらぼし ":[
+                                {note:"ド",duration:500},{note:"",duration:500},
+                                {note:"ド",duration:500},{note:"",duration:500},
+                                {note:"ソ",duration:500},{note:"",duration:500},
+                                {note:"ソ",duration:500},{note:"",duration:500},
+                                {note:"ラ",duration:500},{note:"",duration:500},
+                                {note:"ラ",duration:500},{note:"",duration:500},
+                                {note:"ソ",duration:2000},
+
+                                {note:"ファ",duration:500},{note:"",duration:500},
+                                {note:"ファ",duration:500},{note:"",duration:500},
+                                {note:"ミ",duration:500},{note:"",duration:500},
+                                {note:"ミ",duration:500},{note:"",duration:500},
+                                {note:"レ",duration:500},{note:"",duration:500},
+                                {note:"レ",duration:500},{note:"",duration:500},
+                                {note:"ド",duration:2000},
+
+                                {note:"ソ",duration:500},{note:"",duration:500},
+                                {note:"ソ",duration:500},{note:"",duration:500},
+                                {note:"ファ",duration:500},{note:"",duration:500},
+                                {note:"ファ",duration:500},{note:"",duration:500},
+                                {note:"ミ",duration:500},{note:"",duration:500},
+                                {note:"ミ",duration:500},{note:"",duration:500},
+                                {note:"レ",duration:2000},
+
+                                {note:"ソ",duration:500},{note:"",duration:500},
+                                {note:"ソ",duration:500},{note:"",duration:500},
+                                {note:"ファ",duration:500},{note:"",duration:500},
+                                {note:"ファ",duration:500},{note:"",duration:500},
+                                {note:"ミ",duration:500},{note:"",duration:500},
+                                {note:"ミ",duration:500},{note:"",duration:500},
+                                {note:"レ",duration:2000},
+
+                                {note:"ド",duration:500},{note:"",duration:500},
+                                {note:"ド",duration:500},{note:"",duration:500},
+                                {note:"ソ",duration:500},{note:"",duration:500},
+                                {note:"ソ",duration:500},{note:"",duration:500},
+                                {note:"ラ",duration:500},{note:"",duration:500},
+                                {note:"ラ",duration:500},{note:"",duration:500},
+                                {note:"ソ",duration:2000},
+
+                                {note:"ファ",duration:500},{note:"",duration:500},
+                                {note:"ファ",duration:500},{note:"",duration:500},
+                                {note:"ミ",duration:500},{note:"",duration:500},
+                                {note:"ミ",duration:500},{note:"",duration:500},
+                                {note:"レ",duration:500},{note:"",duration:500},
+                                {note:"レ",duration:500},{note:"",duration:500},
+                                {note:"ド",duration:2000}
+                                ]
+                                ,
+"チューリップ":[
+                              {note:"ド",duration:500},{note:"レ",duration:500},{note:"ミ",duration:1000},
+                              {note:"ド",duration:500},{note:"レ",duration:500},{note:"ミ",duration:1000},
+                              {note:"ソ",duration:500},{note:"ミ",duration:500},{note:"レ",duration:500},{note:"ド",duration:500},
+                              {note:"レ",duration:500},{note:"ミ",duration:500},{note:"レ",duration:1000},       
+                              
+                              {note:"ド",duration:500},{note:"レ",duration:500},{note:"ミ",duration:1000},
+                              {note:"ド",duration:500},{note:"レ",duration:500},{note:"ミ",duration:1000},
+                              {note:"ソ",duration:500},{note:"ミ",duration:500},{note:"レ",duration:500},{note:"ド",duration:500},
+                              {note:"レ",duration:500},{note:"ミ",duration:500},{note:"ド",duration:1000},  
+
+                              {note:"ソ",duration:250},{note:"ソ",duration:250},{note:"ミ",duration:250},{note:"ソ",duration:250},
+                              {note:"ラ",duration:250},{note:"ラ",duration:250},{note:"ソ",duration:1000},
+
+                              {note:"ミ",duration:250},{note:"ミ",duration:250},
+                              {note:"レ",duration:250},{note:"レ",duration:250},
+                              {note:"ド",duration:4000},
+                              ]
+                            }
+
+
+
+
+
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+///////////////////functions///////////////////////////////////////////////////////////////////////////////
 
 function display(note){ // displaying note 
 $('.letter').text(note);
@@ -128,21 +220,14 @@ function playSound(note){
   const oscillator=audioContext.createOscillator(); // creating an oscillator
   oscillator.frequency.value=notes[note];// オブジェクト notes からfrequencyを引き出し、それをoscillatorのfrequencyとして代入
 
-  /*
-  function note(note){
-    return notes[note]
-  }*/
-
 
   oscillator.connect(audioContext.destination);//connecting to speakers
   oscillator.start();
   oscillator.stop(audioContext.currentTime+0.5)
 
-
-
 }
 
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 </script>
