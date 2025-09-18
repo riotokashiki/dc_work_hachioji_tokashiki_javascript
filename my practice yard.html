@@ -4,103 +4,17 @@
     <meta charset="UTF-8">
     <title>Piano App</title>
     <style>
-      body{
-        display:flex;
-        justify-content: center;
-      }
-      .container{
-        width:800px;
-        height:700px;
-        background-color:rgb(255, 0, 157);
-        display:flex;
-        flex-direction:column;
-        vertical-align:center;
-        justify-content:space-around;
-        border-radius:50px;
-      }
-      .display{
-        background-color:rgb(0, 158, 250);
-        width:60%;
-        height:100%;
-        margin:0 auto;
-        display:flex;
-        justify-content: center;
-        align-items: center;
-        border-radius:20px;
-      }
-      .keys{
-        background-color:pink;
-        width:80%;
-        height:40%;
-        margin:0 auto;
-        display:flex;
-       
-      }
-
-      .key{
-         border:1px solid black;
-         width:15%;
-         height:99%;
-         border-radius:20px;
-         background-color:white;
-      }
-
-      .letter{
-        color:white;
-        font-size:50px;
-        font-weight:bold;
-        font-family:Georgia;
-      }
-
-      .displayContainer{
-        width:100%;
-        height:30%;
-        display:flex;
-        justify-content: center;
-        position:relative;
-        
-      }
-
-      .autoPlay{
-        position:absolute;
-        bottom:0px;
-        right:0px;
-      }
+      
 
     </style>
     <script src="jquery-3.7.1.min.js"></script>
 
 </head>
 <body>
-<div class="container">
-  <div class="displayContainer">
-    <div class="display">
-      <div class="letter">
-      </div>
 
-      </div>
-          <div class="autoPlay">
-            <button class="autoPlay" onclick="autoPlay('きらきらぼし',0)">
-              AutoPlay
-            </button>
-
-          </div>
-  </div>
-  
-  <div class="keys">
-    <input class="key do" onclick="display('ド');playSound('ド')"></input>
-    <input class="key re" onclick="display('レ');playSound('レ')"></input>
-    <input class="key mi"onclick="display('ミ');playSound('ミ')"></input>
-    <input class="key fa" onclick="display('ファ');playSound('ファ')"></input>
-    <input class="key so" onclick="display('ソ');playSound('ソ')"></input>
-    <input class="key ra" onclick="display('ラ');playSound('ラ')"></input>
-    <input class="key shi"onclick="display('シ');playSound('シ')"></input>
-
-
-  </div>
-
-</div>
-
+<button class="button" onclick="console.log('Hello')">click</button>
+<button class="button" onclick="console.log(notes.ミ)">click</button>
+<button class="button" onclick="console.log(scoreData.きらきらぼし[19].duration)">click</button>
 
 
 
@@ -108,10 +22,7 @@
 <script>
 /////////////////global variables /////////////////////////////////////////////////////////////////////////
 
-let isPlaying=false
-let currentNoteIndex=0
-let currentSongName=null
-let lengthOfCurrentSong=0
+
 
 const notes={ //creating an object
   "ド":261.63,  // those numbers are frequencies that'll be given to the function
@@ -205,89 +116,6 @@ const scoreData={
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 ///////////////////functions///////////////////////////////////////////////////////////////////////////////
-
-function display(note){ // displaying note 
-$('.letter').text(note);
-
-
-  setTimeout(function(){ // making it disappeared in 1 sec
-    $('.letter').text("");
-  },1000)
-
-  
-
-}
-
-
-function playSound(note){
-  isPlaying=true;
-  const audioContext=new AudioContext();//set up a foundation
-  const oscillator=audioContext.createOscillator(); // creating an oscillator
-  oscillator.frequency.value=notes[note];// オブジェクト notes からfrequencyを引き出し、それをoscillatorのfrequencyとして代入
-
-
-  oscillator.connect(audioContext.destination);//connecting to speakers
-  oscillator.start();
-
-  oscillator.stop(audioContext.currentTime+0.5)
-
-  isPlaying=false;
-}
-
-
-
-function autoPlay(currentSongName,currentNoteIndex){
-
-  if(isPlaying==false){ //非再生時のみ実行
-                                                     //select between two songs randomly
-            isPlaying=true;  //再生状態にする
-            lengthOfCurrentSong=scoreData[currentSongName].length
-
-            if(currentNoteIndex<=lengthOfCurrentSong){
-            
-
-              let songPlay= function (currentSongName,currentNoteIndex){  //関数を設定
-                const audioContext=new AudioContext();//set up a foundation
-                const oscillator=audioContext.createOscillator(); // creating an oscillator
-
-              
-
-                oscillator.frequency.value=notes[scoreData[currentSongName][currentNoteIndex].note]
-
-
-                oscillator.connect(audioContext.destination);//connecting to speakers
-                oscillator.start();
-
-                oscillator.stop(audioContext.currentTime+scoreData[currentSongName][currentNoteIndex].duration);
-                
-                currentNoteIndex=currentNoteIndex+1;
-
-                let playInterval=setTimeout(songPlay,scoreData[currentSongName][currentNoteIndex].duration);
-
-              }
-
-              songPlay(currentSongName,currentNoteIndex);//関数を実行
-
-
-            }
-            else{
-              return;
-            }
-
-      }
-    else{  // もし再生時だったら
-      stopPlaying();
-      isPlaying=false;
-
-    }
-
-
-
-
-}
-
-
-
 
 
 
