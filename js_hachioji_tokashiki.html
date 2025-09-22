@@ -128,7 +128,7 @@ let currentSongName=null
 let lengthOfCurrentSong=0
 
 const notes={ //creating an object
-  "ド":261.63,  // those numbers are frequencies that'll be given to the function
+  "ド":261.63,  // those numbers are frequencies that'll be given to the functions
   "レ":293.66,
   "ミ":329.63,
   "ファ":349.23,
@@ -225,7 +225,7 @@ function display(note){ // displaying note
 $('.letter').text(note);
 
 
-  setTimeout(function(){ // making it disappeared in 1 sec
+  setTimeout(function(){ // making it disappear in 1 sec
     $('.letter').text("");
   },1000)
 
@@ -263,28 +263,34 @@ function autoPlay(currentSongName,currentNoteIndex){
 
               let songPlay= function (currentSongName,currentNoteIndex){  //関数を設定
                 const audioContext=new AudioContext();//set up a foundation
-                const oscillator=audioContext.createOscillator(); // creating an oscillator
-
               
 
+                let playNextNote=function(currentSongName,currentNoteIndex){
+                const oscillator=audioContext.createOscillator(); // creating an oscillator
+                oscillator.connect(audioContext.destination);//connecting to speakers
                 oscillator.frequency.value=notes[scoreData[currentSongName][currentNoteIndex].note]
-                      //notes[scoreData[currentSongName][currentNoteIndex].note]
 
 
                 oscillator.connect(audioContext.destination);//connecting to speakers
                 oscillator.start();
+                display(scoreData[currentSongName][currentNoteIndex].note);
 
-                oscillator.stop(audioContext.currentTime+scoreData[currentSongName][currentNoteIndex].duration);
+                oscillator.stop(audioContext.currentTime+0.5/*scoreData[currentSongName][currentNoteIndex].duration*/);
                 
-               
+                currentNoteIndex=currentNoteIndex+1;
 
-                let playInterval=setTimeout(function(){songPlay(currentSongName,currentNoteIndex+1)},
+                let playInterval=setTimeout(function(){
+                    playNextNote(currentSongName,currentNoteIndex+1)}
+                ,
                 scoreData[currentSongName][currentNoteIndex].duration);
 
-
-             
-
               }
+              playNextNote(currentSongName,currentNoteIndex);
+
+            }
+
+
+
 
               songPlay(currentSongName,currentNoteIndex);//関数を実行
 
@@ -296,7 +302,7 @@ function autoPlay(currentSongName,currentNoteIndex){
 
       }
     else{  // もし再生時だったら
-      stopPlaying();
+      return;
       isPlaying=false;
 
     }
