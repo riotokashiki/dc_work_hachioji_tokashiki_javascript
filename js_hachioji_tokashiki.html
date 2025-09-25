@@ -7,9 +7,6 @@
       body{
         display:flex;
         justify-content: center;
-        flex-direction:column;
-        width:100%;
-        height:100%;
       }
       .container{
         width:800px;
@@ -70,15 +67,6 @@
         right:0px;
       }
 
-      .testButtonContainer{
-        width:100%;
-        height:30%;
-        display:flex;
-        justify-content:center;
-        align-items:center;
-      }
-
-
     </style>
     <script src="jquery-3.7.1.min.js"></script>
 
@@ -92,7 +80,7 @@
 
       </div>
           <div class="autoPlay">
-            <button class="autoPlay" onclick="autoPlay('きらきらぼし',0)">
+            <button class="autoPlay" onclick="autoPlay(null,0)">
               AutoPlay
             </button>
 
@@ -113,10 +101,8 @@
 
 </div>
 
-<div class="testButtonContainer">
-<button class="test"onclick="">test button</button>
 
-</div>
+
 
 
 <script>
@@ -256,10 +242,19 @@ function autoPlay(currentSongName,currentNoteIndex){
   if(isPlaying==false){ //非再生時のみ実行
                                                      //select between two songs randomly
             isPlaying=true;  //再生状態にする
+            
+            
+
+            const mora=Object.keys(scoreData)                                                                       //random selection function
+            const randomSong=mora[Math.floor(Math.random() * mora.length)]
+            currentSongName=randomSong
+
             lengthOfCurrentSong=scoreData[currentSongName].length
 
-            if(currentNoteIndex<lengthOfCurrentSong){
+            if(currentNoteIndex<=lengthOfCurrentSong){
             
+              
+
 
               let songPlay= function (currentSongName,currentNoteIndex){  //関数を設定
                 const audioContext=new AudioContext();//set up a foundation
@@ -269,15 +264,12 @@ function autoPlay(currentSongName,currentNoteIndex){
                 const oscillator=audioContext.createOscillator(); // creating an oscillator
                 oscillator.connect(audioContext.destination);//connecting to speakers
                 oscillator.frequency.value=notes[scoreData[currentSongName][currentNoteIndex].note]
-
-
-                oscillator.connect(audioContext.destination);//connecting to speakers
                 oscillator.start();
                 display(scoreData[currentSongName][currentNoteIndex].note);
 
-                oscillator.stop(audioContext.currentTime+0.5/*scoreData[currentSongName][currentNoteIndex].duration*/);
+                oscillator.stop(audioContext.currentTime+scoreData[currentSongName][currentNoteIndex].duration/1000);
                 
-                currentNoteIndex=currentNoteIndex+1;
+                
 
                 let playInterval=setTimeout(function(){
                     playNextNote(currentSongName,currentNoteIndex+1)}
@@ -287,7 +279,7 @@ function autoPlay(currentSongName,currentNoteIndex){
               }
               playNextNote(currentSongName,currentNoteIndex);
 
-            }
+              }
 
 
 
@@ -295,8 +287,9 @@ function autoPlay(currentSongName,currentNoteIndex){
               songPlay(currentSongName,currentNoteIndex);//関数を実行
 
 
-            }
+            }   
             else{
+              console.log("the song has reached the end!!")
               return;
             }
 
