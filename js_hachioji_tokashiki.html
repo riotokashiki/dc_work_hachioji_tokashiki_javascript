@@ -251,6 +251,9 @@ function autoPlay(currentSongName,currentNoteIndex){
 
             lengthOfCurrentSong=scoreData[currentSongName].length
 
+          $('.key').prop('disabled',true);
+
+
             if(currentNoteIndex<=lengthOfCurrentSong){
             
               
@@ -290,6 +293,8 @@ function autoPlay(currentSongName,currentNoteIndex){
             }   
             else{
               console.log("the song has reached the end!!")
+              $('.key').prop('disabled',true);
+
               return;
             }
 
