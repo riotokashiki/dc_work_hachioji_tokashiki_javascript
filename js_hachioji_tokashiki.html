@@ -27,6 +27,7 @@
         justify-content: center;
         align-items: center;
         border-radius:20px;
+        position:relative;
       }
       .keys{
         background-color:pink;
@@ -51,6 +52,13 @@
         font-weight:bold;
         font-family:Georgia;
       }
+      .letterInUpperDisplay{
+        display:none;
+        color:white;
+        position:absolute;
+        top:10px;
+      }
+
 
       .displayContainer{
         width:100%;
@@ -74,10 +82,11 @@
 <body>
 <div class="container">
   <div class="displayContainer">
-    <div class="display">
-      <div class="letter">
+      <div class="display">
+        <div class="letter">
+      
       </div>
-
+      <div class="letterInUpperDisplay">Playing:</div>
       </div>
           <div class="autoPlay">
             <button class="autoPlay" onclick="autoPlay(null,0)">
@@ -112,6 +121,7 @@ let isPlaying=false
 let currentNoteIndex=0
 let currentSongName=null
 let lengthOfCurrentSong=0
+let playInterval=null
 
 const notes={ //creating an object
   "ド":261.63,  // those numbers are frequencies that'll be given to the functions
@@ -222,9 +232,16 @@ $('.letter').text(note);            // displaying note
 
  function stopAutoPlay()
  {
+              console.trace("stopAutoPlay was called from:");
+              console.log("stopAutoPlay called, playInterval =", playInterval);
+              clearTimeout(playInterval);
               console.log("the song has reached the end!!")
               $('.key').prop('disabled',false);
               isPlaying=false;
+
+            $('.autoPlay').text('AutoPlay');
+          $('.autoPlay').attr('onclick','autoPlay(null,0)');
+
               return;
   } //closing stopAutoPlay function
 
@@ -232,7 +249,7 @@ $('.letter').text(note);            // displaying note
 
 function playSound(note)
 {
-  isPlaying=true;
+  
   const audioContext=new AudioContext();//set up a foundation
   const oscillator=audioContext.createOscillator(); // creating an oscillator
   oscillator.frequency.value=notes[note];// オブジェクト notes からfrequencyを引き出し、それをoscillatorのfrequencyとして代入
@@ -243,7 +260,7 @@ function playSound(note)
 
   oscillator.stop(audioContext.currentTime+0.5)
 
-  isPlaying=false;
+  
 } // closing PlaySound function
 
 
@@ -256,13 +273,19 @@ function autoPlay(currentSongName,currentNoteIndex)
                                                      //select between two songs randomly
             isPlaying=true;  //再生状態にする
             
-            
+            console.log('starting play');
 
             const mora=Object.keys(scoreData)                                                                       //random selection function
             const randomSong=mora[Math.floor(Math.random() * mora.length)]
             currentSongName=randomSong
+            console.log("Playing"+currentSongName);
+
+            $('.letterInUpperDisplay').text("Playing:"+currentSongName);
+            $('.letterInUpperDisplay').css('display','block');
+
 
             lengthOfCurrentSong=scoreData[currentSongName].length
+            console.log("lengthOfCurrentSong="+lengthOfCurrentSong);
 
           $('.key').prop('disabled',true);  // disabling keys
 
@@ -270,8 +293,8 @@ function autoPlay(currentSongName,currentNoteIndex)
           $('.autoPlay').attr('onclick','stopAutoPlay()')
 
 
-
-            if(currentNoteIndex<=lengthOfCurrentSong)
+            console.log("currentNoteIndex"+currentNoteIndex+",lengthOfCurrentSong"+lengthOfCurrentSong);
+            if(currentNoteIndex<lengthOfCurrentSong)
             {
             
               
@@ -285,7 +308,7 @@ function autoPlay(currentSongName,currentNoteIndex)
                       playNextNote=function(currentSongName,currentNoteIndex)
                       {
 
-                          if(currentNoteIndex<=lengthOfCurrentSong)
+                          if(currentNoteIndex<lengthOfCurrentSong)
                           {
                                     const oscillator=audioContext.createOscillator(); // creating an oscillator
                                     oscillator.connect(audioContext.destination);//connecting to speakers
@@ -297,7 +320,7 @@ function autoPlay(currentSongName,currentNoteIndex)
                                     
                                     
 
-                                    let playInterval=setTimeout(function(){
+                                    playInterval=setTimeout(function(){
                                         playNextNote(currentSongName,currentNoteIndex+1)}
                                     ,
                                     scoreData[currentSongName][currentNoteIndex].duration);
@@ -305,6 +328,7 @@ function autoPlay(currentSongName,currentNoteIndex)
                           }//closing if statement
                           else
                           {
+                                console.log("end2");
                                         stopAutoPlay();
                           }// closing else statement
 
@@ -312,8 +336,8 @@ function autoPlay(currentSongName,currentNoteIndex)
                       } // closing PlayNextNote function
 
              
-              playNextNote(currentSongName,currentNoteIndex);
-            }// closing let songPlay
+                       playNextNote(currentSongName,currentNoteIndex);
+                    }// closing songPlay
             } // closing if statement
 
 
@@ -327,7 +351,7 @@ function autoPlay(currentSongName,currentNoteIndex)
     else
     {
             
-
+              console.log("end3");
               stopAutoPlay();
     }
 
