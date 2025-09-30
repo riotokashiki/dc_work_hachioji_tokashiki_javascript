@@ -89,7 +89,7 @@
       <div class="letterInUpperDisplay">Playing:</div>
       </div>
           <div class="autoPlay">
-            <button class="autoPlay" onclick="autoPlay(null,0)">
+            <button class="autoPlayButton" onclick="autoPlay(null,0)">
               AutoPlay
             </button>
 
@@ -122,7 +122,7 @@ let currentNoteIndex=0
 let currentSongName=null
 let lengthOfCurrentSong=0
 let playInterval=null
-let isButtonClickable=true
+let isPaused=false
 
 const notes={ //creating an object
   "ド":261.63,  // those numbers are frequencies that'll be given to the functions
@@ -231,6 +231,32 @@ $('.letter').text(note);            // displaying note
 
 } //closing display function
 
+
+function autoPlayPaused(currentSongName)
+{
+
+            isPaused=true 
+            console.trace("autoPlayPaused was called from:");
+             clearTimeout(playInterval);
+             console.log("the song has been paused!!")
+              $('.key').prop('disabled',false);
+              isPlaying=false;
+                $('.autoPlayButton').text('AutoPlay');
+          $('.autoPlayButton').attr(`onclick`,`autoPlay('${currentSongName}',0)`);
+            console.log('<button>attribute changed to,'+`${currentSongName}`);
+           $('.letterInUpperDisplay').css('display','none');
+           console.log("currentSongName is..."+currentSongName);
+
+
+
+}
+
+
+
+
+
+
+
  function stopAutoPlay()
  {
               console.trace("stopAutoPlay was called from:");
@@ -240,8 +266,10 @@ $('.letter').text(note);            // displaying note
               $('.key').prop('disabled',false);
               isPlaying=false;
 
-            $('.autoPlay').text('AutoPlay');
-          $('.autoPlay').attr('onclick','autoPlay(null,0)');
+            $('.autoPlayButton').text('AutoPlay');
+          $('.autoPlayButton').attr('onclick','autoPlay(null,0)');
+
+           $('.letterInUpperDisplay').css('display','none');
 
               return;
   } //closing stopAutoPlay function
@@ -268,13 +296,7 @@ function playSound(note)
 
 function autoPlay(currentSongName,currentNoteIndex)
 {
-  isButtonClickable=false
-  console.log("isButtonClickable"+isButtonClickable);
-  setTimeout(function(){
-    isButtonClickable=true
-  }
-  ,1000)
-  
+
   if(isPlaying==false)
   { //非再生時のみ実行
                                                      //select between two songs randomly
@@ -286,7 +308,7 @@ function autoPlay(currentSongName,currentNoteIndex)
             const randomSong=mora[Math.floor(Math.random() * mora.length)]
             currentSongName=randomSong
             console.log("Playing"+currentSongName);
-
+            console.log("currentSongName is.."+currentSongName);
             $('.letterInUpperDisplay').text("Playing:"+currentSongName);
             $('.letterInUpperDisplay').css('display','block');
 
@@ -296,8 +318,8 @@ function autoPlay(currentSongName,currentNoteIndex)
 
           $('.key').prop('disabled',true);  // disabling keys
 
-          $('.autoPlay').text('Stop Playing');
-          $('.autoPlay').attr('onclick','stopAutoPlay()')
+          $('.autoPlayButton').text('Stop Playing');
+          $('.autoPlayButton').attr('onclick','autoPlayPaused(currentSongName,0)')
 
 
             console.log("currentNoteIndex"+currentNoteIndex+",lengthOfCurrentSong"+lengthOfCurrentSong);
