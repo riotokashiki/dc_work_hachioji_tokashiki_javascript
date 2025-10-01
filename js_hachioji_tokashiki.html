@@ -242,8 +242,8 @@ function autoPlayPaused(currentSongName)
               $('.key').prop('disabled',false);
               isPlaying=false;
                 $('.autoPlayButton').text('AutoPlay');
-          $('.autoPlayButton').attr(`onclick`,`autoPlay('${currentSongName}',0)`);
-            console.log('<button>attribute changed to,'+`${currentSongName}`);
+          $('.autoPlayButton').attr('onclick',`autoPlay('${currentSongName}',0)`);
+            console.log('<button>attribute changed to,'+'${currentSongName}');
            $('.letterInUpperDisplay').css('display','none');
            console.log("currentSongName is..."+currentSongName);
 
@@ -270,9 +270,22 @@ function autoPlayPaused(currentSongName)
           $('.autoPlayButton').attr('onclick','autoPlay(null,0)');
 
            $('.letterInUpperDisplay').css('display','none');
-
+              
+              console.log("currentSongName is..."+currentSongName);
               return;
   } //closing stopAutoPlay function
+
+
+
+
+function glowingKeys()
+{
+
+
+}
+
+
+
 
 
 
@@ -304,22 +317,24 @@ function autoPlay(currentSongName,currentNoteIndex)
             
             console.log('starting play');
 
-            const mora=Object.keys(scoreData)                                                                       //random selection function
-            const randomSong=mora[Math.floor(Math.random() * mora.length)]
-            currentSongName=randomSong
+            if(currentSongName===null)
+                  {
+                      const mora=Object.keys(scoreData)                                                                       //random selection function
+                      const randomSong=mora[Math.floor(Math.random() * mora.length)]
+                      currentSongName=randomSong
+                    
+                  }
             console.log("Playing"+currentSongName);
             console.log("currentSongName is.."+currentSongName);
             $('.letterInUpperDisplay').text("Playing:"+currentSongName);
             $('.letterInUpperDisplay').css('display','block');
-
-
             lengthOfCurrentSong=scoreData[currentSongName].length
             console.log("lengthOfCurrentSong="+lengthOfCurrentSong);
 
           $('.key').prop('disabled',true);  // disabling keys
 
           $('.autoPlayButton').text('Stop Playing');
-          $('.autoPlayButton').attr('onclick','autoPlayPaused(currentSongName,0)')
+          $('.autoPlayButton').attr('onclick',`autoPlayPaused('${currentSongName}')`)
 
 
             console.log("currentNoteIndex"+currentNoteIndex+",lengthOfCurrentSong"+lengthOfCurrentSong);
