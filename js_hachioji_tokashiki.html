@@ -44,6 +44,12 @@
          height:99%;
          border-radius:20px;
          background-color:white;
+         transition: all 0.1s ease-out;
+      }
+
+      .key.glowing{
+        background-color:rgba(255, 0, 0, 0.664);
+        transition: all 0.1s ease-out;
       }
 
       .letter{
@@ -226,6 +232,29 @@ $('.letter').text(note);            // displaying note
   setTimeout(function(){ // making it disappear in 1 sec
     $('.letter').text("");
   },1000)
+
+  //// for key glowing function////////////////////////////////////
+  const noteToClassNameConverter= //音階 （"ド"）をクラス名へ変換するためのオブジェクト
+  {
+    "ド":".do",
+    "レ":".re",
+    "ミ":".mi",
+    "ファ":".fa",
+    "ソ":".so",
+    "ラ":".ra",
+    "シ":".shi"
+  }
+
+  $(noteToClassNameConverter[note]).addClass("glowing");
+console.log("class selected is "+noteToClassNameConverter[note]);
+console.log($(noteToClassNameConverter[note]).attr('class'));
+
+setTimeout(function(){
+$(noteToClassNameConverter[note]).removeClass("glowing");
+
+},500);
+//console.log("after setTimeout "+$(noteToClassNameConverter[note]).attr('class'));
+
 
 
 
