@@ -16,7 +16,8 @@
         flex-direction:column;
         vertical-align:center;
         justify-content:space-around;
-        border-radius:50px;
+        border-radius:10px 10px 200px 200px;
+        border-bottom:20px solid rgb(143, 0, 112);
       }
       .display{
         background-color:rgb(0, 158, 250);
@@ -28,28 +29,34 @@
         align-items: center;
         border-radius:20px;
         position:relative;
+        border-top:5px solid rgb(143, 0, 100);
       }
       .keys{
-        background-color:pink;
+        /*background-color:pink;*/
         width:80%;
         height:40%;
         margin:0 auto;
         display:flex;
-       
+        background-color: #6b0042;
+        border-radius: 5px 5px 30px 30px;
       }
 
       .key{
          border:1px solid black;
          width:15%;
          height:99%;
-         border-radius:20px;
+         border-radius:10px 10px 40px 40px;
          background-color:white;
          transition: all 0.1s ease-out;
+         border-bottom: 10px solid #bfb8b8;
       }
 
       .key.glowing{
-        background-color:rgba(255, 0, 0, 0.664);
+        transform: translateY(10px);
+        background-color:rgb(255, 136, 0);
         transition: all 0.1s ease-out;
+         border-bottom: 10px solid rgb(187, 100, 0);
+         border-top: 5px solid rgb(187, 100, 0);
       }
 
       .letter{
@@ -79,7 +86,20 @@
         position:absolute;
         bottom:0px;
         right:0px;
+        transition: all 0.1s ease-out;
       }
+      button.autoPlayButton{
+      border-bottom:6px solid rgb(172 172 172);
+      transition: all 0.1s ease-out;
+      }
+
+      button.autoPlayButton:active{
+      border-bottom:0px;
+      transform: translateY(6px);
+
+      }
+
+      
 
     </style>
     <script src="jquery-3.7.1.min.js"></script>
