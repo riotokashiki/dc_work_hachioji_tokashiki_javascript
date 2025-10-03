@@ -23,7 +23,7 @@
         vertical-align:center;
         justify-content:space-around;
         border-radius:10px 10px 200px 200px;
-        border-bottom:20px solid rgb(143, 0, 112);
+        border-bottom:20px solid rgb(188 0 116);
         background-image: linear-gradient(to bottom, #fc77c0,rgb(255, 0, 157));
       }
       .display{
@@ -108,7 +108,24 @@
 
       }
 
+      .sliderContainer{
+        position:absolute;
+        left:10px;
+        bottom:0px;
+        display:flex;
+        flex-direction:column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      input#volumeSlider {
+      width: 80%;
+      }
       
+      div.volume{
+        font-size:16px;
+        font-weight:100;
+      }
 
     </style>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -127,18 +144,21 @@
             <button class="autoPlayButton" onclick="autoPlay(null,0)">
               AutoPlay
             </button>
-
           </div>
+          <div class="sliderContainer">
+            <div class="volume">Volume</div>
+            <input type="range" min="0" max="100" value="50" class="slider" id="volumeSlider">
+            </div>
   </div>
   
   <div class="keys">
-    <input class="key do" onclick="display('ド');playSound('ド')"></input>
-    <input class="key re" onclick="display('レ');playSound('レ')"></input>
-    <input class="key mi"onclick="display('ミ');playSound('ミ')"></input>
-    <input class="key fa" onclick="display('ファ');playSound('ファ')"></input>
-    <input class="key so" onclick="display('ソ');playSound('ソ')"></input>
-    <input class="key ra" onclick="display('ラ');playSound('ラ')"></input>
-    <input class="key shi"onclick="display('シ');playSound('シ')"></input>
+    <div class="key do" onclick="display('ド');playSound('ド')"></div>
+    <div class="key re" onclick="display('レ');playSound('レ')"></div>
+    <div class="key mi"onclick="display('ミ');playSound('ミ')"></div>
+    <div class="key fa" onclick="display('ファ');playSound('ファ')"></div>
+    <div class="key so" onclick="display('ソ');playSound('ソ')"></div>
+    <div class="key ra" onclick="display('ラ');playSound('ラ')"></div>
+    <div class="key shi"onclick="display('シ');playSound('シ')"></div>
 
 
   </div>
@@ -159,6 +179,8 @@ let lengthOfCurrentSong=0
 let playInterval=null
 let isPaused=false
 let displayInterval=null
+let volume=50
+const slider=$('#volumeSlider')    ;        //capturing volume slider and storing it into a variable "slider"
 
 const notes={ //creating an object
   "ド":261.63,  // those numbers are frequencies that'll be given to the functions
@@ -339,11 +361,7 @@ function autoPlayPaused(currentSongName)
 
 
 
-function glowingKeys()
-{
 
-
-}
 
 
 
@@ -353,12 +371,22 @@ function glowingKeys()
 function playSound(note)
 {
   
-  const audioContext=new AudioContext();//set up a foundation
+  const audioContext=new AudioContext();//set up a foundation creating audio context
+  const gainNode=audioContext.createGain();   //creating Gain Node for volume control
+ 
   const oscillator=audioContext.createOscillator(); // creating an oscillator
+  oscillator.connect(gainNode);
   oscillator.frequency.value=notes[note];// オブジェクト notes からfrequencyを引き出し、それをoscillatorのfrequencyとして代入
 
 
-  oscillator.connect(audioContext.destination);//connecting to speakers
+  gainNode.connect(audioContext.destination);//connecting to speakers
+
+volume=slider.val();
+gainNode.gain.value=volume/100;
+console.log("Current Volume is "+volume);
+
+
+
   oscillator.start();
 
   oscillator.stop(audioContext.currentTime+0.5)
@@ -408,15 +436,37 @@ function autoPlay(currentSongName,currentNoteIndex)
                 songPlay= function (currentSongName,currentNoteIndex)
                 {  //関数を設定
                       const audioContext=new AudioContext();//set up a foundation
-                    
+                      
+  
+
+
+
+
+
+
+
+
+
+
+
                       
                       playNextNote=function(currentSongName,currentNoteIndex)
                       {
 
                           if(currentNoteIndex<lengthOfCurrentSong)
                           {
+
+
+
+                                    const gainNode=audioContext.createGain();   //creating Gain Node for volume control                           
                                     const oscillator=audioContext.createOscillator(); // creating an oscillator
-                                    oscillator.connect(audioContext.destination);//connecting to speakers
+                                    oscillator.connect(gainNode);  //connecting to gainNode
+                                    gainNode.connect(audioContext.destination);//connecting to speakers
+                                    volume=slider.val();
+                                    gainNode.gain.value=volume/100;
+                                    console.log("Current Volume is "+volume);
+
+
                                     oscillator.frequency.value=notes[scoreData[currentSongName][currentNoteIndex].note]
                                     oscillator.start();
                                     display(scoreData[currentSongName][currentNoteIndex].note);
