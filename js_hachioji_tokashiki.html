@@ -127,6 +127,19 @@
         font-weight:100;
       }
 
+      .muteButton{
+        width:20px;
+        height:20px;
+
+      }
+
+      .octaveShifterContainer{
+        position:absolute;
+        top:0px;
+        left:10px;
+        display:flex;
+
+      }
     </style>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
@@ -146,9 +159,18 @@
             </button>
           </div>
           <div class="sliderContainer">
-            <div class="volume">Volume</div>
-            <input type="range" min="0" max="100" value="50" class="slider" id="volumeSlider">
+            <div class="volume"><span><img src="materials/images/icons8-volume-60.png" alt="" class="muteButton" onclick="muteVolume()">  </span>Volume</div>
+            <input type="range" min="0" max="100" value="100" class="slider" id="volumeSlider">
+              
+          </div>
+          <div class="octaveShifterContainer">
+            <p>Octave</p>
+            <div class="octaveButtonContainer">
+            <div class="octaveUpButton" onclick="octaveUp()">up</div>
+            <div class="octaveDownButton" onclick="octaveDown()">down</div>
             </div>
+          </div>
+
   </div>
   
   <div class="keys">
@@ -180,7 +202,9 @@ let playInterval=null
 let isPaused=false
 let displayInterval=null
 let volume=50
-const slider=$('#volumeSlider')    ;        //capturing volume slider and storing it into a variable "slider"
+let slider=$('#volumeSlider')    ;      //capturing volume slider and storing it into a variable "slider"
+let previousVolume=100 
+let octaveMultiplied=1
 
 const notes={ //creating an object
   "ド":261.63,  // those numbers are frequencies that'll be given to the functions
@@ -359,8 +383,46 @@ function autoPlayPaused(currentSongName)
   } //closing stopAutoPlay function
 
 
+function muteVolume(){
 
+if(slider.val()==0){
+  isMuted=true
+}
+else{
+  isMuted=false
+  previousVolume=$('#volumeSlider').val()
+  console.log("previousVolume was..."+$('#volumeSlider').val());
+}
+console.log("isMuted...."+isMuted);
 
+if(isMuted==false){
+const audioContext=new AudioContext();//set up a foundation creating audio context
+const gainNode=audioContext.createGain();   //creating Gain Node for volume control
+$('#volumeSlider').val(0);
+volume=0;
+
+gainNode.gain.value=0
+console.log("Current Volume is "+volume);
+isMuted=true
+console.log("isMuted...."+isMuted);
+$('.muteButton').attr("src","materials/images/icons8-volume-60 - Copy.png");
+}
+else{ // isMuted is true
+  $('#volumeSlider').val(previousVolume);
+  console.log("restored to the previousVolume "+previousVolume);
+  $('.muteButton').attr("src","materials/images/icons8-volume-60.png");
+}
+
+}
+
+function octaveUp(){
+octaveMultiplied=octaveMultiplied+1
+}
+
+function octaveDown(){
+octaveMultiplied=octaveMultiplied*0.5
+
+}
 
 
 
@@ -376,13 +438,13 @@ function playSound(note)
  
   const oscillator=audioContext.createOscillator(); // creating an oscillator
   oscillator.connect(gainNode);
-  oscillator.frequency.value=notes[note];// オブジェクト notes からfrequencyを引き出し、それをoscillatorのfrequencyとして代入
+  oscillator.frequency.value=notes[note]*octaveMultiplied;// オブジェクト notes からfrequencyを引き出し、それをoscillatorのfrequencyとして代入
 
 
   gainNode.connect(audioContext.destination);//connecting to speakers
 
 volume=slider.val();
-gainNode.gain.value=volume/100;
+gainNode.gain.value=volume/100;  // setting volume
 console.log("Current Volume is "+volume);
 
 
