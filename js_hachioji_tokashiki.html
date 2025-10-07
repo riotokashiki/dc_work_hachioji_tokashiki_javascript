@@ -12,7 +12,17 @@
         justify-content: center;
         height: 1000px;
         /*background: #635f5f;*/
-        background-image: linear-gradient(to bottom, #e46f00, #5a00a8);
+        background-color:#e46f00;
+        transition: all 1.5s ease-out;
+      }
+      body.lowerOctave{
+
+        background-color: #0c0075;
+        /*transition: all 2s ease-out;*/
+      }
+
+      body.higherOctave{
+        background-color: #bee900;
       }
       .container{
         width:800px;
@@ -136,10 +146,41 @@
       .octaveShifterContainer{
         position:absolute;
         top:0px;
-        left:10px;
+        left:30px;
         display:flex;
-
+align-items:center;
+      
       }
+
+      .octaveButtonContainer{
+        display:flex;
+        flex-direction:column;
+        
+      }
+      p.octave{
+        font-size:17px;
+        align-items:center;
+      }
+      .octaveButton{
+        transition: all 0.1s ease-out;
+      }
+
+      .octaveButton:active{
+        filter:contrast(0);
+        transition: all 0.1s ease-out;
+      }
+
+      .octaveButton:hover,
+      .muteButton:hover,
+      .key:hover,
+      .autoPlayButton:hover,
+      input#volumeSlider:hover
+      {
+        cursor: pointer;
+      }
+
+
+
     </style>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
@@ -164,10 +205,10 @@
               
           </div>
           <div class="octaveShifterContainer">
-            <p>Octave</p>
+            <p class="octave">Octave</p>
             <div class="octaveButtonContainer">
-            <div class="octaveUpButton" onclick="octaveUp()">up</div>
-            <div class="octaveDownButton" onclick="octaveDown()">down</div>
+            <img class="octaveButton up" onclick="octaveUp()" src="materials/images/icons8-up-arrow-40.png" alt="up"></img>
+            <img class="octaveButton down" onclick="octaveDown()" src="materials/images/icons8-down-button-40.png" alt="down"></img>
             </div>
           </div>
 
@@ -205,6 +246,7 @@ let volume=50
 let slider=$('#volumeSlider')    ;      //capturing volume slider and storing it into a variable "slider"
 let previousVolume=100 
 let octaveMultiplied=1
+let currentOctave=4
 
 const notes={ //creating an object
   "ド":261.63,  // those numbers are frequencies that'll be given to the functions
@@ -415,13 +457,47 @@ else{ // isMuted is true
 
 }
 
-function octaveUp(){
-octaveMultiplied=octaveMultiplied+1
+function octaveUp()
+{
+
+      if(currentOctave<6)
+      {
+                octaveMultiplied=octaveMultiplied*2
+                currentOctave=currentOctave+1
+                //$('.octaveButton').addClass('octaveButtonPressed');
+                console.log("currentOctave is "+currentOctave);
+
+                if(currentOctave>4){
+                  $('body').removeClass('lowerOctave');
+                  $('body').addClass('higherOctave');
+                }
+                if(currentOctave==4){
+                $('body').removeClass('lowerOctave');
+                $('body').removeClass('higherOctave');
+                }
+      }
+      
 }
+function octaveDown()
+{
+        if(currentOctave>2)
+        {
+          octaveMultiplied=octaveMultiplied*0.5
+          currentOctave=currentOctave-1
+          //$('.octaveButton').addClass('octaveButtonPressed');
+          console.log("currentOctave is "+currentOctave);
 
-function octaveDown(){
-octaveMultiplied=octaveMultiplied*0.5
-
+          if(currentOctave<4){
+            $('body').removeClass('higherOctave');
+            $('body').addClass('lowerOctave');
+            
+          }
+          if(currentOctave==4){
+          $('body').removeClass('lowerOctave');
+          $('body').removeClass('higherOctave');
+          }
+        }
+        
 }
 
 
@@ -529,7 +605,7 @@ function autoPlay(currentSongName,currentNoteIndex)
                                     console.log("Current Volume is "+volume);
 
 
-                                    oscillator.frequency.value=notes[scoreData[currentSongName][currentNoteIndex].note]
+                                    oscillator.frequency.value=notes[scoreData[currentSongName][currentNoteIndex].note]*octaveMultiplied
                                     oscillator.start();
                                     display(scoreData[currentSongName][currentNoteIndex].note);
 
