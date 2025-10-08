@@ -381,17 +381,19 @@ $(noteToClassNameConverter[note]).removeClass("glowing");
 } //closing display function
 
 
-function autoPlayPaused(currentSongName)
+function autoPlayPaused(currentSongName,currentNoteIndex)
 {
-
+          console.log("paused");
             isPaused=true 
             console.trace("autoPlayPaused was called from:");
              clearTimeout(playInterval);
-             console.log("the song has been paused!!")
+             console.log("the song has been paused!!");
+             console.log("A currentNoteIndex is...."+currentNoteIndex);
               $('.key').prop('disabled',false);
               isPlaying=false;
                 $('.autoPlayButton').text('AutoPlay');
-          $('.autoPlayButton').attr('onclick',`autoPlay('${currentSongName}',0)`);
+          $('.autoPlayButton').attr('onclick',`autoPlay('${currentSongName}','${currentNoteIndex}')
+          console.log("pause disabled")`);
             console.log('<button>attribute changed to,'+'${currentSongName}');
            $('.letterInUpperDisplay').css('display','none');
            console.log("currentSongName is..."+currentSongName);
@@ -536,6 +538,7 @@ console.log("Current Volume is "+volume);
 
 function autoPlay(currentSongName,currentNoteIndex)
 {
+  console.log("C currentNoteIndex is...."+currentNoteIndex);
 
   if(isPlaying==false)
   { //非再生時のみ実行
@@ -560,15 +563,14 @@ function autoPlay(currentSongName,currentNoteIndex)
 
           $('.key').prop('disabled',true);  // disabling keys
 
-          $('.autoPlayButton').text('Stop Playing');
-          $('.autoPlayButton').attr('onclick',`autoPlayPaused('${currentSongName}')`)
+         
 
 
             console.log("currentNoteIndex"+currentNoteIndex+",lengthOfCurrentSong"+lengthOfCurrentSong);
             if(currentNoteIndex<lengthOfCurrentSong)
             {
             
-              
+              console.log("D currentNoteIndex is...."+currentNoteIndex);
 
 
                 songPlay= function (currentSongName,currentNoteIndex)
@@ -584,17 +586,19 @@ function autoPlay(currentSongName,currentNoteIndex)
 
 
 
-
+                    console.log("G currentNoteIndex is..."+currentNoteIndex);
 
 
                       
                       playNextNote=function(currentSongName,currentNoteIndex)
                       {
+                          console.log("H currentNoteIndex is..."+currentNoteIndex);//この時点でcurrentNoteIndexが倍増してしまう
 
                           if(currentNoteIndex<lengthOfCurrentSong)
                           {
-
-
+                                  console.log("E currentNoteIndex is..."+currentNoteIndex);
+                                  $('.autoPlayButton').text('Stop Playing');
+                                  $('.autoPlayButton').attr('onclick',`autoPlayPaused('${currentSongName}','${currentNoteIndex}')`)
 
                                     const gainNode=audioContext.createGain();   //creating Gain Node for volume control                           
                                     const oscillator=audioContext.createOscillator(); // creating an oscillator
@@ -603,14 +607,14 @@ function autoPlay(currentSongName,currentNoteIndex)
                                     volume=slider.val();
                                     gainNode.gain.value=volume/100;
                                     console.log("Current Volume is "+volume);
-
+                                    console.log("F currentNoteIndex is..."+currentNoteIndex);
 
                                     oscillator.frequency.value=notes[scoreData[currentSongName][currentNoteIndex].note]*octaveMultiplied
                                     oscillator.start();
                                     display(scoreData[currentSongName][currentNoteIndex].note);
 
                                     oscillator.stop(audioContext.currentTime+scoreData[currentSongName][currentNoteIndex].duration/1000);
-                                    
+                                    console.log("B currentNoteIndex is..."+currentNoteIndex);
                                     
 
                                     playInterval=setTimeout(function(){
