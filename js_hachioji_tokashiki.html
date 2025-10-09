@@ -215,13 +215,13 @@ align-items:center;
   </div>
   
   <div class="keys">
-    <div class="key do" onclick="display('ド');playSound('ド')"></div>
-    <div class="key re" onclick="display('レ');playSound('レ')"></div>
-    <div class="key mi"onclick="display('ミ');playSound('ミ')"></div>
-    <div class="key fa" onclick="display('ファ');playSound('ファ')"></div>
-    <div class="key so" onclick="display('ソ');playSound('ソ')"></div>
-    <div class="key ra" onclick="display('ラ');playSound('ラ')"></div>
-    <div class="key shi"onclick="display('シ');playSound('シ')"></div>
+    <div class="key do" onclick="if(!isPlaying){display('ド');playSound('ド')}"></div>
+    <div class="key re" onclick="if(!isPlaying){display('レ');playSound('レ')}"></div>
+    <div class="key mi"onclick="if(!isPlaying){display('ミ');playSound('ミ')}"></div>
+    <div class="key fa" onclick="if(!isPlaying){display('ファ');playSound('ファ')}"></div>
+    <div class="key so" onclick="if(!isPlaying){display('ソ');playSound('ソ')}"></div>
+    <div class="key ra" onclick="if(!isPlaying){display('ラ');playSound('ラ')}"></div>
+    <div class="key shi"onclick="if(!isPlaying){display('シ');playSound('シ')}"></div>
 
 
   </div>
@@ -366,7 +366,7 @@ $('.letter').text(note);            // displaying note
   }
 
   $(noteToClassNameConverter[note]).addClass("glowing");
-console.log("class selected is "+noteToClassNameConverter[note]);
+console.log("B class selected is "+noteToClassNameConverter[note]);
 console.log($(noteToClassNameConverter[note]).attr('class'));
 
 setTimeout(function(){
@@ -392,7 +392,7 @@ function autoPlayPaused(currentSongName,currentNoteIndex)
               $('.key').prop('disabled',false);
               isPlaying=false;
                 $('.autoPlayButton').text('AutoPlay');
-          $('.autoPlayButton').attr('onclick',`autoPlay('${currentSongName}','${currentNoteIndex}')
+          $('.autoPlayButton').attr('onclick',`autoPlay('${currentSongName}',${currentNoteIndex}+1)
           console.log("pause disabled")`);
             console.log('<button>attribute changed to,'+'${currentSongName}');
            $('.letterInUpperDisplay').css('display','none');
@@ -538,7 +538,73 @@ console.log("Current Volume is "+volume);
 
 function autoPlay(currentSongName,currentNoteIndex)
 {
-  console.log("C currentNoteIndex is...."+currentNoteIndex);
+    songPlay= function (currentSongName,currentNoteIndex)
+                {  //関数を設定
+                      const audioContext=new AudioContext();//set up a foundation
+                      
+  
+
+
+
+
+
+
+
+
+                    //console.log("G currentNoteIndex is..."+currentNoteIndex);
+
+
+                      
+                      playNextNote=function(currentSongName,currentNoteIndex)
+                      {
+                          //console.log("H currentNoteIndex is..."+currentNoteIndex);//この時点でcurrentNoteIndexが倍増してしまう
+
+                          if(currentNoteIndex<lengthOfCurrentSong)
+                          {
+                                  //console.log("E currentNoteIndex is..."+currentNoteIndex);
+                                  $('.autoPlayButton').text('Stop Playing');
+                                  $('.autoPlayButton').attr('onclick',`autoPlayPaused('${currentSongName}','${currentNoteIndex}')`)
+
+                                    const gainNode=audioContext.createGain();   //creating Gain Node for volume control                           
+                                    const oscillator=audioContext.createOscillator(); // creating an oscillator
+                                    oscillator.connect(gainNode);  //connecting to gainNode
+                                    gainNode.connect(audioContext.destination);//connecting to speakers
+                                    volume=slider.val();
+                                    gainNode.gain.value=volume/100;
+                                    console.log("Current Volume is "+volume);
+                                   // console.log("F currentNoteIndex is..."+currentNoteIndex);
+
+                                    oscillator.frequency.value=notes[scoreData[currentSongName][currentNoteIndex].note]*octaveMultiplied
+                                    oscillator.start();
+                                    display(scoreData[currentSongName][currentNoteIndex].note);
+
+                                    oscillator.stop(audioContext.currentTime+scoreData[currentSongName][currentNoteIndex].duration/1000);
+                                    console.log("B currentNoteIndex is..."+currentNoteIndex);
+                                    
+
+                                    playInterval=setTimeout(function(){
+                                        playNextNote(currentSongName,currentNoteIndex+1)}
+                                    ,
+                                    scoreData[currentSongName][currentNoteIndex].duration);
+
+                          }//closing if statement
+                          else
+                          {
+                                console.log("end2");
+                                        stopAutoPlay();
+                          }// closing else statement
+
+                                  
+                      } // closing PlayNextNote function
+
+                      
+                        playNextNote(currentSongName,currentNoteIndex);
+                    }// closing songPlay
+
+
+
+
+  //console.log("C currentNoteIndex is...."+currentNoteIndex);
 
   if(isPlaying==false)
   { //非再生時のみ実行
@@ -570,71 +636,10 @@ function autoPlay(currentSongName,currentNoteIndex)
             if(currentNoteIndex<lengthOfCurrentSong)
             {
             
-              console.log("D currentNoteIndex is...."+currentNoteIndex);
+             // console.log("D currentNoteIndex is...."+currentNoteIndex);
 
 
-                songPlay= function (currentSongName,currentNoteIndex)
-                {  //関数を設定
-                      const audioContext=new AudioContext();//set up a foundation
-                      
-  
-
-
-
-
-
-
-
-
-                    console.log("G currentNoteIndex is..."+currentNoteIndex);
-
-
-                      
-                      playNextNote=function(currentSongName,currentNoteIndex)
-                      {
-                          console.log("H currentNoteIndex is..."+currentNoteIndex);//この時点でcurrentNoteIndexが倍増してしまう
-
-                          if(currentNoteIndex<lengthOfCurrentSong)
-                          {
-                                  console.log("E currentNoteIndex is..."+currentNoteIndex);
-                                  $('.autoPlayButton').text('Stop Playing');
-                                  $('.autoPlayButton').attr('onclick',`autoPlayPaused('${currentSongName}','${currentNoteIndex}')`)
-
-                                    const gainNode=audioContext.createGain();   //creating Gain Node for volume control                           
-                                    const oscillator=audioContext.createOscillator(); // creating an oscillator
-                                    oscillator.connect(gainNode);  //connecting to gainNode
-                                    gainNode.connect(audioContext.destination);//connecting to speakers
-                                    volume=slider.val();
-                                    gainNode.gain.value=volume/100;
-                                    console.log("Current Volume is "+volume);
-                                    console.log("F currentNoteIndex is..."+currentNoteIndex);
-
-                                    oscillator.frequency.value=notes[scoreData[currentSongName][currentNoteIndex].note]*octaveMultiplied
-                                    oscillator.start();
-                                    display(scoreData[currentSongName][currentNoteIndex].note);
-
-                                    oscillator.stop(audioContext.currentTime+scoreData[currentSongName][currentNoteIndex].duration/1000);
-                                    console.log("B currentNoteIndex is..."+currentNoteIndex);
-                                    
-
-                                    playInterval=setTimeout(function(){
-                                        playNextNote(currentSongName,currentNoteIndex+1)}
-                                    ,
-                                    scoreData[currentSongName][currentNoteIndex].duration);
-
-                          }//closing if statement
-                          else
-                          {
-                                console.log("end2");
-                                        stopAutoPlay();
-                          }// closing else statement
-
-                                  
-                      } // closing PlayNextNote function
-
-             
-                       playNextNote(currentSongName,currentNoteIndex);
-                    }// closing songPlay
+                
             } // closing if statement
 
 
