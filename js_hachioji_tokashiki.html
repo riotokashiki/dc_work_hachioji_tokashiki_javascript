@@ -196,7 +196,7 @@ align-items:center;
       </div>
           <div class="autoPlay">
             <button class="autoPlayButton" onclick="autoPlay(null,0)">
-              AutoPlay
+              自動演奏
             </button>
           </div>
           <div class="sliderContainer">
@@ -240,7 +240,7 @@ let currentNoteIndex=0
 let currentSongName=null
 let lengthOfCurrentSong=0
 let playInterval=null
-let isPaused=false
+let isStopped=false
 let displayInterval=null
 let volume=50
 let slider=$('#volumeSlider')    ;      //capturing volume slider and storing it into a variable "slider"
@@ -381,18 +381,18 @@ $(noteToClassNameConverter[note]).removeClass("glowing");
 } //closing display function
 
 
-function autoPlayPaused(currentSongName,currentNoteIndex)
+function autoPlayStopped(currentSongName,currentNoteIndex)
 {
-          console.log("paused");
-            isPaused=true 
-            console.trace("autoPlayPaused was called from:");
+          console.log("stopped");
+            isStopped=true 
+            console.trace("autoPlayStopped was called from:");
              clearTimeout(playInterval);
              console.log("the song has been paused!!");
              console.log("A currentNoteIndex is...."+currentNoteIndex);
               $('.key').prop('disabled',false);
               isPlaying=false;
-                $('.autoPlayButton').text('AutoPlay');
-          $('.autoPlayButton').attr('onclick',`autoPlay('${currentSongName}',${currentNoteIndex}+1)
+                $('.autoPlayButton').text('自動演奏');
+          $('.autoPlayButton').attr('onclick',`autoPlay('${currentSongName}',0)
           console.log("pause disabled")`);
             console.log('<button>attribute changed to,'+'${currentSongName}');
            $('.letterInUpperDisplay').css('display','none');
@@ -408,10 +408,10 @@ function autoPlayPaused(currentSongName,currentNoteIndex)
 
 
 
- function stopAutoPlay()
+ function endAutoPlay()
  {
-              console.trace("stopAutoPlay was called from:");
-              console.log("stopAutoPlay called, playInterval =", playInterval);
+              console.trace("endAutoPlay was called from:");
+              console.log("endAutoPlay called, playInterval =", playInterval);
               clearTimeout(playInterval);
               console.log("the song has reached the end!!")
               $('.key').prop('disabled',false);
@@ -562,8 +562,8 @@ function autoPlay(currentSongName,currentNoteIndex)
                           if(currentNoteIndex<lengthOfCurrentSong)
                           {
                                   //console.log("E currentNoteIndex is..."+currentNoteIndex);
-                                  $('.autoPlayButton').text('Stop Playing');
-                                  $('.autoPlayButton').attr('onclick',`autoPlayPaused('${currentSongName}','${currentNoteIndex}')`)
+                                  $('.autoPlayButton').text('演奏停止');
+                                  $('.autoPlayButton').attr('onclick',`autoPlayStopped('${currentSongName}','${currentNoteIndex}')`)
 
                                     const gainNode=audioContext.createGain();   //creating Gain Node for volume control                           
                                     const oscillator=audioContext.createOscillator(); // creating an oscillator
@@ -591,7 +591,7 @@ function autoPlay(currentSongName,currentNoteIndex)
                           else
                           {
                                 console.log("end2");
-                                        stopAutoPlay();
+                                        endAutoPlay();
                           }// closing else statement
 
                                   
@@ -654,7 +654,7 @@ function autoPlay(currentSongName,currentNoteIndex)
     {
             
               console.log("end3");
-              stopAutoPlay();
+              endAutoPlay();
     }
 
 } // closing autoPlay function
