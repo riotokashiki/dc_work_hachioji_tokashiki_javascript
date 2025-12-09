@@ -180,6 +180,11 @@ align-items:center;
       }
 
 
+      .key.is-disabled {
+    
+        cursor: not-allowed;
+      }
+
 
     </style>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -332,8 +337,12 @@ const SCORES={
                             }
 
 
+const NOTE_TO_CLASS = {
+  ド: ".do", レ: ".re", ミ: ".mi",
+  ファ: ".fa", ソ: ".so", ラ: ".ra", シ: ".shi",
+};
 
-
+const ERASE_MS = 1000;
 
 
 
@@ -342,43 +351,32 @@ const SCORES={
 
 ///////////////////functions///////////////////////////////////////////////////////////////////////////////
 
+
+function highlightOnce(note, ms = 500) {
+  const sel = NOTE_TO_CLASS[note];
+  if (!sel) return;
+  const $el = $(sel);
+  $el.addClass("glowing");
+  setTimeout(() => $el.removeClass("glowing"), ms);
+}
+
+
+
+
+
+
 function showNote(note)
 { 
-   clearTimeout(displayTimerId);
-
-$('.letter').text(note);            // displaying note 
-
-
-  displayTimerId=setTimeout(function(){ // making it disappear in 1 sec
+    clearTimeout(displayTimerId);
+    $('.letter').text(note);            // displaying note 
+    if(note){
+    displayTimerId=setTimeout(function(){ // making it disappear in 1 sec
     $('.letter').text("");
-  },500)
-
-  //// for key glowing function////////////////////////////////////
-  const noteToClassNameConverter= //音階 （"ド"）をクラス名へ変換するためのオブジェクト
-  {
-    "ド":".do",
-    "レ":".re",
-    "ミ":".mi",
-    "ファ":".fa",
-    "ソ":".so",
-    "ラ":".ra",
-    "シ":".shi"
-  }
-
-  $(noteToClassNameConverter[note]).addClass("glowing");
-console.log("B class selected is "+noteToClassNameConverter[note]);
-console.log($(noteToClassNameConverter[note]).attr('class'));
-
-setTimeout(function(){
-$(noteToClassNameConverter[note]).removeClass("glowing");
-
-},500);
-//console.log("after setTimeout "+$(noteToClassNameConverter[note]).attr('class'));
-
-
-
-
-} //closing display function
+  },ERASE_MS)
+    }
+  highlightOnce(note);
+  
+} //closing showNote function
 
 
 function stopAutoPlay(currentSong,currentNoteIndex)
@@ -389,7 +387,8 @@ function stopAutoPlay(currentSong,currentNoteIndex)
              clearTimeout(playTimerID);
              console.log("the song has been paused!!");
              console.log("A currentNoteIndex is...."+currentNoteIndex);
-              $('.key').prop('disabled',false);
+              setKeyboardEnabled(true);  
+
               isPlaying=false;
                 $('.autoPlayButton').text('自動演奏');
           $('.autoPlayButton').attr('onclick',`startAutoPlay('${currentSong}',0)
@@ -414,7 +413,7 @@ function stopAutoPlay(currentSong,currentNoteIndex)
               console.log("endAutoPlay called, playTimerID =", playTimerID);
               clearTimeout(playTimerID);
               console.log("the song has reached the end!!")
-              $('.key').prop('disabled',false);
+              setKeyboardEnabled(true); 
               isPlaying=false;
 
             $('.autoPlayButton').text('AutoPlay');
@@ -627,7 +626,7 @@ function startAutoPlay(currentSong,currentNoteIndex)
             currentSongLength=SCORES[currentSong].length
             console.log("currentSongLength="+currentSongLength);
 
-          $('.key').prop('disabled',true);  // disabling keys
+            setKeyboardEnabled(false); 
 
          
 
@@ -667,6 +666,20 @@ function startAutoPlay(currentSong,currentNoteIndex)
 */
   
 
+
+function setKeyboardEnabled(enabled) {
+  var keys = document.querySelectorAll('.key');
+  for (var i = 0; i < keys.length; i++) {
+    var el = keys[i];
+    if (enabled === true) {
+      el.style.pointerEvents = 'auto';
+      el.classList.remove('is-disabled');
+    } else {
+      el.style.pointerEvents = 'none';
+      el.classList.add('is-disabled');
+    }
+  }
+}
 
 
 
