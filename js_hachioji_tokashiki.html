@@ -67,6 +67,7 @@
          background-color:white;
          transition: all 0.1s ease-out;
          border-bottom: 10px solid #bfb8b8;
+         position:relative;
       }
 
       .key.glowing{
@@ -75,6 +76,7 @@
         transition: all 0.1s ease-out;
          border-bottom: 10px solid rgb(187, 100, 0);
          border-top: 5px solid rgb(187, 100, 0);
+         
       }
 
       .letter{
@@ -185,6 +187,22 @@ align-items:center;
         cursor: not-allowed;
       }
 
+      .key .letters{
+        position:absolute;
+        bottom:10px;
+        left:34px;
+        color:#bebebe;
+      }
+      .key .fa{
+               position:absolute;
+        
+        left:25px; 
+      }
+
+      .key.keyPushed .letters{
+         color:rgb(187, 100, 0)!important;
+      }
+
 
     </style>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -220,13 +238,13 @@ align-items:center;
   </div>
   
   <div class="keys">
-    <div class="key do" onclick="if(!isPlaying){showNote('ド');playTone('ド')}"></div>
-    <div class="key re" onclick="if(!isPlaying){showNote('レ');playTone('レ')}"></div>
-    <div class="key mi"onclick="if(!isPlaying){showNote('ミ');playTone('ミ')}"></div>
-    <div class="key fa" onclick="if(!isPlaying){showNote('ファ');playTone('ファ')}"></div>
-    <div class="key so" onclick="if(!isPlaying){showNote('ソ');playTone('ソ')}"></div>
-    <div class="key ra" onclick="if(!isPlaying){showNote('ラ');playTone('ラ')}"></div>
-    <div class="key shi"onclick="if(!isPlaying){showNote('シ');playTone('シ')}"></div>
+    <div class="key do" onclick="if(!isPlaying){showNote('ド');playTone('ド')}"><div class="letters do">ド</div></div>
+    <div class="key re" onclick="if(!isPlaying){showNote('レ');playTone('レ')}"><div class="letters re">レ</div></div>
+    <div class="key mi"onclick="if(!isPlaying){showNote('ミ');playTone('ミ')}"><div class="letters mi">ミ</div></div>
+    <div class="key fa" onclick="if(!isPlaying){showNote('ファ');playTone('ファ')}"><div class="letters fa">ファ</div></div>
+    <div class="key so" onclick="if(!isPlaying){showNote('ソ');playTone('ソ')}"><div class="letters so">ソ</div></div>
+    <div class="key ra" onclick="if(!isPlaying){showNote('ラ');playTone('ラ')}"><div class="letters ra">ラ</div></div>
+    <div class="key shi"onclick="if(!isPlaying){showNote('シ');playTone('シ')}"><div class="letters shi">シ</div></div>
 
 
   </div>
@@ -327,11 +345,13 @@ const SCORES={
                               {note:"ソ",duration:500},{note:"ミ",duration:500},{note:"レ",duration:500},{note:"ド",duration:500},
                               {note:"レ",duration:500},{note:"ミ",duration:500},{note:"ド",duration:1000},  
 
-                              {note:"ソ",duration:250},{note:"ソ",duration:250},{note:"ミ",duration:250},{note:"ソ",duration:250},
-                              {note:"ラ",duration:250},{note:"ラ",duration:250},{note:"ソ",duration:1000},
+                              {note:"ソ",duration:250},{note:"",duration:250},{note:"ソ",duration:250},{note:"",duration:250},
+                              {note:"ミ",duration:250},{note:"",duration:250},{note:"ソ",duration:250},{note:"",duration:250},
+                              {note:"ラ",duration:250},{note:"",duration:250},{note:"ラ",duration:250},{note:"",duration:250},
+                              {note:"ソ",duration:1000},
 
-                              {note:"ミ",duration:250},{note:"ミ",duration:250},
-                              {note:"レ",duration:250},{note:"レ",duration:250},
+                              {note:"ミ",duration:250},{note:"",duration:250},{note:"ミ",duration:250},{note:"",duration:250},
+                              {note:"レ",duration:250},{note:"",duration:250},{note:"レ",duration:250},{note:"",duration:250},
                               {note:"ド",duration:4000},
                               ]
                             }
@@ -356,8 +376,8 @@ function highlightOnce(note, ms = 500) {
   const sel = NOTE_TO_CLASS[note];
   if (!sel) return;
   const $el = $(sel);
-  $el.addClass("glowing");
-  setTimeout(() => $el.removeClass("glowing"), ms);
+  $el.addClass('glowing keyPushed');
+  setTimeout(() => $el.removeClass('glowing keyPushed'), ms);
 }
 
 
