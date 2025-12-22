@@ -1,0 +1,229 @@
+<!DOCTYPE  html>
+<html lang="ja">
+    <head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+      html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.dropdown {
+  background: #7b1fa2;
+  color: #fff;
+  cursor: pointer;
+  height: 50px;
+  line-height: 50px;
+  position: relative;
+  width: 200px;
+  text-align: center;
+  text-decoration: none;
+  z-index: 1;
+  transform: perspective(1000px);
+   -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* replaced
+
+.dropdown-menu {
+  background-color: #fff;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  left: 0;
+  opacity: 0;
+  text-align: center;
+  top: 0;
+  visibility: hidden;
+  z-index: -99999;
+}
+*/
+
+.dropdown-menu {
+  position: absolute;
+  left: 0;
+  
+  background: #fff;
+  list-style: none;
+  margin: 0;
+  padding: 0 0 10px 0;
+  width: 200px;
+  opacity: 1; /* Always visible container */
+  z-index: 1000;
+  /*box-shadow: 0 2px 10px rgba(0,0,0,0.2);*/
+  position: relative; /* For pseudo-element positioning */
+}
+
+/* Sliding shadow pseudo-element */
+.dropdown-menu::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -10px; /* Position below menu */
+  height: 0; /* Start with no height */
+  background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.2));
+  opacity: 0;
+  transition: all 0.4s ease;
+  z-index: -1;
+}
+
+.dropdown:hover .dropdown-menu::before {
+  height: 20px; /* Shadow height grows */
+  opacity: 1;
+}
+
+
+
+
+.dropdown-menu li:first-child {
+  cursor: default;
+}
+
+.dropdown-menu a {
+  color: #000;
+  display: inline-block;
+  width: 100%;
+  text-decoration: none;
+  -webkit-transition: all 1s;
+  transition: all 1s;
+}
+
+.dropdown-menu a:hover {
+  background: #ba68c8;
+  color: #fff;
+}
+
+
+/*
+.dropdown:hover .dropdown-menu {
+  background: #cecece;
+  opacity: 1;
+  visibility: visible;
+  top: 100%;
+  width: 100%;
+  -webkit-transition: all .5s ease, background,  ease 1s .5s;
+  transition: all .5s ease, background 1s  ease .5s;
+}
+*/
+/*
+.action1, .action2, .action3, .action4 {
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: all 0.4s ease;
+  border:none;
+}
+*/
+
+
+.dropdown:hover .action1 {
+  opacity: 1;
+  transform: translateY(0);
+  border:1px solid rgb(184, 184, 184);
+  border-top:none;
+  border-bottom:none;
+  transition: all .5s ease
+}
+
+.dropdown:hover .action2 {
+  opacity: 1;
+  transform: translateY(0);
+  border:1px solid rgb(184, 184, 184);
+  border-top:none;
+  border-bottom:none;
+  transition: all .5s ease .1s;
+}
+
+.dropdown:hover .action3 {
+  opacity: 1;
+  transform: translateY(0);
+  border:1px solid rgb(184, 184, 184);
+  border-top:none;
+  border-bottom:none;
+  transition: all .5s ease .2s;
+}
+
+.dropdown:hover .action4 {
+  opacity: 1;
+  transform: translateY(0);
+  border:1px solid rgb(184, 184, 184);
+  border-top:none;
+  border-bottom:none;
+  transition: all .5s ease .3s;
+}
+
+
+
+
+
+
+/* for reverse animation*/
+
+
+.dropdown .action1 { /* Base state when NOT hovering */
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: all 0.4s ease 0.3s; /* Delayed exit */
+  
+}
+
+.dropdown .action2 {
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: all 0.4s ease 0.2s;
+}
+
+.dropdown .action3 {
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: all 0.4s ease 0.1s;
+}
+
+.dropdown .action4 {
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: all 0.4s ease 0s; /* Exits first */
+}
+
+
+
+
+
+
+/* just a reference*/
+/*
+ button.autoPlayButton:active{
+      border-bottom:0px;
+      transform: translateY(6px);
+
+      }
+*/
+
+
+    </style>
+    </head>
+    <body>
+  
+      <div class="dropdown">My Dropdown Button
+  <ul class="dropdown-menu">
+    <li class="action1"><a href="#">action 1</a></li>
+   <li class="action2"><a href="#">action 2</a></li>
+    <li class="action3"><a href="#">action 3</a></li>
+    <li class="action4"><a href="#">action 4</a></li>
+  </ul>
+</div>
+
+
+    </body>
+</html>
