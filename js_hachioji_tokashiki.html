@@ -67,6 +67,7 @@
          background-color:white;
          transition: all 0.1s ease-out;
          border-bottom: 10px solid #bfb8b8;
+         position:relative;
       }
 
       .key.glowing{
@@ -75,6 +76,7 @@
         transition: all 0.1s ease-out;
          border-bottom: 10px solid rgb(187, 100, 0);
          border-top: 5px solid rgb(187, 100, 0);
+         
       }
 
       .letter{
@@ -185,6 +187,22 @@ align-items:center;
         cursor: not-allowed;
       }
 
+      .key .letters{
+        position:absolute;
+        bottom:10px;
+        left:34px;
+        color:#bebebe;
+      }
+      .key .fa{
+               position:absolute;
+        
+        left:25px; 
+      }
+
+      .key.keyPushed .letters{
+         color:rgb(187, 100, 0)!important;
+      }
+
 
     </style>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -220,13 +238,13 @@ align-items:center;
   </div>
   
   <div class="keys">
-    <div class="key do" onclick="if(!isPlaying){showNote('ド');playTone('ド')}"></div>
-    <div class="key re" onclick="if(!isPlaying){showNote('レ');playTone('レ')}"></div>
-    <div class="key mi"onclick="if(!isPlaying){showNote('ミ');playTone('ミ')}"></div>
-    <div class="key fa" onclick="if(!isPlaying){showNote('ファ');playTone('ファ')}"></div>
-    <div class="key so" onclick="if(!isPlaying){showNote('ソ');playTone('ソ')}"></div>
-    <div class="key ra" onclick="if(!isPlaying){showNote('ラ');playTone('ラ')}"></div>
-    <div class="key shi"onclick="if(!isPlaying){showNote('シ');playTone('シ')}"></div>
+    <div class="key do" onclick="if(!isPlaying){showNote('ド');playTone('ド')}"><div class="letters do">ド</div></div>
+    <div class="key re" onclick="if(!isPlaying){showNote('レ');playTone('レ')}"><div class="letters re">レ</div></div>
+    <div class="key mi"onclick="if(!isPlaying){showNote('ミ');playTone('ミ')}"><div class="letters mi">ミ</div></div>
+    <div class="key fa" onclick="if(!isPlaying){showNote('ファ');playTone('ファ')}"><div class="letters fa">ファ</div></div>
+    <div class="key so" onclick="if(!isPlaying){showNote('ソ');playTone('ソ')}"><div class="letters so">ソ</div></div>
+    <div class="key ra" onclick="if(!isPlaying){showNote('ラ');playTone('ラ')}"><div class="letters ra">ラ</div></div>
+    <div class="key shi"onclick="if(!isPlaying){showNote('シ');playTone('シ')}"><div class="letters shi">シ</div></div>
 
 
   </div>
@@ -244,8 +262,8 @@ let isPlaying=false
 let currentNoteIndex=0
 let currentSong=null
 let currentSongLength=0
-let playTimerID=null
-let isStopped=false
+let playTimerId=null
+let isManuallyStopped=false
 let displayTimerId=null
 let volume=50
 let $volumeSlider=$('#volumeSlider')    ;      //capturing volume slider and storing it into a variable "slider". the $ indicates it is a jQuery object
@@ -327,11 +345,13 @@ const SCORES={
                               {note:"ソ",duration:500},{note:"ミ",duration:500},{note:"レ",duration:500},{note:"ド",duration:500},
                               {note:"レ",duration:500},{note:"ミ",duration:500},{note:"ド",duration:1000},  
 
-                              {note:"ソ",duration:250},{note:"ソ",duration:250},{note:"ミ",duration:250},{note:"ソ",duration:250},
-                              {note:"ラ",duration:250},{note:"ラ",duration:250},{note:"ソ",duration:1000},
+                              {note:"ソ",duration:250},{note:"",duration:250},{note:"ソ",duration:250},{note:"",duration:250},
+                              {note:"ミ",duration:250},{note:"",duration:250},{note:"ソ",duration:250},{note:"",duration:250},
+                              {note:"ラ",duration:250},{note:"",duration:250},{note:"ラ",duration:250},{note:"",duration:250},
+                              {note:"ソ",duration:1000},
 
-                              {note:"ミ",duration:250},{note:"ミ",duration:250},
-                              {note:"レ",duration:250},{note:"レ",duration:250},
+                              {note:"ミ",duration:250},{note:"",duration:250},{note:"ミ",duration:250},{note:"",duration:250},
+                              {note:"レ",duration:250},{note:"",duration:250},{note:"レ",duration:250},{note:"",duration:250},
                               {note:"ド",duration:4000},
                               ]
                             }
@@ -356,8 +376,8 @@ function highlightOnce(note, ms = 500) {
   const sel = NOTE_TO_CLASS[note];
   if (!sel) return;
   const $el = $(sel);
-  $el.addClass("glowing");
-  setTimeout(() => $el.removeClass("glowing"), ms);
+  $el.addClass('glowing keyPushed');
+  setTimeout(() => $el.removeClass('glowing keyPushed'), ms);
 }
 
 
@@ -379,12 +399,12 @@ function showNote(note)
 } //closing showNote function
 
 
-function stopAutoPlay(currentSong,currentNoteIndex)
+function stopAutoPlay(currentSong,currentNoteIndex)  // 因数を取らない形に書き直しせよとのこと
 {
           console.log("stopped");
-            isStopped=true 
-            console.trace("stopAutoPlay was called from:");
-             clearTimeout(playTimerID);
+            isManuallyStopped=true 
+            
+             clearTimeout(playTimerId);
              console.log("the song has been paused!!");
              console.log("A currentNoteIndex is...."+currentNoteIndex);
               setKeyboardEnabled(true);  
@@ -407,11 +427,11 @@ function stopAutoPlay(currentSong,currentNoteIndex)
 
 
 
- function endAutoPlay()
+ function finishAutoPlay()
  {
-              console.trace("endAutoPlay was called from:");
-              console.log("endAutoPlay called, playTimerID =", playTimerID);
-              clearTimeout(playTimerID);
+              
+              console.log("finishAutoPlay called, playTimerID =", playTimerId);
+              clearTimeout(playTimerId);
               console.log("the song has reached the end!!")
               setKeyboardEnabled(true); 
               isPlaying=false;
@@ -428,7 +448,7 @@ function stopAutoPlay(currentSong,currentNoteIndex)
 
 function muteVolume(){
 
-if($volumeSlider.val()===0){
+if(Number($volumeSlider.val())===0){
   isMuted=true
 }
 else{
@@ -520,7 +540,7 @@ function playTone(note)
 
   gainNode.connect(audioContext.destination);//connecting to speakers
 
-volume=$volumeSlider.val();
+volume=Number($volumeSlider.val());
 gainNode.gain.value=volume/100;  // setting volume
 console.log("Current Volume is "+volume);
 
@@ -550,17 +570,17 @@ function startAutoPlay(currentSong,currentNoteIndex)
 
 
 
-                    //console.log("G currentNoteIndex is..."+currentNoteIndex);
+                    
 
 
                       
                       playNextNote=function(currentSong,currentNoteIndex)
                       {
-                          //console.log("H currentNoteIndex is..."+currentNoteIndex);//この時点でcurrentNoteIndexが倍増してしまう
+                          
 
                           if(currentNoteIndex<currentSongLength)
                           {
-                                  //console.log("E currentNoteIndex is..."+currentNoteIndex);
+                                  
                                   $('.autoPlayButton').text('演奏停止');
                                   $('.autoPlayButton').attr('onclick',`stopAutoPlay('${currentSong}','${currentNoteIndex}')`)
 
@@ -568,20 +588,20 @@ function startAutoPlay(currentSong,currentNoteIndex)
                                     const oscillator=audioContext.createOscillator(); // creating an oscillator
                                     oscillator.connect(gainNode);  //connecting to gainNode
                                     gainNode.connect(audioContext.destination);//connecting to speakers
-                                    volume=$volumeSlider.val();
+                                    volume=Number($volumeSlider.val());
                                     gainNode.gain.value=volume/100;
                                     console.log("Current Volume is "+volume);
-                                   // console.log("F currentNoteIndex is..."+currentNoteIndex);
+                                  
 
                                     oscillator.frequency.value=NOTE_FREQ[SCORES[currentSong][currentNoteIndex].note]*octaveFactor
                                     oscillator.start();
                                     showNote(SCORES[currentSong][currentNoteIndex].note);
 
                                     oscillator.stop(audioContext.currentTime+SCORES[currentSong][currentNoteIndex].duration/1000);
-                                    console.log("B currentNoteIndex is..."+currentNoteIndex);
+                                    
                                     
 
-                                    playTimerID=setTimeout(function(){
+                                    playTimerId=setTimeout(function(){
                                         playNextNote(currentSong,currentNoteIndex+1)}
                                     ,
                                     SCORES[currentSong][currentNoteIndex].duration);
@@ -589,8 +609,8 @@ function startAutoPlay(currentSong,currentNoteIndex)
                           }//closing if statement
                           else
                           {
-                                console.log("end2");
-                                        endAutoPlay();
+                              
+                                        finishAutoPlay();
                           }// closing else statement
 
                                   
@@ -603,7 +623,6 @@ function startAutoPlay(currentSong,currentNoteIndex)
 
 
 
-  //console.log("C currentNoteIndex is...."+currentNoteIndex);
 
   if(!isPlaying)
   { //非再生時のみ実行
@@ -635,7 +654,7 @@ function startAutoPlay(currentSong,currentNoteIndex)
             if(currentNoteIndex<currentSongLength)
             {
             
-             // console.log("D currentNoteIndex is...."+currentNoteIndex);
+            
 
 
                 
@@ -652,8 +671,8 @@ function startAutoPlay(currentSong,currentNoteIndex)
     else
     {
             
-              console.log("end3");
-              endAutoPlay();
+              
+              finishAutoPlay();
     }
 
 } // closing autoPlay function
@@ -669,9 +688,11 @@ function startAutoPlay(currentSong,currentNoteIndex)
 
 function setKeyboardEnabled(enabled) {
   var keys = document.querySelectorAll('.key');
+
+/*
   for (var i = 0; i < keys.length; i++) {
     var el = keys[i];
-    if (enabled === true) {
+    if (enabled ) {
       el.style.pointerEvents = 'auto';
       el.classList.remove('is-disabled');
     } else {
@@ -679,6 +700,30 @@ function setKeyboardEnabled(enabled) {
       el.classList.add('is-disabled');
     }
   }
+*/
+
+//Rewriting the for above as forEach
+
+keys.forEach(el =>{
+/*
+   if (enabled ) {
+      el.style.pointerEvents = 'auto';
+      el.classList.remove('is-disabled');
+    } else {
+      el.style.pointerEvents = 'none';
+      el.classList.add('is-disabled');
+    }
+  */
+  //Rewriting those above with Ternary Operator
+
+  enabled?el.style.pointerEvents = 'auto':el.style.pointerEvents = 'none';
+  enabled?el.classList.remove('is-disabled'):el.classList.add('is-disabled');
+
+
+})
+
+
+
 }
 
 
