@@ -218,7 +218,7 @@ align-items:center;
       <div class="letterInUpperDisplay">Playing:</div>
       </div>
           <div class="autoPlay">
-            <button class="autoPlayButton" onclick="startAutoPlay(null,0)">
+            <button class="autoPlayButton" onclick="startAutoPlay()">
               自動演奏
             </button>
           </div>
@@ -258,6 +258,8 @@ align-items:center;
 <script>
 /////////////////global variables /////////////////////////////////////////////////////////////////////////
 
+
+let isMuted = false
 let isPlaying=false
 let currentNoteIndex=0
 let currentSong=null
@@ -388,34 +390,35 @@ function highlightOnce(note, ms = 500) {
 function showNote(note)
 { 
     clearTimeout(displayTimerId);
-    $('.letter').text(note);            // displaying note 
-    if(note){
+    const safeNote=note||"";     //  the || is for error prevention. if the note is falsy it will take the value on the right side.
+    $('.letter').text(safeNote);            // displaying note 
+    if(safeNote){
     displayTimerId=setTimeout(function(){ // making it disappear in 1 sec
     $('.letter').text("");
   },ERASE_MS)
     }
-  highlightOnce(note);
+  highlightOnce(safeNote);
   
 } //closing showNote function
 
 
-function stopAutoPlay(currentSong,currentNoteIndex)  // 因数を取らない形に書き直しせよとのこと
+function stopAutoPlay()  // 引数を取らない形に書き直しせよとのこと//これらはすでにglobal variablesに存在しているので引数として渡すこと自体が不要 そのため単に削除するだけでよし
 {
-          console.log("stopped");
+          
             isManuallyStopped=true 
             
-             clearTimeout(playTimerId);
-             console.log("the song has been paused!!");
-             console.log("A currentNoteIndex is...."+currentNoteIndex);
+            clearTimeout(playTimerId);
+            
+            
               setKeyboardEnabled(true);  
 
               isPlaying=false;
                 $('.autoPlayButton').text('自動演奏');
-          $('.autoPlayButton').attr('onclick',`startAutoPlay('${currentSong}',0)
-          console.log("pause disabled")`);
-            console.log('<button>attribute changed to,'+'${currentSong}');
-           $('.letterInUpperDisplay').css('display','none');
-           console.log("currentSong is..."+currentSong);
+          $('.autoPlayButton').attr('onclick',`startAutoPlay()
+          `);
+            
+            $('.letterInUpperDisplay').css('display','none');
+        
 
 
 
@@ -430,18 +433,19 @@ function stopAutoPlay(currentSong,currentNoteIndex)  // 因数を取らない形
  function finishAutoPlay()
  {
               
-              console.log("finishAutoPlay called, playTimerID =", playTimerId);
+
               clearTimeout(playTimerId);
-              console.log("the song has reached the end!!")
+              
               setKeyboardEnabled(true); 
               isPlaying=false;
+              currentNoteIndex = 0; 
 
-            $('.autoPlayButton').text('AutoPlay');
-          $('.autoPlayButton').attr('onclick','startAutoPlay(null,0)');
+            $('.autoPlayButton').text('自動演奏');
+          $('.autoPlayButton').attr('onclick','startAutoPlay()');
 
            $('.letterInUpperDisplay').css('display','none');
               
-              console.log("currentSong is..."+currentSong);
+              
               return;
   } //closing stopAutoPlay function
 
@@ -454,9 +458,9 @@ if(Number($volumeSlider.val())===0){
 else{
   isMuted=false
   previousVolume=$('#volumeSlider').val()
-  console.log("previousVolume was..."+$('#volumeSlider').val());
+  
 }
-console.log("isMuted...."+isMuted);
+
 
 if(!isMuted){
 const audioContext=new AudioContext();//set up a foundation creating audio context
@@ -465,14 +469,11 @@ $('#volumeSlider').val(0);
 volume=0;
 
 gainNode.gain.value=0
-console.log("Current Volume is "+volume);
 isMuted=true
-console.log("isMuted...."+isMuted);
 $('.muteButton').attr("src","materials/images/icons8-volume-60 - Copy.png");
 }
 else{ // isMuted is true
   $('#volumeSlider').val(previousVolume);
-  console.log("restored to the previousVolume "+previousVolume);
   $('.muteButton').attr("src","materials/images/icons8-volume-60.png");
 }
 
@@ -486,7 +487,6 @@ function octaveUp()
                 octaveFactor=octaveFactor*2
                 currentOctave=currentOctave+1
                 //$('.octaveButton').addClass('octaveButtonPressed');
-                console.log("currentOctave is "+currentOctave);
 
                 if(currentOctave>4){
                   $('body').removeClass('lowerOctave');
@@ -506,7 +506,6 @@ function octaveDown()
           octaveFactor=octaveFactor*0.5
           currentOctave=currentOctave-1
           //$('.octaveButton').addClass('octaveButtonPressed');
-          console.log("currentOctave is "+currentOctave);
 
           if(currentOctave<4){
             $('body').removeClass('higherOctave');
@@ -542,7 +541,6 @@ function playTone(note)
 
 volume=Number($volumeSlider.val());
 gainNode.gain.value=volume/100;  // setting volume
-console.log("Current Volume is "+volume);
 
 
 
@@ -555,26 +553,17 @@ console.log("Current Volume is "+volume);
 
 
 
-function startAutoPlay(currentSong,currentNoteIndex)
+function startAutoPlay()
 {
-    songPlay= function (currentSong,currentNoteIndex)
+   currentNoteIndex = 0;       // 曲の頭から
+  isManuallyStopped = false;  // 手動停止フラグをリセット
+
+    songPlay= function ()
                 {  //関数を設定
                       const audioContext=new AudioContext();//set up a foundation
+                  
                       
-  
-
-
-
-
-
-
-
-
-                    
-
-
-                      
-                      playNextNote=function(currentSong,currentNoteIndex)
+                      playNextNote=function()
                       {
                           
 
@@ -582,7 +571,7 @@ function startAutoPlay(currentSong,currentNoteIndex)
                           {
                                   
                                   $('.autoPlayButton').text('演奏停止');
-                                  $('.autoPlayButton').attr('onclick',`stopAutoPlay('${currentSong}','${currentNoteIndex}')`)
+                                  $('.autoPlayButton').attr('onclick',`stopAutoPlay()`)
 
                                     const gainNode=audioContext.createGain();   //creating Gain Node for volume control                           
                                     const oscillator=audioContext.createOscillator(); // creating an oscillator
@@ -590,7 +579,7 @@ function startAutoPlay(currentSong,currentNoteIndex)
                                     gainNode.connect(audioContext.destination);//connecting to speakers
                                     volume=Number($volumeSlider.val());
                                     gainNode.gain.value=volume/100;
-                                    console.log("Current Volume is "+volume);
+                                  
                                   
 
                                     oscillator.frequency.value=NOTE_FREQ[SCORES[currentSong][currentNoteIndex].note]*octaveFactor
@@ -602,7 +591,8 @@ function startAutoPlay(currentSong,currentNoteIndex)
                                     
 
                                     playTimerId=setTimeout(function(){
-                                        playNextNote(currentSong,currentNoteIndex+1)}
+                                      currentNoteIndex=currentNoteIndex+1
+                                        playNextNote()}
                                     ,
                                     SCORES[currentSong][currentNoteIndex].duration);
 
@@ -617,7 +607,7 @@ function startAutoPlay(currentSong,currentNoteIndex)
                       } // closing PlayNextNote function
 
                       
-                        playNextNote(currentSong,currentNoteIndex);
+                        playNextNote();
                     }// closing songPlay
 
 
@@ -629,7 +619,7 @@ function startAutoPlay(currentSong,currentNoteIndex)
                                                      //select between two songs randomly
             isPlaying=true;  //再生状態にする
             
-            console.log('starting play');
+          
 
             if(currentSong===null)
                   {
@@ -638,19 +628,12 @@ function startAutoPlay(currentSong,currentNoteIndex)
                       currentSong=randomSong
                     
                   }
-            console.log("Playing"+currentSong);
-            console.log("currentSong is.."+currentSong);
             $('.letterInUpperDisplay').text("Playing:"+currentSong);
             $('.letterInUpperDisplay').css('display','block');
             currentSongLength=SCORES[currentSong].length
-            console.log("currentSongLength="+currentSongLength);
 
             setKeyboardEnabled(false); 
 
-         
-
-
-            console.log("currentNoteIndex"+currentNoteIndex+",currentSongLength"+currentSongLength);
             if(currentNoteIndex<currentSongLength)
             {
             
@@ -663,7 +646,7 @@ function startAutoPlay(currentSong,currentNoteIndex)
 
 
 
-              songPlay(currentSong,currentNoteIndex);//関数を実行
+              songPlay();//関数を実行
             
 
     }  //closing if statement 
@@ -706,7 +689,7 @@ function setKeyboardEnabled(enabled) {
 
 keys.forEach(el =>{
 /*
-   if (enabled ) {
+  if (enabled ) {
       el.style.pointerEvents = 'auto';
       el.classList.remove('is-disabled');
     } else {
