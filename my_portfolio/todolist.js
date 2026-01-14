@@ -1,4 +1,4 @@
-const taskInput = document.getElementById('task-input');
+const taskInput = document.getElementById('task-input');//入力フィールド取得
 const addButton = document.getElementById('add-task-button');
 const taskList = document.getElementById('task-list');
 // Function to add a new task
@@ -13,6 +13,9 @@ function addTask() {
   ////////////////////////////////////////////////////////////////////////////
 
   const taskItem = document.createElement('li');
+  taskItem.addEventListener('click', () => {
+  console.log("LI clicked!");
+});
   //checkbox on the LEFT
   const checkbox=document.createElement('input');//input 要素を生成
   checkbox.type='checkbox';//それをチェックボックスへと変化させる
@@ -21,7 +24,7 @@ function addTask() {
 // task text
 const taskSpan = document.createElement('span');
 
-  taskSpan.textContent = taskText;
+  taskSpan.textContent = taskText;// spanをinputされたvalueで上書き
 
   //  creating a delete button 
   const deleteButton = document.createElement('button'); //button要素を作成
@@ -30,9 +33,9 @@ const taskSpan = document.createElement('span');
 
   // delete only, no toggle
 
-  deleteButton.addEventListener('click', (e) => {
+  deleteButton.addEventListener('click', (e) => {//deleteButtonにclick handlerを付与
 
-    e.stopPropagation();
+  /*  e.stopPropagation();*/
 
     taskItem.remove();
 
@@ -41,11 +44,11 @@ const taskSpan = document.createElement('span');
 
   //  toggle completed  when checkbox changes
 
-  checkbox.addEventListener('change', 
+  checkbox.addEventListener('change', // adding a change handler to the checkbox. change handler triggers when the checkbox checked.
   () => {
 
-    taskItem.classList.toggle('completed', checkbox.checked);
-
+    taskItem.classList.toggle('completed', checkbox.checked);// CSS 付与切り替え
+                                                    //class              // condition         if checkbox.checked is true, it adds .completed and removes it if it's false.
   });
 
 
@@ -61,10 +64,10 @@ const taskSpan = document.createElement('span');
   taskInput.value = "";
 }
 // Event listener for the add button
-addButton.addEventListener('click', addTask);
+addButton.addEventListener('click', addTask);//addButtonにclick handlerを付与
 // Allow pressing Enter to add a task
-taskInput.addEventListener('keypress', (e) => {
+taskInput.addEventListener('keypress', (e) => {//入力フィールドにkeypress handlerを付与//e はevent object that contains data of the user action
   if (e.key === 'Enter') {
-    addTask();
+    addTask(); //addTask()を実行
   }
 });
