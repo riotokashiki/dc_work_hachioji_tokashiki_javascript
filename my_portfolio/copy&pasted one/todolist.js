@@ -3,7 +3,7 @@ const addButton = document.getElementById('add-task-button');
 const taskList = document.getElementById('task-list');
 // Function to add a new task
 function addTask() {
-  const taskText = taskInput.value.trim();//value in the input field  テキストボックスへ入力された値（文字等）
+  const taskText = taskInput.value.trim();//value in the input field  テキストボックスへ入力された値（文字等）//trim()にて空白除去
 
 /// fallback plan/////////////////////////////////////////////////////////////
   if (taskText === "") {//もしテキストがなにも記入されていなかったら、
