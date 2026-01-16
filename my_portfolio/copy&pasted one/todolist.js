@@ -1,6 +1,26 @@
 const taskInput = document.getElementById('task-input');//入力フィールド取得
 const addButton = document.getElementById('add-task-button');
 const taskList = document.getElementById('task-list');
+const completedList = document.getElementById('completed-list');
+
+const completedHeading = document.createElement('h3');
+completedHeading.textContent = 'Completed';
+completedHeading.style.display = 'none'; 
+completedList.before(completedHeading);
+
+
+
+function toggleCompletedHeading() {
+  if (completedList.children.length > 0) {
+    completedHeading.style.display = 'block';  // Show "Completed"
+  } else {
+    completedHeading.style.display = 'none';   // Hide "Completed" 
+  }
+}
+
+
+
+
 // Function to add a new task
 function addTask() {
   const taskText = taskInput.value.trim();//value in the input field  テキストボックスへ入力された値（文字等）//trim()にて空白除去
@@ -35,7 +55,7 @@ const taskSpan = document.createElement('span');
 
   deleteButton.addEventListener('click', (e) => {//deleteButtonにclick handlerを付与
 
-  /*  e.stopPropagation();*/
+    e.stopPropagation();
 
     taskItem.remove();
 
@@ -44,12 +64,24 @@ const taskSpan = document.createElement('span');
 
   //  toggle completed  when checkbox changes
 
-  checkbox.addEventListener('change', // adding a change handler to the checkbox. change handler triggers when the checkbox checked.
-  () => {
+checkbox.addEventListener('change', (e) => {
+  e.stopPropagation();
+    console.log('Checkbox changed!', checkbox.checked);  // ← ADD THIS
+  console.log('completedList exists?', !!completedList);  // ← ADD THIS
+  taskItem.classList.toggle("completed");
+  
+  if (checkbox.checked) {
+    completedList.prepend(taskItem);
+  } else {
+    const originalIndex = parseInt(taskItem.dataset.originalIndex);
+  taskList.insertBefore(taskItem, taskList.children[originalIndex] || null);  // 
+  }
 
-    taskItem.classList.toggle('completed', checkbox.checked);// CSS 付与切り替え
-                                                    //class              // condition         if checkbox.checked is true, it adds .completed and removes it if it's false.
-  });
+toggleCompletedHeading();
+
+});
+
+
 
 
   // order = LEFT → RIGHT
@@ -59,7 +91,8 @@ const taskSpan = document.createElement('span');
   taskItem.appendChild(taskSpan);     // center
 
   taskItem.appendChild(deleteButton); // right
-  taskList.appendChild(taskItem);
+  taskItem.dataset.originalIndex = taskList.children.length; 
+  taskList.prepend(taskItem);
   // Clear the input field
   taskInput.value = "";
 }
