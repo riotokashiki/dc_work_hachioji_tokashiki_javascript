@@ -21,8 +21,108 @@ function toggleCompletedHeading() {
 
 
 
+// === LOCAL STORAGE FUNCTIONS ===
+function saveTasks() {
+  const tasks = Array.from(taskList.children).map(li => ({
+    text: li.querySelector('span').textContent,
+    completed: false,
+    originalIndex: li.dataset.originalIndex || 0
+  }));
+  
+  const completed = Array.from(completedList.children).map(li => ({
+    text: li.querySelector('span').textContent,
+    completed: true,
+    originalIndex: li.dataset.originalIndex || 0
+  }));
+  
+  localStorage.setItem('todoTasks', JSON.stringify([...tasks, ...completed]));
+}
+
+function loadTasks() {
+  const saved = localStorage.getItem('todoTasks');
+  if (!saved) return;
+  
+  const tasks = JSON.parse(saved);
+  tasks.forEach(task => {
+    const taskItem = document.createElement('li');
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.classList.add('task-checkbox');
+    if (task.completed) checkbox.checked = true;
+    
+    const taskSpan = document.createElement('span');
+    taskSpan.textContent = task.text;
+    
+    const deleteButton = document.createElement('button');
+    deleteButton.textContent = 'Delete';
+    deleteButton.classList.add('delete-btn');
+    
+    taskItem.appendChild(checkbox);
+    taskItem.appendChild(taskSpan);
+    taskItem.appendChild(deleteButton);
+    taskItem.dataset.originalIndex = task.originalIndex;
+    
+    // Add event listeners (copy from addTask)
+    deleteButton.addEventListener('click', (e) => {
+      e.stopPropagation();
+      taskItem.classList.add('deleted');
+      taskItem.addEventListener('animationend', () => {
+        taskItem.remove();
+        toggleCompletedHeading();
+        saveTasks();
+      }, { once: true });
+    });
+    
+    checkbox.addEventListener('change', (e) => {
+      e.stopPropagation();
+      if (checkbox.checked) {
+        taskItem.classList.add('taskCompleted');
+        taskItem.addEventListener('animationend', () => {
+          taskItem.classList.remove('taskCompleted');
+          taskItem.classList.add('completed');
+          completedList.prepend(taskItem);
+          toggleCompletedHeading();
+          saveTasks();
+        }, { once: true });
+      } else {
+        taskItem.classList.remove('completed');
+        taskItem.classList.add('movingBack');
+        taskList.insertBefore(taskItem, taskList.children[task.originalIndex] || null);
+        toggleCompletedHeading();
+        saveTasks();
+        setTimeout(() => taskItem.classList.remove('movingBack'), 250);
+      }
+    });
+    
+    if (task.completed) {
+      taskItem.classList.add('completed');
+      completedList.appendChild(taskItem);
+    } else {
+      taskList.appendChild(taskItem);
+    }
+  });
+  toggleCompletedHeading();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Function to add a new task
 function addTask() {
+  addButton.classList.add('addButtonPushed');
+    setTimeout(() => {
+    addButton.classList.remove('addButtonPushed');
+  }, 100); // matches your 0.1s-ish transition
+
   const taskText = taskInput.value.trim();//value in the input field  テキストボックスへ入力された値（文字等）//trim()にて空白除去
 
 /// fallback plan/////////////////////////////////////////////////////////////
@@ -56,29 +156,44 @@ const taskSpan = document.createElement('span');
   deleteButton.addEventListener('click', (e) => {//deleteButtonにclick handlerを付与
 
     e.stopPropagation();
+     taskItem.classList.add('deleted');         // start fade-out
 
-    taskItem.remove();
-
-  });
+  taskItem.addEventListener('animationend', () => {
+    taskItem.remove();                       // remove AFTER animation finishes
+    toggleCompletedHeading();    
+    saveTasks();
+    
+               // update "Completed" heading
+  }, { once: true });                        // run only once
+});
   
 
   //  toggle completed  when checkbox changes
 
+
+
 checkbox.addEventListener('change', (e) => {
   e.stopPropagation();
-    console.log('Checkbox changed!', checkbox.checked);  // ← ADD THIS
-  console.log('completedList exists?', !!completedList);  // ← ADD THIS
-  taskItem.classList.toggle("completed");
   
   if (checkbox.checked) {
-    completedList.prepend(taskItem);
+    taskItem.classList.add('taskCompleted');
+    
+    taskItem.addEventListener('animationend', () => {
+      taskItem.classList.remove('taskCompleted');
+      taskItem.classList.add('completed');
+      completedList.prepend(taskItem);
+      toggleCompletedHeading();
+      saveTasks(); 
+    }, { once: true });
+    
   } else {
+    taskItem.classList.remove('completed');
+    taskItem.classList.add('movingBack');                                              //adding animation 
     const originalIndex = parseInt(taskItem.dataset.originalIndex);
-  taskList.insertBefore(taskItem, taskList.children[originalIndex] || null);  // 
+    taskList.insertBefore(taskItem, taskList.children[originalIndex] || null);
+    toggleCompletedHeading();
+    setTimeout(()=>{taskItem.classList.remove('movingBack') } ,250);
   }
-
-toggleCompletedHeading();
-
 });
 
 
@@ -101,6 +216,14 @@ addButton.addEventListener('click', addTask);//addButtonにclick handlerを付�
 // Allow pressing Enter to add a task
 taskInput.addEventListener('keypress', (e) => {//入力フィールドにkeypress handlerを付与//e はevent object that contains data of the user action
   if (e.key === 'Enter') {
+
     addTask(); //addTask()を実行
   }
+
+
+
 });
+
+
+
+

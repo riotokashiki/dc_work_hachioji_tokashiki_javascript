@@ -33,17 +33,27 @@ h1 {
   border: 1px solid #ddd;
   border-radius: 4px;
 }
-button {
+.addButton {
   padding: 10px 20px;
   background-color: #4CAF50;
   color: white;
-  border: none;
+    border: 0;
+    border-bottom: 5px solid #367039;
   border-radius: 4px;
   cursor: pointer;
+  transition:all 0.03s ease;
+
 }
-button:hover {
-  background-color: #45a049;
+.addButton:hover {
+  background-color: #5fc962;
+   border-bottom:5px solid #478a4a;
 }
+.addButtonPushed{
+  background-color: #63c266;
+  border-bottom:0px!important;
+  transform:translateY(5px);
+  transition:all 0.03s ease;
+} 
 ul {
   list-style-type: none;
   padding: 0;
@@ -53,7 +63,26 @@ li {
   align-items: center;
   justify-content: space-between;
   gap: 10px;
+  margin:5px 0px;
+  animation-name:fadeIn;
+  animation-duration:0.25s;
+  animation-timing-function:ease;
+
 }
+@keyframes fadeIn{
+  from{
+    opacity:0;
+    transform:translate(0px,-20px);
+  }
+  to{
+    opacity:1;
+    transform:translate(0px,0px);
+  }
+
+}
+
+
+
 .task-checkbox {
   flex-shrink: 0;
 }
@@ -71,7 +100,56 @@ li.completed {
   cursor: pointer;
 }
 .delete-btn:hover {
-  background-color: #e53935;
+  background-color: #ff5a4f;
+}
+
+.deleted{
+animation-name:deleted;
+animation-timing-function: ease;
+animation-duration:0.25s;
+
+}
+
+@keyframes deleted{
+from{opacity:1;
+            transform:translateX(opx);
+}
+to{opacity:0;
+      transform:translateX(30px);
+}
+}
+
+
+.taskCompleted{
+animation-name:completed;
+animation-timing-function: ease;
+animation-duration:0.25s;
+
+}
+@keyframes completed{
+from{opacity:1;
+            transform:translateY(opx);
+}
+to{opacity:0;
+      transform:translateY(30px);
+}
+}
+
+
+.movingBack{
+animation-name:movingBack;
+animation-timing-function: ease;
+animation-duration:0.25s;
+
+}
+
+@keyframes movingBack{
+from{opacity:1;
+            transform:translateY(opx);
+}
+to{opacity:0;
+      transform:translateY(-30px);
+}
 }
 
   </style>
@@ -80,7 +158,7 @@ li.completed {
   <div class="container">
     <h1>My To-Do List</h1>
     <input type="text" id="task-input" placeholder="Enter a new task">
-    <button id="add-task-button">+</button>
+    <button id="add-task-button" class="addButton">+</button>
     <ul id="task-list"></ul>
     <ul id="completed-list"></ul>
   </div>
