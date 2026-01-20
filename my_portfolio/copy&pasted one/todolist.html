@@ -67,8 +67,19 @@ li {
   animation-name:fadeIn;
   animation-duration:0.25s;
   animation-timing-function:ease;
-
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transform: translateY(-20px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+li.show {
+  max-height: 60px;  /* Adjust to your li height */
+  opacity: 1;
+  transform: translateY(0);
+}
+
 @keyframes fadeIn{
   from{
     opacity:0;

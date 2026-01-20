@@ -208,8 +208,11 @@ checkbox.addEventListener('change', (e) => {
   taskItem.appendChild(deleteButton); // right
   taskItem.dataset.originalIndex = taskList.children.length; 
   taskList.prepend(taskItem);
-  // Clear the input field
-  taskInput.value = "";
+setTimeout(() => {
+  taskItem.classList.add('show');
+  saveTasks();
+}, 10);
+taskInput.value = "";
 }
 // Event listener for the add button
 addButton.addEventListener('click', addTask);//addButtonにclick handlerを付与
