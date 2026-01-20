@@ -6,7 +6,13 @@ const completedList = document.getElementById('completed-list');
 const completedHeading = document.createElement('h3');
 completedHeading.textContent = 'Completed';
 completedHeading.style.display = 'none'; 
+
+document.addEventListener('DOMContentLoaded', loadTasks);
+
 completedList.before(completedHeading);
+
+
+const sortButton = document.getElementById('sort-btn');
 
 
 
@@ -23,20 +29,27 @@ function toggleCompletedHeading() {
 
 // === LOCAL STORAGE FUNCTIONS ===
 function saveTasks() {
-  const tasks = Array.from(taskList.children).map(li => ({
-    text: li.querySelector('span').textContent,
-    completed: false,
-    originalIndex: li.dataset.originalIndex || 0
-  }));
+  const allTasks = [
+    // Active tasks (false)
+    ...Array.from(taskList.children).map(li => ({
+      text: li.querySelector('span').textContent,
+      completed: false,
+      priority: li.dataset.priority || 'medium'
+      // Remove originalIndex - not needed anymore
+    })),
+    
+    // Completed tasks (true)  
+    ...Array.from(completedList.children).map(li => ({
+      text: li.querySelector('span').textContent,
+      completed: true,
+      priority: li.dataset.priority || 'medium'
+      // Remove originalIndex - not needed anymore
+    }))
+  ];
   
-  const completed = Array.from(completedList.children).map(li => ({
-    text: li.querySelector('span').textContent,
-    completed: true,
-    originalIndex: li.dataset.originalIndex || 0
-  }));
-  
-  localStorage.setItem('todoTasks', JSON.stringify([...tasks, ...completed]));
+  localStorage.setItem('todoTasks', JSON.stringify(allTasks));
 }
+
 
 function loadTasks() {
   const saved = localStorage.getItem('todoTasks');
@@ -60,17 +73,16 @@ function loadTasks() {
     taskItem.appendChild(checkbox);
     taskItem.appendChild(taskSpan);
     taskItem.appendChild(deleteButton);
-    taskItem.dataset.originalIndex = task.originalIndex;
     
     // Add event listeners (copy from addTask)
-    deleteButton.addEventListener('click', (e) => {
-      e.stopPropagation();
-      taskItem.classList.add('deleted');
-      taskItem.addEventListener('animationend', () => {
-        taskItem.remove();
-        toggleCompletedHeading();
-        saveTasks();
-      }, { once: true });
+        deleteButton.addEventListener('click', (e) => {
+        e.stopPropagation();
+        taskItem.classList.add('deleted');
+        taskItem.addEventListener('transitionend', () => {  // ← Changed from animationend
+          taskItem.remove();
+          toggleCompletedHeading();
+          saveTasks();
+            }, { once: true });
     });
     
     checkbox.addEventListener('change', (e) => {
@@ -85,13 +97,13 @@ function loadTasks() {
           saveTasks();
         }, { once: true });
       } else {
-        taskItem.classList.remove('completed');
-        taskItem.classList.add('movingBack');
-        taskList.insertBefore(taskItem, taskList.children[task.originalIndex] || null);
-        toggleCompletedHeading();
-        saveTasks();
-        setTimeout(() => taskItem.classList.remove('movingBack'), 250);
-      }
+  taskItem.classList.remove('completed');
+  taskItem.classList.add('movingBack');
+  taskList.prepend(taskItem);
+  toggleCompletedHeading();
+  saveTasks();
+  setTimeout(() => taskItem.classList.remove('movingBack'), 250);
+}
     });
     
     if (task.completed) {
@@ -99,6 +111,8 @@ function loadTasks() {
       completedList.appendChild(taskItem);
     } else {
       taskList.appendChild(taskItem);
+      taskItem.dataset.priority = task.priority || 'medium'; 
+      taskItem.classList.add('show'); 
     }
   });
   toggleCompletedHeading();
@@ -125,6 +139,8 @@ function addTask() {
 
   const taskText = taskInput.value.trim();//value in the input field  テキストボックスへ入力された値（文字等）//trim()にて空白除去
 
+  
+
 /// fallback plan/////////////////////////////////////////////////////////////
   if (taskText === "") {//もしテキストがなにも記入されていなかったら、
     alert("Please enter a task!");//アラートを鳴らし、
@@ -133,6 +149,8 @@ function addTask() {
   ////////////////////////////////////////////////////////////////////////////
 
   const taskItem = document.createElement('li');
+  const priority = document.getElementById('priority-select').value;
+taskItem.dataset.priority = priority;  // Save to element
   taskItem.addEventListener('click', () => {
   console.log("LI clicked!");
 });
@@ -153,13 +171,11 @@ const taskSpan = document.createElement('span');
 
   // delete only, no toggle
 
-  deleteButton.addEventListener('click', (e) => {//deleteButtonにclick handlerを付与
-
-    e.stopPropagation();
-     taskItem.classList.add('deleted');         // start fade-out
-
-  taskItem.addEventListener('animationend', () => {
-    taskItem.remove();                       // remove AFTER animation finishes
+  deleteButton.addEventListener('click', (e) => {
+  e.stopPropagation();
+  taskItem.classList.add('deleted');
+  taskItem.addEventListener('transitionend', () => {  // ← Changed from animationend
+    taskItem.remove();                 // remove AFTER animation finishes
     toggleCompletedHeading();    
     saveTasks();
     
@@ -187,13 +203,13 @@ checkbox.addEventListener('change', (e) => {
     }, { once: true });
     
   } else {
-    taskItem.classList.remove('completed');
-    taskItem.classList.add('movingBack');                                              //adding animation 
-    const originalIndex = parseInt(taskItem.dataset.originalIndex);
-    taskList.insertBefore(taskItem, taskList.children[originalIndex] || null);
-    toggleCompletedHeading();
-    setTimeout(()=>{taskItem.classList.remove('movingBack') } ,250);
-  }
+  taskItem.classList.remove('completed');
+  taskItem.classList.add('movingBack');
+  taskList.prepend(taskItem);
+  toggleCompletedHeading();
+  saveTasks();
+  setTimeout(() => taskItem.classList.remove('movingBack'), 250);
+}
 });
 
 
@@ -206,7 +222,6 @@ checkbox.addEventListener('change', (e) => {
   taskItem.appendChild(taskSpan);     // center
 
   taskItem.appendChild(deleteButton); // right
-  taskItem.dataset.originalIndex = taskList.children.length; 
   taskList.prepend(taskItem);
 setTimeout(() => {
   taskItem.classList.add('show');
@@ -214,6 +229,36 @@ setTimeout(() => {
 }, 10);
 taskInput.value = "";
 }
+
+function sortTasks() {
+  const tasks = Array.from(taskList.children);
+
+  // Define priority order
+  const priorityOrder = {
+    high: 1,
+    medium: 2,
+    low: 3
+  };
+
+  // Sort tasks according to priority
+  tasks.sort((a, b) => {
+    const priorityA = priorityOrder[a.dataset.priority] || 2;
+    const priorityB = priorityOrder[b.dataset.priority] || 2;
+    return priorityA - priorityB;
+  });
+
+  // Clear and re-append in new order
+  taskList.innerHTML = '';
+  tasks.forEach(task => taskList.appendChild(task));
+
+  // Save new order to localStorage
+  saveTasks();
+}
+
+sortButton.addEventListener('click', sortTasks);
+
+
+
 // Event listener for the add button
 addButton.addEventListener('click', addTask);//addButtonにclick handlerを付与
 // Allow pressing Enter to add a task
@@ -227,6 +272,11 @@ taskInput.addEventListener('keypress', (e) => {//入力フィールドにkeypres
 
 });
 
+sortButton.addEventListener('click', () => {
+  sortButton.textContent = "Sorted by Priority ✅";
+  setTimeout(() => sortButton.textContent = "Sort by Priority", 1500);
+  sortTasks();
+});
 
 
 
