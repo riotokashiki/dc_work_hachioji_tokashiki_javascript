@@ -255,7 +255,6 @@ function sortTasks() {
   saveTasks();
 }
 
-sortButton.addEventListener('click', sortTasks);
 
 
 
