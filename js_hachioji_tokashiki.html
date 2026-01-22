@@ -47,7 +47,7 @@
         border-radius:20px;
         position:relative;
         border-top:5px solid rgb(143, 0, 100);
-         background-image: linear-gradient(to bottom, #76adff, #0004ff);
+        background-image: linear-gradient(to bottom, #76adff, #0004ff);
       }
       .keys{
         /*background-color:pink;*/
@@ -60,23 +60,23 @@
       }
 
       .key{
-         border:1px solid black;
-         width:15%;
-         height:99%;
-         border-radius:10px 10px 40px 40px;
-         background-color:white;
-         transition: all 0.1s ease-out;
-         border-bottom: 10px solid #bfb8b8;
-         position:relative;
+          border:1px solid black;
+          width:15%;
+          height:99%;
+          border-radius:10px 10px 40px 40px;
+          background-color:white;
+          transition: all 0.1s ease-out;
+          border-bottom: 10px solid #bfb8b8;
+          position:relative;
       }
 
       .key.glowing{
         transform: translateY(10px);
         background-color:rgb(255, 136, 0);
         transition: all 0.1s ease-out;
-         border-bottom: 10px solid rgb(187, 100, 0);
-         border-top: 5px solid rgb(187, 100, 0);
-         
+        border-bottom: 10px solid rgb(187, 100, 0);
+        border-top: 5px solid rgb(187, 100, 0);
+        
       }
 
       .letter{
@@ -194,13 +194,13 @@ align-items:center;
         color:#bebebe;
       }
       .key .fa{
-               position:absolute;
+              position:absolute;
         
         left:25px; 
       }
 
       .key.keyPushed .letters{
-         color:rgb(187, 100, 0)!important;
+      color:rgb(187, 100, 0)!important;
       }
 
 
@@ -256,6 +256,7 @@ align-items:center;
 
 
 <script>
+  "use strict";
 /////////////////global variables /////////////////////////////////////////////////////////////////////////
 
 
@@ -558,7 +559,7 @@ function startAutoPlay()
    currentNoteIndex = 0;       // 曲の頭から
   isManuallyStopped = false;  // 手動停止フラグをリセット
 
-    songPlay= function ()
+    songPlay= function ()  //the tutor says this is a problem,which is an implicit global but not local function.
                 {  //関数を設定
                       const audioContext=new AudioContext();//set up a foundation
                   
