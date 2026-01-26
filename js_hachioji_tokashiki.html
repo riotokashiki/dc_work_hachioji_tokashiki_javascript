@@ -542,120 +542,65 @@ gainNode.gain.value=volume/100;  // setting volume
   
 } // closing PlaySound function
 
+function startAutoPlay() {
+  // Guard clause 
+  if (isPlaying) {
+    finishAutoPlay();
+    return;
+  }
 
+  // Now we're starting
+  isPlaying = true;
+  isManuallyStopped = false;
+  currentNoteIndex = 0;
 
-function startAutoPlay()
-{
-   currentNoteIndex = 0;       // 曲の頭から
-  isManuallyStopped = false;  // 手動停止フラグをリセット
+  // Select song if needed
+  if (currentSong === null) {
+    const mora = Object.keys(SCORES);
+    const randomSong = mora[Math.floor(Math.random() * mora.length)];
+    currentSong = randomSong;
+  }
+
+  // Problem 4: Update UI using helper functions
+  setUpperDisplay(true, currentSong);
+  setAutoPlayButtonMode(true);
+  
+  currentSongLength = SCORES[currentSong].length;
+  setKeyboardEnabled(false);
+
+  // Start playing
+  const audioContext = new AudioContext();
+
+  function playNextNote() {
+    if (currentNoteIndex < currentSongLength) {
+      const gainNode = audioContext.createGain();
+      const oscillator = audioContext.createOscillator();
+      oscillator.connect(gainNode);
+      gainNode.connect(audioContext.destination);
+      volume = Number($volumeSlider.val());
+      gainNode.gain.value = volume / 100;
+
+      oscillator.frequency.value = NOTE_FREQ[SCORES[currentSong][currentNoteIndex].note] * octaveFactor;
+      oscillator.start();
+      showNote(SCORES[currentSong][currentNoteIndex].note);
+      oscillator.stop(audioContext.currentTime + SCORES[currentSong][currentNoteIndex].duration / 1000);
+
+      playTimerId = setTimeout(function() {
+        currentNoteIndex = currentNoteIndex + 1;
+        playNextNote();
+      }, SCORES[currentSong][currentNoteIndex].duration);
+    } else {
+      finishAutoPlay();
+    }
+  }
+
+  // Start the playback
+  playNextNote();
+}
+
 
     
-                      const audioContext=new AudioContext();//set up a foundation
-                  
-                      
-                      function playNextNote()
-                      {
-                          
 
-                          if(currentNoteIndex<currentSongLength)
-                          {
-                                  
-                                  $('.autoPlayButton').text('演奏停止');
-                                  $('.autoPlayButton').attr('onclick',`stopAutoPlay()`)
-
-                                    const gainNode=audioContext.createGain();   //creating Gain Node for volume control                           
-                                    const oscillator=audioContext.createOscillator(); // creating an oscillator
-                                    oscillator.connect(gainNode);  //connecting to gainNode
-                                    gainNode.connect(audioContext.destination);//connecting to speakers
-                                    volume=Number($volumeSlider.val());
-                                    gainNode.gain.value=volume/100;
-                                  
-                                  
-
-                                    oscillator.frequency.value=NOTE_FREQ[SCORES[currentSong][currentNoteIndex].note]*octaveFactor
-                                    oscillator.start();
-                                    showNote(SCORES[currentSong][currentNoteIndex].note);
-
-                                    oscillator.stop(audioContext.currentTime+SCORES[currentSong][currentNoteIndex].duration/1000);
-                                    
-                                    
-
-                                    playTimerId=setTimeout(function(){
-                                      currentNoteIndex=currentNoteIndex+1
-                                        playNextNote()}
-                                    ,
-                                    SCORES[currentSong][currentNoteIndex].duration);
-
-                          }//closing if statement
-                          else
-                          {
-                              
-                                        finishAutoPlay();
-                          }// closing else statement
-
-                                  
-                      } // closing PlayNextNote function
-
-                      
-                        playNextNote();
-                  
-
-
-
-
-
-  if(!isPlaying)
-  { //非再生時のみ実行
-                                                     //select between two songs randomly
-            isPlaying=true;  //再生状態にする
-            
-          
-
-            if(currentSong===null)
-                  {
-                      const mora=Object.keys(SCORES)                                                                       //random selection function
-                      const randomSong=mora[Math.floor(Math.random() * mora.length)]
-                      currentSong=randomSong
-                    
-                  }
-            $('.letterInUpperDisplay').text("Playing:"+currentSong);
-            $('.letterInUpperDisplay').css('display','block');
-            currentSongLength=SCORES[currentSong].length
-
-            setKeyboardEnabled(false); 
-
-            if(currentNoteIndex<currentSongLength)
-            {
-            
-            
-
-
-                
-            } // closing if statement
-
-
-
-
-              songPlay();//関数を実行
-            
-
-    }  //closing if statement 
-
-    else
-    {
-            
-              
-              finishAutoPlay();
-    }
-
-} // closing autoPlay function
-    
-   /* else{  // もし再生時だったら
-      return;
-      isPlaying=false;
-
-    }
-*/
   
 
 
@@ -700,6 +645,24 @@ keys.forEach(el =>{
 }
 
 
+function setAutoPlayButtonMode(playing) {
+  if (playing) {
+    $('.autoPlayButton').text('演奏停止');
+    $('.autoPlayButton').attr('onclick', 'stopAutoPlay()');
+  } else {
+    $('.autoPlayButton').text('自動演奏');
+    $('.autoPlayButton').attr('onclick', 'startAutoPlay()');
+  }
+}
+
+function setUpperDisplay(visible, songTitle = "") {
+  if (visible) {
+    $('.letterInUpperDisplay').text("Playing:" + songTitle);
+    $('.letterInUpperDisplay').css('display', 'block');
+  } else {
+    $('.letterInUpperDisplay').css('display', 'none');
+  }
+}
 
 
 
