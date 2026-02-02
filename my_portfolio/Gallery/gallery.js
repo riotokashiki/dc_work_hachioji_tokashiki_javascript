@@ -9,11 +9,11 @@ var captionText = document.getElementById("caption");//Fetching the text below t
 var ARYthumbnails=Array.from(document.getElementsByClassName("thumbnails"));
 
 
-ARYthumbnails.forEach((thumbnail)=>{   // allow function doesn't work here?
+ARYthumbnails.forEach(function(thumbnail){   // we execute actions below onto each items in the array
 
-  thumbnail.addEventListener("click",()=>{    //allow function doesn't work here?
-    modal.style.display = "block";
-    modalImg.src = this.src;
+  thumbnail.addEventListener("click",function(){    
+    modal.style.display = "block";// display:none からの blockにて表示
+    modalImg.src = this.src;//modal imageのファイルパスをすり替えることによって画像を変える
     captionText.innerHTML = this.alt;
 
 

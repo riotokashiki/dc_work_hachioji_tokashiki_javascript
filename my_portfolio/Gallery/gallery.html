@@ -30,7 +30,7 @@
 
 /* Modal Content (Image) */
 .modal-content {
-  margin: auto;
+  margin: 0 40px;
   display: block;
   width: 80%;
   max-width: 700px;
@@ -38,7 +38,7 @@
 
 /* Caption of Modal Image (Image Text) - Same Width as the Image */
 #caption {
-  margin: auto;
+  margin: 10px auto;
   display: block;
   width: 80%;
   max-width: 700px;
@@ -83,6 +83,13 @@
     width: 100%;
   }
 }
+
+.navigationAndContentContainer{
+display:flex;
+align-items: center;
+justify-content: center;
+
+}
     </style>
     </head>
     <body>
@@ -90,15 +97,32 @@
       <!-- thumbnail that Triggers the Modal -->
 <img id="myImg" class="thumbnails" src="assets/images/img_snow.jpg" alt="Snow" style="width:100%;max-width:300px"> <!--thumbnail-->
 <img id="myImg" class="thumbnails" src="assets/images/MyForest.jpeg" alt="Forest" style="width:100%;max-width:300px"> <!--thumbnail-->
+<img id="myImg" class="thumbnails" src="assets/images/rock mountains.jpg" alt="Rock Mountains" style="width:100%;max-width:300px"> <!--thumbnail-->
+<img id="myImg" class="thumbnails" src="assets/images/River.jpeg" alt="River" style="width:100%;max-width:300px"> <!--thumbnail-->
+<img id="myImg" class="thumbnails" src="assets/images/Grass Field.jpg" alt="Grass Field" style="width:100%;max-width:300px"> <!--thumbnail-->
+<img id="myImg" class="thumbnails" src="assets/images/Ice Field.jpg" alt="Ice Field" style="width:100%;max-width:300px"> <!--thumbnail-->
+<img id="myImg" class="thumbnails" src="assets/images/Tall trees.jpg" alt="Tall Trees" style="width:100%;max-width:300px"> <!--thumbnail-->
+<img id="myImg" class="thumbnails" src="assets/images/dry grass field.jpg" alt="Dry Grass Field" style="width:100%;max-width:300px"> <!--thumbnail-->
+<img id="myImg" class="thumbnails" src="assets/images/Lake and a Boat.jpg" alt="Lake and a Boat" style="width:100%;max-width:300px"> <!--thumbnail-->
+<img id="myImg" class="thumbnails" src="assets/images/Trees and River.jpg" alt="Trees and River" style="width:100%;max-width:300px"> <!--thumbnail-->
+<img id="myImg" class="thumbnails" src="assets/images/Autmn Foliage.jpg" alt="Autumn Foliage" style="width:100%;max-width:300px"> <!--thumbnail-->
+<img id="myImg" class="thumbnails" src="assets/images/Lake and Mountains.jpg" alt="Lake and Mountains" style="width:100%;max-width:300px"> <!--thumbnail-->
+
+
 <!-- The Modal -->
 <div id="myModal" class="modal">
 
   <!-- The Close Button -->
   <span class="close">&times;</span>
-
-  <!-- Modal Content (The Image) -->
-  <img class="modal-content" id="img01">
-
+  <!-- Container for Nav buttons and Content -->
+  <div class="navigationAndContentContainer">
+    <!-- navigate back button -->
+      <div class="navigate"  style="color:white;">←</div>
+      <!-- Modal Content (The Image) -->
+      <img class="modal-content" id="img01">
+      <!-- navigate forward button -->
+      <div class="navigate" style="color:white;">→</div>
+  </div>
   <!-- Modal Caption (Image Text) -->
   <div id="caption"></div>
 </div>
