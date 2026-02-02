@@ -48,8 +48,19 @@
   height: 150px;
 }
 
+.navigate{
+color:white;
+background-color:gray;
+border-radius:5px;
+}
+
+.navigate:hover{
+  color:rgb(207, 207, 207)!important;
+  background-color:rgb(59, 59, 59);
+}
+
 /* Add Animation - Zoom in the Modal */
-.modal-content, #caption {
+.modal-content, #caption,.navigate {
   animation-name: zoom;
   animation-duration: 0.6s;
 }
@@ -117,11 +128,11 @@ justify-content: center;
   <!-- Container for Nav buttons and Content -->
   <div class="navigationAndContentContainer">
     <!-- navigate back button -->
-      <div class="navigate"  style="color:white;">←</div>
+      <div class="navigate"  id="navigateBack" >←</div>
       <!-- Modal Content (The Image) -->
       <img class="modal-content" id="img01">
       <!-- navigate forward button -->
-      <div class="navigate" style="color:white;">→</div>
+      <div class="navigate" id="navigateForward" >→</div>
   </div>
   <!-- Modal Caption (Image Text) -->
   <div id="caption"></div>

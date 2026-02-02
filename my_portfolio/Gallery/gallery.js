@@ -5,13 +5,16 @@ var modal = document.getElementById("myModal"); //Fetching the Modal window cont
 var img = document.getElementById("myImg");// Fetching the thumbnail
 var modalImg = document.getElementById("img01");//Fetching the Modal content image
 var captionText = document.getElementById("caption");//Fetching the text below the modal content
-
+var navigateBack=document.getElementById("naviateBack");//Fetching the nav back button
+var navigateForward=document.getElementById("naviateForward");//Fetching the nav forward button
 var ARYthumbnails=Array.from(document.getElementsByClassName("thumbnails"));
 
+// var currentIndex=;
 
-ARYthumbnails.forEach(function(thumbnail){   // we execute actions below onto each items in the array
+ARYthumbnails.forEach(function(thumbnail,index){   // we execute actions below onto each items in the array
 
   thumbnail.addEventListener("click",function(){    
+    console.log(index);
     modal.style.display = "block";// display:none からの blockにて表示
     modalImg.src = this.src;//modal imageのファイルパスをすり替えることによって画像を変える
     captionText.innerHTML = this.alt;
@@ -26,7 +29,11 @@ ARYthumbnails.forEach(function(thumbnail){   // we execute actions below onto ea
 
 
 
+function navigateBack(){
+modalImg.src = this.src;//modal imageのファイルパスをすり替えることによって画像を変える
+captionText.innerHTML = this.alt;
 
+};
 
 
 
