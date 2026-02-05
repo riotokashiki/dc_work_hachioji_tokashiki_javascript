@@ -260,19 +260,19 @@ align-items:center;
 /////////////////global variables /////////////////////////////////////////////////////////////////////////
 
 
-let isMuted = false
-let isPlaying=false
-let currentNoteIndex=0
-let currentSong=null
-let currentSongLength=0
-let playTimerId=null
-let isManuallyStopped=false
-let displayTimerId=null
-let volume=50
+let isMuted = false;
+let isPlaying=false;
+let currentNoteIndex=0;
+let currentSong=null;
+let currentSongLength=0;
+let playTimerId=null;
+let isManuallyStopped=false;
+let displayTimerId=null;
+let volume=50;
 let $volumeSlider=$('#volumeSlider')    ;      //capturing volume slider and storing it into a variable "slider". the $ indicates it is a jQuery object
-let previousVolume=100 
-let octaveFactor=1
-let currentOctave=4
+let previousVolume=100 ;
+let octaveFactor=1;
+let currentOctave=4;
 
 const NOTE_FREQ={ //creating an object
   "ド":261.63,  // those numbers are frequencies that'll be given to the functions
@@ -282,8 +282,8 @@ const NOTE_FREQ={ //creating an object
   "ソ":392.00,
   "ラ":440.00,
   "シ":493.88,
-  "":0
-}
+  "":0,
+};
 
 
 const SCORES={
@@ -396,7 +396,7 @@ function showNote(note)
     if(safeNote){
     displayTimerId=setTimeout(function(){ // making it disappear in 1 sec
     $('.letter').text("");
-  },ERASE_MS)
+  },ERASE_MS);
     }
   highlightOnce(safeNote);
   
@@ -459,8 +459,8 @@ const gainNode=audioContext.createGain();   //creating Gain Node for volume cont
 $('#volumeSlider').val(0);
 volume=0;
 
-gainNode.gain.value=0
-isMuted=true
+gainNode.gain.value=0;
+isMuted=true;
 $('.muteButton').attr("src","materials/images/icons8-volume-60 - Copy.png");
 }
 else{ // isMuted is true
@@ -475,8 +475,8 @@ function octaveUp()
 
       if(currentOctave<6)
       {
-                octaveFactor=octaveFactor*2
-                currentOctave=currentOctave+1
+                octaveFactor=octaveFactor*2;
+                currentOctave=currentOctave+1;
                 //$('.octaveButton').addClass('octaveButtonPressed');
 
                 if(currentOctave>4){
@@ -494,8 +494,8 @@ function octaveDown()
 {
         if(currentOctave>2)
         {
-          octaveFactor=octaveFactor*0.5
-          currentOctave=currentOctave-1
+          octaveFactor=octaveFactor*0.5;
+          currentOctave=currentOctave-1;
           //$('.octaveButton').addClass('octaveButtonPressed');
 
           if(currentOctave<4){
