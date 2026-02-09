@@ -375,7 +375,7 @@ const ERASE_MS = 1000;
 ///////////////////functions///////////////////////////////////////////////////////////////////////////////
 
 
-function highlightOnce(note, ms = 500) {
+function highlightOnce(note, ms = 500) { //key growing function
   const sel = NOTE_TO_CLASS[note];
   if (!sel) return;
   const $el = $(sel);
@@ -389,7 +389,7 @@ function highlightOnce(note, ms = 500) {
 
 
 function showNote(note)
-{ 
+{ //showing current note on the display
     clearTimeout(displayTimerId);
     const safeNote=note||"";     //  the || is for error prevention. if the note is falsy it will take the value on the right side.
     $('.letter').text(safeNote);            // displaying note 
@@ -400,7 +400,7 @@ function showNote(note)
     }
   highlightOnce(safeNote);
   
-} //closing showNote function
+} 
 
 
 
@@ -422,7 +422,7 @@ function endAutoPlay({ manuallyStopped }) {
 
 
 
-function stopAutoPlay()  // 引数を取らない形に書き直しせよとのこと//これらはすでにglobal variablesに存在しているので引数として渡すこと自体が不要 そのため単に削除するだけでよし
+function stopAutoPlay()  
 {
     endAutoPlay({ manuallyStopped: true });
 
@@ -524,27 +524,27 @@ function playTone(note)
   const gainNode=audioContext.createGain();   //creating Gain Node for volume control
  
   const oscillator=audioContext.createOscillator(); // creating an oscillator
-  oscillator.connect(gainNode);
+  oscillator.connect(gainNode);// connecting oscillator to the volume control
   oscillator.frequency.value=NOTE_FREQ[note]*octaveFactor;// オブジェクト NOTE_FREQからfrequencyを引き出し、それをoscillatorのfrequencyとして代入
 
 
-  gainNode.connect(audioContext.destination);//connecting to speakers
+  gainNode.connect(audioContext.destination);//connecting the volume control to speakers
 
 volume=Number($volumeSlider.val());
 gainNode.gain.value=volume/100;  // setting volume
 
 
 
-  oscillator.start();
+  oscillator.start();//start generating sound in the oscillator
 
   oscillator.stop(audioContext.currentTime+0.5)
 
   
-} // closing PlaySound function
+} 
 
 function startAutoPlay() {
   // Guard clause 
-  if (isPlaying) {
+  if (isPlaying) { // if it's on playing , let the playing finish and return
     finishAutoPlay();
     return;
   }
