@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="csrf-token" content="your-csrf-token-here" />
+    <title>Custom File Upload UI</title>
+    <style>
+      .file-upload {
+  position: relative;
+  display: inline-block;
+  padding: 20px;
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+  transition: border-color 0.3s;
+}
+
+.file-upload.dragover {
+  border-color: #007bff;
+  background-color: rgba(0, 123, 255, 0.1);
+}
+
+#file-input {
+  display: none;
+}
+
+.file-upload label {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.file-upload label:hover {
+  background-color: #0056b3;
+}
+
+#file-preview {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+#file-preview img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+#error-messages {
+  color: #dc3545;
+  margin-top: 10px;
+}
+
+#upload-progress {
+  margin-top: 10px;
+  height: 4px;
+  background-color: #e9ecef;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+#upload-progress .progress-bar {
+  height: 100%;
+  background-color: #28a745;
+  transition: width 0.3s ease;
+}
+
+#upload-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#upload-button:hover {
+  background-color: #218838;
+}
+
+    </style>
+  </head>
+  <body>
+    <div class="file-upload" id="drop-zone">
+      <input type="file" id="file-input" multiple accept="image/jpeg,image/png,image/gif" />
+      <label for="file-input">Choose Files or Drag & Drop</label>
+      <div id="file-preview"></div>
+      <div id="error-messages"></div>
+      <div id="upload-progress"></div>
+    </div>
+    <button id="upload-button">Upload Files</button>
+    <script>
+      const fileInput = document.getElementById('file-input')
+const preview = document.getElementById('file-preview')
+const uploadButton = document.getElementById('upload-button')
+const dropZone = document.getElementById('drop-zone')
+const errorMessages = document.getElementById('error-messages')
+const uploadProgress = document.getElementById('upload-progress')
+
+let selectedFiles = []
+
+// Enable drag and drop functionality with visual feedback
+dropZone.addEventListener('dragover', (e) => {
+  e.preventDefault()
+  dropZone.classList.add('dragover')
+})
+
+dropZone.addEventListener('dragleave', () => {
+  dropZone.classList.remove('dragover')
+})
+
+dropZone.addEventListener('drop', async (e) => {
+  e.preventDefault()
+  dropZone.classList.remove('dragover')
+  await handleFiles(Array.from(e.dataTransfer.files))
+})
+
+fileInput.addEventListener('change', async (e) => {
+  await handleFiles(Array.from(e.target.files))
+})
+
+uploadButton.addEventListener('click', handleUpload)
+
+async function handleFiles(files) {
+  preview.innerHTML = ''
+  errorMessages.innerHTML = ''
+  selectedFiles = []
+
+  for (const file of files) {
+    const isValid = await validateFile(file)
+    if (isValid) {
+      selectedFiles.push(file)
+      const reader = new FileReader()
+      reader.onload = (e) => createPreview(e.target.result, file.name)
+      reader.readAsDataURL(file)
+    }
+  }
+}
+
+async function validateFile(file) {
+  const validTypes = ['image/jpeg', 'image/png', 'image/gif']
+  const maxSize = 2 * 1024 * 1024 // 2 MB
+
+  if (!validTypes.includes(file.type)) {
+    showError(`${file.name} is not a supported file type`)
+    return false
+  }
+
+  if (file.size > maxSize) {
+    showError(`${file.name} exceeds the 2 MB size limit`)
+    return false
+  }
+
+  const isSignatureValid = await checkFileSignature(file)
+  if (!isSignatureValid) {
+    showError(`${file.name} failed file signature validation`)
+  }
+  return isSignatureValid
+}
+
+function checkFileSignature(file) {
+  return new Promise((resolve) => {
+    const reader = new FileReader()
+    reader.onloadend = (e) => {
+      const arr = new Uint8Array(e.target.result).subarray(0, 4)
+      let header = ''
+      for (let i = 0; i < arr.length; i++) {
+        header += arr[i].toString(16)
+      }
+      const validSignatures = {
+        ffd8ffe0: 'image/jpeg',
+        '89504e47': 'image/png',
+        47494638: 'image/gif',
+      }
+      resolve(validSignatures[header] === file.type)
+    }
+    reader.readAsArrayBuffer(file.slice(0, 4))
+  })
+}
+
+function createPreview(src, alt) {
+  const container = document.createElement('div')
+  container.className = 'preview-item'
+
+  const img = document.createElement('img')
+  img.src = src
+  img.alt = alt
+
+  const fileName = document.createElement('span')
+  fileName.textContent = alt
+
+  container.appendChild(img)
+  container.appendChild(fileName)
+  preview.appendChild(container)
+}
+
+function showError(message) {
+  const error = document.createElement('div')
+  error.textContent = message
+  errorMessages.appendChild(error)
+}
+
+function handleUpload() {
+  if (selectedFiles.length === 0) {
+    showError('Please select files to upload')
+    return
+  }
+
+  const formData = new FormData()
+  const csrfToken = document.querySelector('meta[name="csrf-token"]').content
+
+  selectedFiles.forEach((file) => {
+    formData.append('files[]', file)
+  })
+  formData.append('csrf_token', csrfToken)
+
+  const xhr = new XMLHttpRequest()
+
+  // Initialize progress tracking
+  uploadProgress.innerHTML = '<div class="progress-bar"></div>'
+  const progressBar = uploadProgress.querySelector('.progress-bar')
+
+  xhr.upload.addEventListener('progress', (e) => {
+    if (e.lengthComputable) {
+      const percentComplete = (e.loaded / e.total) * 100
+      progressBar.style.width = percentComplete + '%'
+    }
+  })
+
+  xhr.onload = function () {
+    if (xhr.status === 200) {
+      preview.innerHTML = ''
+      uploadProgress.innerHTML = ''
+      showSuccess('Files uploaded successfully!')
+    } else {
+      showError('Upload failed. Please try again.')
+    }
+  }
+
+  xhr.onerror = function () {
+    showError('An error occurred during upload')
+  }
+
+  xhr.open('POST', '/upload', true)
+  xhr.send(formData)
+}
+
+function showSuccess(message) {
+  const success = document.createElement('div')
+  success.style.color = '#28a745'
+  success.textContent = message
+  errorMessages.appendChild(success)
+}
+
+
+    </script>
+
+  </body>
+</html>

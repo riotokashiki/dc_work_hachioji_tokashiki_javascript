@@ -78,6 +78,59 @@ captionText.innerHTML = ARYthumbnails[currentIndex].alt;
 };
 
 
+//module for upload button////////////////
+
+const upLoadButton=(()=>{
+let fileInput = document.getElementById("fileUpload")//Fetching the file upload button
+const imageOutput = document.getElementById("output");//Fetching the output image
+const thumbnailContainer=document.querySelector(".thumbnailContainer");
+fileInput.addEventListener("change", async () => {
+    let [file] = fileInput.files
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      console.log("image",e.target,"loaded!")
+      let createdThumbnail=document.createElement("img");
+      console.log("thumbnail created!");
+      createdThumbnail.classList.add("thumbnails");
+      console.log("class added to the thumbnail!");
+      createdThumbnail.src=e.target.result;
+      console.log("thumbnail's source replaced!");
+      thumbnailContainer.appendChild(createdThumbnail);
+      console.log("thumbnail appended!");
+    //imageOutput.src = e.target.result;
+    createdThumbnail.addEventListener("click",function(){
+      modal.style.display = "block";// display:none からの blockにて表示
+    modalImg.src =e.target.result//modal imageのファイルパスをすり替えることによって画像を変える
+    
+
+      fileInput=document.getElementById("fileUpload");//Fetching the file upload button
+      const fileName = fileInput.files[0].name;
+
+      captionText.innerHTML = fileName;
+      
+    });
+    };
+
+    reader.onerror = (err) => {
+        console.error("Error reading file:", err);
+        alert("An error occurred while reading the file.");
+    };
+
+
+    reader.readAsDataURL(file);
+})
+
+
+
+
+
+})(); 
+//////////////////////////////////////////////////
+
+
+
+
 
 
 // //関数///////
