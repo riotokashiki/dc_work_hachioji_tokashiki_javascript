@@ -138,6 +138,12 @@ height:200px;
 max-height:200px;
 }
 
+.thumbnailContainer{
+  display:grid;
+  grid-template-columns: auto auto auto auto;
+  gap: 10px;
+}
+
 
     </style>
     </head>
@@ -157,12 +163,14 @@ max-height:200px;
 <img id="myImg" class="thumbnails" src="assets/images/Trees and River.jpg" alt="Trees and River"> <!--thumbnail-->
 <img id="myImg" class="thumbnails" src="assets/images/Autmn Foliage.jpg" alt="Autumn Foliage" > <!--thumbnail-->
 <img id="myImg" class="thumbnails" src="assets/images/Lake and Mountains.jpg" alt="Lake and Mountains" > <!--thumbnail-->
-</div>
 <!-- image upload button -->
-<div class="container"> 
-        <input type="file" id="fileUpload" accept="image/*" hidden>
-        <label for="fileUpload">+</label>
+  <div class="container"> 
+          <input type="file" id="fileUpload" accept="image/*" hidden>
+          <label for="fileUpload">+</label>
+  </div>
 </div>
+
+
 
 <!-- The Modal -->
 <div id="myModal" class="modal">

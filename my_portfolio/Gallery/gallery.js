@@ -84,6 +84,7 @@ const upLoadButton=(()=>{
 let fileInput = document.getElementById("fileUpload")//Fetching the file upload button
 const imageOutput = document.getElementById("output");//Fetching the output image
 const thumbnailContainer=document.querySelector(".thumbnailContainer");
+const buttonContainer=document.querySelector(".container");
 fileInput.addEventListener("change", async () => {
     let [file] = fileInput.files
 
@@ -96,7 +97,8 @@ fileInput.addEventListener("change", async () => {
       console.log("class added to the thumbnail!");
       createdThumbnail.src=e.target.result;
       console.log("thumbnail's source replaced!");
-      thumbnailContainer.appendChild(createdThumbnail);
+      //thumbnailContainer.appendChild(createdThumbnail);
+      thumbnailContainer.insertBefore(createdThumbnail,buttonContainer);
       console.log("thumbnail appended!");
     //imageOutput.src = e.target.result;
     createdThumbnail.addEventListener("click",function(){
