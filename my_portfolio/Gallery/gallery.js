@@ -9,6 +9,12 @@ var navigateBack=document.getElementById("navigateBack");//Fetching the nav back
 var navigateForward=document.getElementById("navigateForward");//Fetching the nav forward button
 var ARYthumbnails=Array.from(document.getElementsByClassName("thumbnails"));
 let currentIndex=null;
+
+let fileInput = document.getElementById("fileUpload")//Fetching the file upload button
+const imageOutput = document.getElementById("output");//Fetching the output image
+const thumbnailContainer=document.querySelector(".thumbnailContainer");
+const buttonContainer=document.querySelector(".container");
+let fileName = null;
 // var currentIndex=;
 
     navigateBack.addEventListener("click",function(){
@@ -22,14 +28,16 @@ let currentIndex=null;
 
     });
 
+function initializeThumbnails(){
 ARYthumbnails.forEach(function(thumbnail,index){   // we execute actions below onto each items in the array
-
+  console.log("initializeThumbnails() executed!!");
   thumbnail.addEventListener("click",function(){    
+    console.log("click handler set!!");
     console.log("Photo",index,"clicked",ARYthumbnails[index]);
     currentIndex=index;
     modal.style.display = "block";// display:none からの blockにて表示
     modalImg.src = this.src;//modal imageのファイルパスをすり替えることによって画像を変える
-    captionText.innerHTML = this.alt;
+    captionText.innerHTML = this.alt||fileName;
     
   
   });
@@ -39,8 +47,9 @@ ARYthumbnails.forEach(function(thumbnail,index){   // we execute actions below o
 
 });
 
+};
 
-
+initializeThumbnails();
 
 function navBack(index){
   console.log("navBack function called!"); 
@@ -64,6 +73,7 @@ function navForward(index){
   console.log("navForward function called!"); 
   if(currentIndex>=ARYthumbnails.length-1){
     console.log("It has returned!");
+    console.log("ARYthumbnails.length=",ARYthumbnails.length);
     return;
   }else{
   currentIndex=currentIndex+1;
@@ -72,7 +82,8 @@ function navForward(index){
   
 modalImg.src = ARYthumbnails[currentIndex].src;//modal imageのファイルパスをすり替えることによって画像を変える
 console.log("The image has been replaced!");
-captionText.innerHTML = ARYthumbnails[currentIndex].alt;
+captionText.innerHTML = ARYthumbnails[currentIndex].alt || fileName;
+console.log("ARYthumbnails.length=",ARYthumbnails.length);
 }
 
 };
@@ -80,13 +91,11 @@ captionText.innerHTML = ARYthumbnails[currentIndex].alt;
 
 //module for upload button////////////////
 
-const upLoadButton=(()=>{
-let fileInput = document.getElementById("fileUpload")//Fetching the file upload button
-const imageOutput = document.getElementById("output");//Fetching the output image
-const thumbnailContainer=document.querySelector(".thumbnailContainer");
-const buttonContainer=document.querySelector(".container");
+
+
 fileInput.addEventListener("change", async () => {
-    let [file] = fileInput.files
+  console.log("change handler triggered!!");  
+  let [file] = fileInput.files
 
     const reader = new FileReader();
     reader.onload = (e) => {
@@ -95,21 +104,38 @@ fileInput.addEventListener("change", async () => {
       console.log("thumbnail created!");
       createdThumbnail.classList.add("thumbnails");
       console.log("class added to the thumbnail!");
+
+      initializeThumbnails();
+      console.log("Thumbnails Initialized!!");
+
       createdThumbnail.src=e.target.result;
       console.log("thumbnail's source replaced!");
       //thumbnailContainer.appendChild(createdThumbnail);
       thumbnailContainer.insertBefore(createdThumbnail,buttonContainer);
       console.log("thumbnail appended!");
     //imageOutput.src = e.target.result;
+
+      // ARYthumbnails.push();
+
+      //updating the array↓
+      ARYthumbnails=Array.from(document.getElementsByClassName("thumbnails"));
+    
+
+      
+
     createdThumbnail.addEventListener("click",function(){
+      console.log("click handler on createdThumbnail triggered!!");
       modal.style.display = "block";// display:none からの blockにて表示
     modalImg.src =e.target.result//modal imageのファイルパスをすり替えることによって画像を変える
     
+      console.log("Current Index is ",currentIndex);
 
       fileInput=document.getElementById("fileUpload");//Fetching the file upload button
-      const fileName = fileInput.files[0].name;
-
+      fileName = fileInput.files[0].name;
       captionText.innerHTML = fileName;
+      console.log("fileName is..",fileName);
+
+    
       
     });
     };
@@ -127,7 +153,7 @@ fileInput.addEventListener("change", async () => {
 
 
 
-})(); 
+
 //////////////////////////////////////////////////
 
 
