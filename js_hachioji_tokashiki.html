@@ -454,8 +454,7 @@ else{
 
 
 if(!isMuted){
-const audioContext=new AudioContext();//set up a foundation creating audio context
-const gainNode=audioContext.createGain();   //creating Gain Node for volume control
+sound.ensureInitialized();
 $('#volumeSlider').val(0);
 volume=0;
 
@@ -520,15 +519,13 @@ function octaveDown()
 function playTone(note)
 {
   
-  const audioContext=new AudioContext();//set up a foundation creating audio context
-  const gainNode=audioContext.createGain();   //creating Gain Node for volume control
- 
+  sound.ensureInitialized();
   const oscillator=audioContext.createOscillator(); // creating an oscillator
   oscillator.connect(gainNode);// connecting oscillator to the volume control
   oscillator.frequency.value=NOTE_FREQ[note]*octaveFactor;// オブジェクト NOTE_FREQからfrequencyを引き出し、それをoscillatorのfrequencyとして代入
 
 
-  gainNode.connect(audioContext.destination);//connecting the volume control to speakers
+  
 
 volume=Number($volumeSlider.val());
 gainNode.gain.value=volume/100;  // setting volume
@@ -569,11 +566,11 @@ function startAutoPlay() {
   setKeyboardEnabled(false);
 
   // Start playing
-  const audioContext = new AudioContext();
+  sound.ensureInitialized();
 
   function playNextNote() {
     if (currentNoteIndex < currentSongLength) {
-      const gainNode = audioContext.createGain();
+      sound.ensureInitialized();
       const oscillator = audioContext.createOscillator();
       oscillator.connect(gainNode);
       gainNode.connect(audioContext.destination);
@@ -663,6 +660,57 @@ function setUpperDisplay(visible, songTitle = "") {
     $('.letterInUpperDisplay').css('display', 'none');
   }
 }
+
+///Module/////////////////////////////////////////////
+
+const sound = (() => {
+  let audioContext = null;
+  let masterGain = null;
+
+  function ensureInitialized() {
+    if (audioContext && masterGain) return;
+    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    masterGain = audioContext.createGain();
+    masterGain.connect(audioContext.destination);
+  }
+
+  function resumeIfNeeded() {
+    ensureInitialized();
+    if (audioContext.state === "suspended") {
+      audioContext.resume();
+    }
+  }
+
+  function applyMasterGain() {
+    ensureInitialized();
+    const v = Number($("#volumeSlider").val()); // ここは都度読む（DOM順問題を避ける）
+    const vol = Number.isFinite(v) ? v : 0;
+    const gain = isMuted ? 0 : vol / 100;
+    masterGain.gain.setValueAtTime(gain, audioContext.currentTime);
+  }
+
+  function playNote(note, durationMs) {
+    ensureInitialized();
+    applyMasterGain();
+
+    if (!note) return; // 休符は鳴らさない
+    const freq = NOTE_FREQ[note];
+    if (!freq) return;
+
+    const osc = audioContext.createOscillator();
+    osc.frequency.value = freq * octaveFactor;
+
+    // すべて masterGain に接続（＝入口一本化）
+    osc.connect(masterGain);
+
+    osc.start();
+    osc.stop(audioContext.currentTime + durationMs / 1000);
+  }
+
+  return { resumeIfNeeded, applyMasterGain, playNote };
+})();
+
+
 
 
 
