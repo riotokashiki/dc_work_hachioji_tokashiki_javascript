@@ -113,7 +113,7 @@
           height: 15em;
           overflow:auto;
         }
-        .newsFeedPlate h3{
+        .container h3{
           color:white;
         }
 
@@ -124,6 +124,44 @@
         .articleContainer p{
           margin:10px;
         }
+
+        .headLineContainer{
+          display:flex;
+          justify-content: center;
+          position:relative;
+        }
+
+        h4{
+          position:absolute;
+          left:60%;
+          top:50%;
+          transform: translateY(-50%);
+          color:white;
+          font-size:0.7em;
+          padding-left: 1em;
+        }
+
+        .articleDate{
+          color:yellow;
+          font-size:0.8em;
+        }
+
+
+        .items{
+          border:solid 1px white;
+          
+        }
+
+
+      .gridContainer{
+        border:1px solid white;
+        height:15em;
+        display: grid;
+        grid-template-columns: 25% 25% 25% 25%   ;
+        grid-template-rows: 50% 50%;
+        border-radius:20px;
+        overflow:hidden;
+      }
 
     </style>
     </head>
@@ -171,30 +209,45 @@
 <section class="news">
 
 <div class="container">
-
+  <div class="headLineContainer">
+<h3>LATEST NEWS</h3>
+<h4 id="latestDate">updated on Feb 9th</h4>
+</div>
 <div class="newsFeedPlate">
-<h3>NEWS</h3>
+
 <div class="articleContainer">
+  <!-- type in this format.  Year.Month.Day -->
+  <p class="articleDate">2026.2.9</p>
 <p>メッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージ</p>
 
 </div>
 <div class="articleContainer">
+  <!-- type in this format.  Year.Month.Day -->
+  <p class="articleDate">2026.1.20</p>
 <p>メッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージ</p>
 
 </div>
 <div class="articleContainer">
+  <!-- type in this format.  Year.Month.Day -->
+  <p class="articleDate">2025.11.9</p>
 <p>メッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージ</p>
 
 </div>
 <div class="articleContainer">
+  <!-- type in this format.  Year.Month.Day -->
+  <p class="articleDate">2025.9.3</p>
 <p>メッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージ</p>
 
 </div>
 <div class="articleContainer">
+  <!-- type in this format.  Year.Month.Day -->
+  <p class="articleDate">2026.7.12</p>
 <p>メッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージ</p>
 
 </div>
 <div class="articleContainer">
+  <!-- type in this format.  Year.Month.Day -->
+  <p class="articleDate">2026.5.2</p>
 <p>メッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージ</p>
 
 </div>
@@ -215,9 +268,96 @@
 
 
 </section>
+<section class="menu">
+<div class="container">
+<div class="sectionTitle">
+  <p>MENU</p>
+</div>
+<div class="gridContainer">
+<div class="items">
 
+
+</div>
+<div class="items">
+
+
+</div>
+<div class="items">
+
+
+</div>
+<div class="items">
+
+
+</div>
+<div class="items">
+
+
+</div>
+<div class="items">
+
+
+</div>
+<div class="items">
+
+
+</div>
+<div class="items">
+
+
+</div>
+
+
+
+
+
+</div>
+
+</div>
+
+
+</div>
+
+
+
+</section>
 
       <script>
+        const latestArticleDate=document.querySelector(".articleDate").textContent;
+        console.log("the latest article date is "+latestArticleDate);
+
+        // const rawDate = "2026.02.09";
+
+        //I don't understand how this part works but used it and it worked anyway////////////////////////
+        // convert dots to dashes so JS can read it
+        const dateObj = new Date(latestArticleDate.replace(/\./g, "-"));
+
+        const formatted = dateObj.toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "short",   // "Feb"
+          day: "numeric"    // "9"
+        });
+
+        console.log(formatted);
+
+
+        function addSuffix(day) {
+          if (day === 1 || day === 21 || day === 31) return day + "st";
+          if (day === 2 || day === 22) return day + "nd";
+          if (day === 3 || day === 23) return day + "rd";
+          return day + "th";
+        }
+
+        const day = dateObj.getDate();         // 9
+        const month = dateObj.toLocaleDateString("en-US", { month: "short" }); // "Feb"
+        const year = dateObj.getFullYear();    // 2026
+
+        const result = `${month} ${addSuffix(day)} ${year}`;
+        console.log(result); 
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        let latestDateDisplay=document.getElementById("latestDate"); // 最新更新日の表示欄を取得
+        latestDateDisplay.textContent="Updated on "+result;
 
 
 
