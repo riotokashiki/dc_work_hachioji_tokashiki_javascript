@@ -2,7 +2,7 @@
 <html lang="ja">
     <head>
     <meta charset="UTF-8">
-    <title>YURU YURA CAFE</title>
+    <title>ゆるゆらカフェ</title>
     <style>
         *{
           box-sizing:border-box;
@@ -95,12 +95,14 @@
         .sectionTitle{
           display:flex;
           justify-content:center;
+          margin:40px auto;
           
         }
 
         .sectionTitle p{
           color:white;
           font-size:26px;
+          text-align: center;
         }
 
         h3{
@@ -129,6 +131,7 @@
           display:flex;
           justify-content: center;
           position:relative;
+          margin:5px;
         }
 
         h4{
@@ -149,18 +152,69 @@
 
         .items{
           border:solid 1px white;
-          
+          overflow:hidden;
         }
 
 
       .gridContainer{
         border:1px solid white;
-        height:15em;
+        width:100%;
         display: grid;
         grid-template-columns: 25% 25% 25% 25%   ;
         grid-template-rows: 50% 50%;
         border-radius:20px;
         overflow:hidden;
+      }
+      .textInfoContainer{
+      color:white;
+      display:flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      }
+      .row{
+      display:flex;
+      justify-content:space-between;
+      }
+
+      .items img{
+        width:100%;
+        overflow:hidden;
+      }
+      .items p{
+        color:white;
+      }
+
+      .items:nth-child(8){
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .items:nth-child(8) a{
+        text-decoration: none;
+        color:yellow;
+        font-weight:500;
+        font-size:1.05em;
+      }
+
+      footer{
+        background-color:rgb(85, 48, 23);
+        height:6em;
+      }
+
+      footer .container{
+        height:100%;
+        display: flex;
+        flex-direction:column;
+        justify-content:center;
+        align-items:center;
+      }
+
+      footer .container p{
+        color:white;
+        text-align: center;
       }
 
     </style>
@@ -210,7 +264,7 @@
 
 <div class="container">
   <div class="headLineContainer">
-<h3>LATEST NEWS</h3>
+<h3>LATEST NEWS<br>最新情報</h3>
 <h4 id="latestDate">updated on Feb 9th</h4>
 </div>
 <div class="newsFeedPlate">
@@ -241,13 +295,13 @@
 </div>
 <div class="articleContainer">
   <!-- type in this format.  Year.Month.Day -->
-  <p class="articleDate">2026.7.12</p>
+  <p class="articleDate">2025.7.12</p>
 <p>メッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージ</p>
 
 </div>
 <div class="articleContainer">
   <!-- type in this format.  Year.Month.Day -->
-  <p class="articleDate">2026.5.2</p>
+  <p class="articleDate">2025.5.2</p>
 <p>メッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージ</p>
 
 </div>
@@ -275,35 +329,35 @@
 </div>
 <div class="gridContainer">
 <div class="items">
-
-
-</div>
-<div class="items">
-
+<img src="assets/images/eiliv-aceron-mAQZ3X_8_l0-unsplash.jpg" alt="sandwich">
 
 </div>
 <div class="items">
-
-
-</div>
-<div class="items">
-
+<img src="assets/images/you-le-l-mqDIEwcKk-unsplash.jpg" alt="corn potage">
 
 </div>
 <div class="items">
-
-
-</div>
-<div class="items">
-
+<img src="assets/images/josie-rees-bsqO0kg9IvY-unsplash.jpg" alt="tomato soup">
 
 </div>
 <div class="items">
-
+<img src="assets/images/jeremy-yap-jn-HaGWe4yw-unsplash.jpg" alt="espresso">
 
 </div>
 <div class="items">
+<img src="assets/images/nathan-dumlao-vZOZJH_xkUk-unsplash.jpg" alt="caramel machiato">
 
+</div>
+<div class="items">
+<img src="assets/images/nathan-dumlao-vZOZJH_xkUk-unsplash.jpg" alt="caramel machiato">
+
+</div>
+<div class="items">
+<img src="assets/images/nathan-dumlao-vZOZJH_xkUk-unsplash.jpg" alt="caramel machiato">
+
+</div>
+<div class="items">
+<a href="#">メニューを見る</a>
 
 </div>
 
@@ -321,6 +375,38 @@
 
 
 </section>
+
+<section class="contact">
+<div class="sectionTitle">
+  <p>CONTACT<br>店舗情報</p>
+</div>
+<div class="container">
+<div class="row">
+<div class="textInfoContainer">
+<div>
+  <p>〒150-0033</p>
+<p>東京都 渋谷区 代官山 7-7-7 </p>
+<p>TEL: 03-1629-6505</p>
+<p>営業時間:10:00~19:00</p>
+<p>毎週木曜休</p>
+</div>
+</div>
+<div class="mapContainer">
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d405.2675773041435!2d139.70091160237104!3d35.64890696873008!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188b4f870a33b9%3A0xc5c11b5126283949!2z44CSMTUwLTAwMzMgVG9reW8sIFNoaWJ1eWEsIFNhcnVnYWt1Y2jFjSwgMjXiiJIxIOS7o-WumOWxseOCueODmuODvOOCuQ!5e0!3m2!1sen!2sjp!4v1771992986964!5m2!1sen!2sjp" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+</div>  
+
+</div>
+</div>
+
+
+
+</section>
+<footer>
+  <div class="container">
+    <p>&copy; 2026 ゆるゆらカフェ</p>
+
+  </div>
+</footer>
 
       <script>
         const latestArticleDate=document.querySelector(".articleDate").textContent;
