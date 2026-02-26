@@ -101,7 +101,7 @@
 
         .sectionTitle p{
           color:white;
-          font-size:26px;
+          font-size:3.5vh;
           text-align: center;
         }
 
@@ -180,14 +180,18 @@
 
       .items img{
         width:100%;
-        overflow:hidden;
+        height:100%;
+        object-fit:cover;
+        display:block;
+
       }
       .items p{
         color:white;
       }
 
       .items:nth-child(8){
-
+        background-image: url(assets/images/duong-ngan-vHODlfrcRcY-unsplash.jpg);
+        object-fit: cover;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -216,15 +220,22 @@
       footer .container p{
         color:white;
         text-align: center;
+        font-size: 2.9vh;
       }
 
       iframe {
     border-radius: 15px;
+    height: 60vh;
     }
 
     .contact{
       margin-bottom:70px;
     }
+    .textInfoContainer div p{
+    font-size: 3vh;
+    }
+    
+
 
     </style>
     </head>
