@@ -77,11 +77,13 @@
         justify-content:center;
         margin:0px auto;
         text-decoration:none;
+        letter-spacing: 0.08em;
       }
 
         p.message{
           margin:0px;
           font-size: 34px;
+          letter-spacing: 0.17em;
         }
 
         .about{
@@ -100,6 +102,16 @@
           width:28%;
           color:white;
           /* margin:0px 40px; */
+        }
+        .pillar h3{
+          letter-spacing: 0.3em;
+          line-height: 1.7em;
+        }
+
+
+        .pillar p{
+          letter-spacing: 0.3em;
+          line-height: 1.7em;
         }
 
         section{
@@ -128,6 +140,8 @@
           font-style: normal;
           font-size: 2em;
           font-weight: 500;
+          letter-spacing: 0.3em;
+          line-height: 1.7em;
         }
         /*/////News Feed///////////////////////////////////////////////*/
         h3{
@@ -160,6 +174,11 @@
           position:relative;
           margin:5px;
           margin-top:170px;
+        }
+
+        .headLineContainer h3{
+        letter-spacing: 0.2em;
+        line-height: 1.5em;
         }
 
         h4{
@@ -255,6 +274,10 @@
         padding: 0px 20px 15px 20px;
         opacity: 0;
         z-index: 1;
+        letter-spacing: 0.2em;
+        line-height: 2em;
+        font-size: 1.15em;
+        font-weight: 440;
       }
 
       .items:hover .middle{
@@ -296,6 +319,9 @@
         color:white;
         text-align: center;
         font-size: 2.9vh;
+        letter-spacing: 0.06em;
+        line-height: 1.3em;
+        font-weight: 100;
       }
     /*/////Contact Section////////////////////////////*/
       iframe {
@@ -308,6 +334,9 @@
     }
     .textInfoContainer div p{
     font-size: 3vh;
+    letter-spacing: 0.1em;
+    line-height: 1.4em;
+
     }
     
 
@@ -324,15 +353,54 @@
       transform: translateY(-50%);/*これめっちゃ使えるから覚えとこう*/
       
     }
-    .navBar li{
-      margin: 0 15px;
-    }
+
 
     .navBar li a{
       text-decoration-line:none;
       color: white;
+      padding: 38px  10px;
+      transition:all 0.25s ease;
+      letter-spacing: 0.2em;
+    }
+
+    .navBar li a:hover{
+      background-color:rgb(134, 77, 38) ;
     }
   
+    .imageContainer{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 60%;
+    }
+
+
+    .imageContainer img{
+      width: 100%;
+      object-fit: cover;
+      display: block;
+      height: 100vh;
+    }
+
+    .whoAreWe .container{
+      display:flex;
+    }
+
+    .messageContainer{
+       display: flex;
+      justify-content: center;
+      /* align-items: center; */
+      padding: 0 20px;
+      width: 40%;
+    }
+
+    .messageContainer p{
+      color:white;
+      letter-spacing: 0.35em;
+    line-height: 3em;
+    }
+
+    
     </style>
     </head>
     <body>
@@ -353,6 +421,34 @@
       <p class="message">まいにちに、ホっとひといきを。</p>
         
 </section>
+<section class="whoAreWe">
+<div class="container">
+
+<div class="messageContainer">
+
+<p>メッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージ
+  メッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージ
+  メッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージメッセージ
+</p>
+  
+</div>
+<div class="imageContainer">
+<img src="assets/images/ana-almao-V76i79on0wE-unsplash.jpg" alt="coffee shop">
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+</section>
+
 <section class="about" id="about">
 <div class="container">
 
@@ -444,7 +540,7 @@
 
 
 </section>
-<section class="menu">
+<section class="menu" id="menu">
 <div class="container">
 <div class="sectionTitle">
   <p>MENU</p>
@@ -507,7 +603,7 @@
 
 </section>
 
-<section class="contact">
+<section class="contact" id="contact">
 <div class="sectionTitle">
   <p>CONTACT<br>店舗情報</p>
 </div>
@@ -519,7 +615,7 @@
 <p>東京都 渋谷区 代官山 7-7-7 </p>
 <p>TEL: 03-1629-6505</p>
 <p>営業時間:10:00~19:00</p>
-<p>毎週木曜休</p>
+<p>定休日：毎週木曜</p>
 </div>
 </div>
 <div class="mapContainer">
@@ -535,6 +631,7 @@
 <footer>
   <div class="container">
     <p>&copy; 2026 ゆるゆらカフェ</p>
+    <p>All rights reserved by 信濃運送 <br>The Web site is Designed and Developed By 渡嘉敷 諒（RYO TOKASHIKI）</p>
 
   </div>
 </footer>
