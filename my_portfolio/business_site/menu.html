@@ -1,0 +1,100 @@
+<!DOCTYPE  html>
+<html lang="ja">
+    <head>
+    <meta charset="UTF-8">
+    <title>ゆるゆらカフェ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Hina+Mincho&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+      <header>
+        <a class="title" href="#">ゆるゆらカフェ</a>
+        <ul class="navBar">
+          <li><a href="#about">ABOUT</a></li>
+          <li><a href="#news">NEWS</a></li>
+          <li><a href="#menu">MENU</a></li>
+          <li><a href="#contact">CONTACT</a></li>
+
+        </ul>
+
+      </header>
+      <section class="hero">
+      
+      
+      <p class="message">まいにちに、ホっとひといきを。</p>
+        
+</section>
+
+<section class="menu">
+<div class="container">
+<h2>メニュー</h2>
+
+
+
+<h3>フード</h3>
+
+
+<h3>ドリンク</h3>
+<h4>コーヒー</h4>
+<h4>ティー</h4>
+
+
+
+
+
+</div>
+
+
+
+</section>
+
+<footer>
+  <div class="container">
+    <p>&copy; 2026 ゆるゆらカフェ</p>
+    <p>All rights reserved by 信濃運送 <br>The Web site is Designed and Developed By 渡嘉敷 諒（RYO TOKASHIKI）</p>
+
+  </div>
+</footer>
+
+      <script>
+        const latestArticleDate=document.querySelector(".articleDate").textContent;
+        console.log("the latest article date is "+latestArticleDate);
+
+        // const rawDate = "2026.02.09";
+
+        //I don't understand how this part works but used it and it worked anyway////////////////////////
+        // convert dots to dashes so JS can read it
+        const dateObj = new Date(latestArticleDate.replace(/\./g, "-"));
+
+        const formatted = dateObj.toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "short",   // "Feb"
+          day: "numeric"    // "9"
+        });
+
+        console.log(formatted);
+
+
+        function addSuffix(day) {
+          if (day === 1 || day === 21 || day === 31) return day + "st";
+          if (day === 2 || day === 22) return day + "nd";
+          if (day === 3 || day === 23) return day + "rd";
+          return day + "th";
+        }
+
+        const day = dateObj.getDate();         // 9
+        const month = dateObj.toLocaleDateString("en-US", { month: "short" }); // "Feb"
+        const year = dateObj.getFullYear();    // 2026
+
+        const result = `${month} ${addSuffix(day)} ${year}`;
+        console.log(result); 
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        let latestDateDisplay=document.getElementById("latestDate"); // 最新更新日の表示欄を取得
+        latestDateDisplay.textContent="Updated on "+result;
+
+
+
+      </script>
+    </body>
+</html>
