@@ -267,7 +267,9 @@
         font-size:1.5rem;
         text-decoration: underline;
       }
-
+      .items:nth-child(8):hover a .blackLayer{
+       z-index: 0;
+      }
 
       .middle{
         position:absolute;

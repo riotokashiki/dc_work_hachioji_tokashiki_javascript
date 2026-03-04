@@ -6,34 +6,107 @@
     <link href="https://fonts.googleapis.com/css2?family=Hina+Mincho&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
-          ul{
+          h2{
+            color:white;
+            text-align: center;
+            margin: 1rem;
+          }
+
+          h3{
+            color:white;
+            margin: 0.8rem;
+          }
+
+        .container{
+        display: flex;
+        flex-direction: column;
+        /* justify-content: center;
+        align-items: center; */
+        }
+
+        ul{
         list-style: none;
         padding-left: 0;
-        display: flex;
-        flex-wrap:wrap;
+
+        display: grid;
+        justify-content: center;
+        gap: 10px;
+        grid-template-columns: 25% 25% 25%;
       }
 
       li a img{
         object-fit: cover;
         height: 25vh;
         display: block;
+        width: 100%;
       }
   
+        li{
+            margin-right: 0.7em;
+            margin-bottom: 0.7em;
+          }
+      
 
+        li a{
+          text-decoration: none;
+          color: white;
+      }
+
+      li a p{
+            margin: 0.5rem 0;
+      }
+
+      .floatingNavBar{
+        position: fixed;
+        left:0;
+        top: 0;
+        height: 100vh;
+        width:18vw;
+        background-color: rgb(85, 48, 23);
+        color: white;
+        z-index: -100;
+        display: flex;
+        justify-content: center;
+      }
+
+      .floatingNavBar ul{
+        color:white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
     </style>
     </head>
     <body>
       <header>
-        <a class="title" href="#">ゆるゆらカフェ</a>
+        <a class="title" href="business_site.html">ゆるゆらカフェ</a>
         <ul class="navBar">
-          <li><a href="#about">ABOUT</a></li>
-          <li><a href="#news">NEWS</a></li>
-          <li><a href="#menu">MENU</a></li>
-          <li><a href="#contact">CONTACT</a></li>
+          <li><a href="business_site.html#about">ABOUT</a></li>
+          <li><a href="business_site.html#news">NEWS</a></li>
+          <li><a href="business_site.html#menu">MENU</a></li>
+          <li><a href="business_site.html#contact">CONTACT</a></li>
 
         </ul>
 
       </header>
+
+        <div class="floatingNavBar">
+        <ul>
+        <li><a href="#food">フード</a></li>
+        <li><a href="#desert">デザート</a></li>
+        <li><a href="#coffee">コーヒー</a></li>
+        <li><a href="#tea">ティー</a></li>
+        </ul>
+
+
+        </div>
+
+
+
+
+
+
+
       <section class="hero">
       
       
@@ -43,11 +116,11 @@
 
 <section class="menu">
 <div class="container">
-<h2>メニュー</h2>
+<h2 id="menu">メニュー</h2>
 
 
 
-<h3>フード</h3>
+<h3 id="food">フード</h3>
 <ul class="food">
 <li><a href="#"><img src="assets/images/eiliv-aceron-mAQZ3X_8_l0-unsplash.jpg" alt="Sandwich"><p>ローストビーフサンドイッチ</p></a></li>
 <li><a href="#"><img src="assets/images/eiliv-aceron-mAQZ3X_8_l0-unsplash.jpg" alt="Sandwich"><p>ローストビーフサンドイッチ</p></a></li>
@@ -58,14 +131,34 @@
 <li><a href="#"><img src="assets/images/eiliv-aceron-mAQZ3X_8_l0-unsplash.jpg" alt="Sandwich"><p>ローストビーフサンドイッチ</p></a></li>
 <li><a href="#"><img src="assets/images/eiliv-aceron-mAQZ3X_8_l0-unsplash.jpg" alt="Sandwich"><p>ローストビーフサンドイッチ</p></a></li>
 <li><a href="#"><img src="assets/images/eiliv-aceron-mAQZ3X_8_l0-unsplash.jpg" alt="Sandwich"><p>ローストビーフサンドイッチ</p></a></li>
-<li><a href="#"><img src="" alt=""><p></p></a></li>
+</ul>
+<h3 id="desert">デザート</h3>
+<ul class="desert">
+<li><a href="#"><img src="assets/images/eiliv-aceron-mAQZ3X_8_l0-unsplash.jpg" alt="Sandwich"><p>ローストビーフサンドイッチ</p></a></li>
+<li><a href="#"><img src="assets/images/eiliv-aceron-mAQZ3X_8_l0-unsplash.jpg" alt="Sandwich"><p>ローストビーフサンドイッチ</p></a></li>
+<li><a href="#"><img src="assets/images/eiliv-aceron-mAQZ3X_8_l0-unsplash.jpg" alt="Sandwich"><p>ローストビーフサンドイッチ</p></a></li>
+
+</ul>
+
+<h3>ドリンク</h3>
+<h3 id="coffee">コーヒー</h3>
+<ul class="coffee">
+<li><a href="#"><img src="assets/images/eiliv-aceron-mAQZ3X_8_l0-unsplash.jpg" alt="Sandwich"><p>ローストビーフサンドイッチ</p></a></li>
+<li><a href="#"><img src="assets/images/eiliv-aceron-mAQZ3X_8_l0-unsplash.jpg" alt="Sandwich"><p>ローストビーフサンドイッチ</p></a></li>
+<li><a href="#"><img src="assets/images/eiliv-aceron-mAQZ3X_8_l0-unsplash.jpg" alt="Sandwich"><p>ローストビーフサンドイッチ</p></a></li>
+<li><a href="#"><img src="assets/images/eiliv-aceron-mAQZ3X_8_l0-unsplash.jpg" alt="Sandwich"><p>ローストビーフサンドイッチ</p></a></li>
+<li><a href="#"><img src="assets/images/eiliv-aceron-mAQZ3X_8_l0-unsplash.jpg" alt="Sandwich"><p>ローストビーフサンドイッチ</p></a></li>
+
+</ul>
+<h3 id="tea">ティー</h3>
+<ul class="tea">
+<li><a href="#"><img src="assets/images/eiliv-aceron-mAQZ3X_8_l0-unsplash.jpg" alt="Sandwich"><p>ローストビーフサンドイッチ</p></a></li>
+<li><a href="#"><img src="assets/images/eiliv-aceron-mAQZ3X_8_l0-unsplash.jpg" alt="Sandwich"><p>ローストビーフサンドイッチ</p></a></li>
+<li><a href="#"><img src="assets/images/eiliv-aceron-mAQZ3X_8_l0-unsplash.jpg" alt="Sandwich"><p>ローストビーフサンドイッチ</p></a></li>
 
 </ul>
 
 
-<h3>ドリンク</h3>
-<h4>コーヒー</h4>
-<h4>ティー</h4>
 
 
 
