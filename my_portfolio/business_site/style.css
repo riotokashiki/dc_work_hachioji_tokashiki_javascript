@@ -51,6 +51,8 @@
         font-style: normal;
         font-weight:600;
       
+        position: relative;
+        z-index:1;
 
       }
 
@@ -65,6 +67,7 @@
         justify-content: center;
         position:relative;
         align-items: center;
+        z-index: 1;
       }
 
       .title{
@@ -314,6 +317,8 @@
       footer{
         background-color:rgb(85, 48, 23);
         height:6rem;
+        position: relative;
+        z-index: 1;
       }
 
       footer .container{
