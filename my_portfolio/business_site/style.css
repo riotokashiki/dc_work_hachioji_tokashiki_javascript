@@ -172,8 +172,8 @@
           display:flex;
           justify-content: center;
           position:relative;
-          margin:5px;
-          margin-top:170px;
+          margin:0.4rem;
+          /* margin-top:170px; */
         }
 
         .headLineContainer h3{

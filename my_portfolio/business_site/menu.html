@@ -6,25 +6,25 @@
     <link href="https://fonts.googleapis.com/css2?family=Hina+Mincho&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
-          h2{
+          .menuContainer h2{
             color:white;
             text-align: center;
             margin: 1rem;
           }
 
-          h3{
+          .menuContainer h3{
             color:white;
             margin: 0.8rem;
           }
 
-        .container{
+        .menuContainer{
         display: flex;
         flex-direction: column;
         /* justify-content: center;
         align-items: center; */
         }
 
-        ul{
+        .menuContainer ul{
         list-style: none;
         padding-left: 0;
 
@@ -32,28 +32,60 @@
         display: grid;
         justify-content: center;
         gap: 10px;
-        grid-template-columns: 25% 25% 25%;
+        grid-template-columns: 22.5% 22.5% 22.5%;
+        width: 100%;
       }
 
-      li a img{
+      .menuContainer ul li a img{
         object-fit: cover;
-        height: 25vh;
+        /* height: 25vh; */
         display: block;
         width: 100%;
       }
   
-        li{
+        .menuContainer ul li{
             margin-right: 0.7em;
             margin-bottom: 0.7em;
           }
       
+          .floatingNavBar ul li{
+            
+            margin-bottom: 0;
+            margin-right: 0;
+            list-style: none;
+            padding-left: 0;
+            width: 100%;
+          }
 
-        li a{
+
+          .menuContainer ul li a{
           text-decoration: none;
           color: white;
+          display: block;
+          width: 100%;
+          
       }
 
-      li a p{
+
+
+
+        .floatingNavBar ul li a{
+          text-decoration: none;
+          color: white;
+          display: block;
+          width: 100%;
+          transition: all 0.25s ease;
+          height: 3rem;
+          text-align: left;
+          padding-left: 35%;
+          line-height: 3rem;
+      }
+
+      .floatingNavBar ul li a:hover{
+        background-color:rgb(197, 113, 57) ;
+      }
+
+      .menuContainer ul li a p{
             margin: 0.5rem 0;
       }
 
@@ -75,7 +107,12 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
+        width: 100%;
       }
+
+      
+      
+    
     </style>
     </head>
     <body>
@@ -116,7 +153,7 @@
 </section>
 
 <section class="menu">
-<div class="container">
+<div class="container menuContainer">
 <h2 id="menu">メニュー</h2>
 
 
@@ -124,20 +161,21 @@
 <h3 id="food">フード</h3>
 <ul class="food">
 <li><a href="javascript:void(0)"><img src="assets/images/compressedImages/eiliv-aceron-mAQZ3X_8_l0-unsplash.jpg" alt="Sandwich"><p>ローストビーフサンドイッチ</p></a></li>
+<li><a href="javascript:void(0)"><img src="assets/images/compressedImages/jana-ohajdova-PLQ10xtiaKk-unsplash.jpg" alt="BLT Sandwich"><p>BLTサンドイッチ</p></a></li>
 <li><a href="javascript:void(0)"><img src="assets/images/compressedImages/erwan-nonon-4xCroQgmehc-unsplash.jpg" alt="Bagle Sandwich"><p>ベーグルサンドイッチ</p></a></li>
+<li><a href="javascript:void(0)"><img src="assets/images/compressedImages/amirali-mirhashemian-A5jf5EmBAf8-unsplash.jpg" alt="Egg muffine"><p>エッグベネディクトマフィン</p></a></li>
+<li><a href="javascript:void(0)"><img src="assets/images/compressedImages/drew-dempsey-8OH1QhIhWEM-unsplash.jpg" alt="Hot dog"><p>ホットドッグ</p></a></li>
+<li><a href="javascript:void(0)"><img src="assets/images/compressedImages/homescreenify-sA3wymYqyaI-unsplash.jpg" alt="Tomato sauce spagetti"><p>トマトソーススパゲッティ</p></a></li>
+<li><a href="javascript:void(0)"><img src="assets/images/compressedImages/gabriella-clare-marino-h7Bmptisp5o-unsplash.jpg" alt="Mushroom spagetti"><p>きのこクリームスパゲッティ</p></a></li>
 <li><a href="javascript:void(0)"><img src="assets/images/compressedImages/you-le-l-mqDIEwcKk-unsplash.jpg" alt="Corn Potage"><p>コーンポタージュ</p></a></li>
 <li><a href="javascript:void(0)"><img src="assets/images/compressedImages/josie-rees-bsqO0kg9IvY-unsplash.jpg" alt="Tomato basil soup"><p>トマトバジルスープ</p></a></li>
-<li><a href="javascript:void(0)"><img src="assets/images/compressedImages/eiliv-aceron-mAQZ3X_8_l0-unsplash.jpg" alt="Sandwich"><p>ローストビーフサンドイッチ</p></a></li>
-<li><a href="javascript:void(0)"><img src="assets/images/eiliv-aceron-mAQZ3X_8_l0-unsplash.jpg" alt="Sandwich"><p>ローストビーフサンドイッチ</p></a></li>
-<li><a href="javascript:void(0)"><img src="assets/images/eiliv-aceron-mAQZ3X_8_l0-unsplash.jpg" alt="Sandwich"><p>ローストビーフサンドイッチ</p></a></li>
-<li><a href="javascript:void(0)"><img src="assets/images/eiliv-aceron-mAQZ3X_8_l0-unsplash.jpg" alt="Sandwich"><p>ローストビーフサンドイッチ</p></a></li>
-<li><a href="javascript:void(0)"><img src="assets/images/eiliv-aceron-mAQZ3X_8_l0-unsplash.jpg" alt="Sandwich"><p>ローストビーフサンドイッチ</p></a></li>
 </ul>
 <h3 id="desert">デザート</h3>
 <ul class="desert">
-<li><a href="javascript:void(0)"><img src="assets/images/eiliv-aceron-mAQZ3X_8_l0-unsplash.jpg" alt="Sandwich"><p>ローストビーフサンドイッチ</p></a></li>
-<li><a href="javascript:void(0)"><img src="assets/images/eiliv-aceron-mAQZ3X_8_l0-unsplash.jpg" alt="Sandwich"><p>ローストビーフサンドイッチ</p></a></li>
-<li><a href="javascript:void(0)"><img src="assets/images/eiliv-aceron-mAQZ3X_8_l0-unsplash.jpg" alt="Sandwich"><p>ローストビーフサンドイッチ</p></a></li>
+  <li><a href="javascript:void(0)"><img src="assets/images/compressedImages/yiseul-han-_K-yx6wIgt8-unsplash.jpg" alt="Chocolate cake"><p>ショコラケーキ</p></a></li>
+<li><a href="javascript:void(0)"><img src="assets/images/compressedImages/anna-heitmann-VEm0bjL0sZA-unsplash.jpg" alt="Scones"><p>チョコチップスコーン</p></a></li>
+
+<li><a href="javascript:void(0)"><img src="assets/images/compressedImages/pelicular-studio-T1Vqd-U8Bhs-unsplash.jpg" alt="Macarons"><p>マカロン</p></a></li>
 
 </ul>
 
@@ -147,15 +185,16 @@
 <li><a href="javascript:void(0)"><img src="assets/images/compressedImages/shche_-team-heKg-V9yHwc-unsplash.jpg" alt="Black Coffee"><p>ブラックコーヒー</p></a></li>
 <li><a href="javascript:void(0)"><img src="assets/images/compressedImages/jeremy-yap-jn-HaGWe4yw-unsplash.jpg" alt="Moca"><p>モカ</p></a></li>
 <li><a href="javascript:void(0)"><img src="assets/images/compressedImages/billy-kwok-vfiA7rRtjWo-unsplash.jpg" alt="Caramel Macchiato"><p>キャラメルマキアート</p></a></li>
+<li><a href="javascript:void(0)"><img src="assets/images/compressedImages/haberdoedas-yBzlpQqdDks-unsplash.jpg" alt="Sandwich"><p>アイスコーヒー</p></a></li>
 <li><a href="javascript:void(0)"><img src="assets/images/compressedImages/nathan-dumlao-vZOZJH_xkUk-unsplash.jpg" alt="Latte"><p>カフェラテ</p></a></li>
-<li><a href="javascript:void(0)"><img src="assets/images/compressedImages/eiliv-aceron-mAQZ3X_8_l0-unsplash.jpg" alt="Sandwich"><p>ローストビーフサンドイッチ</p></a></li>
+
 
 </ul>
 <h3 id="tea">ティー</h3>
 <ul class="tea">
 <li><a href="javascript:void(0)"><img src="assets/images/compressedImages/elena-leya-TnMonTHqYMk-unsplash.jpg" alt="Cranberry Juice"><p>クランベリージュース</p></a></li>
 <li><a href="javascript:void(0)"><img src="assets/images/compressedImages/rosalind-chang-P_wPicZYoPI-unsplash.jpg" alt="Boba"><p>ボバ</p></a></li>
-<li><a href="javascript:void(0)"><img src="assets/images/compressedImages/eiliv-aceron-mAQZ3X_8_l0-unsplash.jpg" alt="Sandwich"><p>ローストビーフサンドイッチ</p></a></li>
+<li><a href="javascript:void(0)"><img src="assets/images/compressedImages/jason-leung-Z-hvocTfR_s-unsplash.jpg" alt="Sandwich"><p>抹茶ラテ</p></a></li>
 
 </ul>
 
@@ -180,45 +219,5 @@
   </div>
 </footer>
 
-      <script>
-        const latestArticleDate=document.querySelector(".articleDate").textContent;
-        console.log("the latest article date is "+latestArticleDate);
-
-        // const rawDate = "2026.02.09";
-
-        //I don't understand how this part works but used it and it worked anyway////////////////////////
-        // convert dots to dashes so JS can read it
-        const dateObj = new Date(latestArticleDate.replace(/\./g, "-"));
-
-        const formatted = dateObj.toLocaleDateString("en-US", {
-          year: "numeric",
-          month: "short",   // "Feb"
-          day: "numeric"    // "9"
-        });
-
-        console.log(formatted);
-
-
-        function addSuffix(day) {
-          if (day === 1 || day === 21 || day === 31) return day + "st";
-          if (day === 2 || day === 22) return day + "nd";
-          if (day === 3 || day === 23) return day + "rd";
-          return day + "th";
-        }
-
-        const day = dateObj.getDate();         // 9
-        const month = dateObj.toLocaleDateString("en-US", { month: "short" }); // "Feb"
-        const year = dateObj.getFullYear();    // 2026
-
-        const result = `${month} ${addSuffix(day)} ${year}`;
-        console.log(result); 
-
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        let latestDateDisplay=document.getElementById("latestDate"); // 最新更新日の表示欄を取得
-        latestDateDisplay.textContent="Updated on "+result;
-
-
-
-      </script>
     </body>
 </html>
