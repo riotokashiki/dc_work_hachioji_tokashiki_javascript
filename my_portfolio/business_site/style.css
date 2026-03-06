@@ -27,7 +27,7 @@
 
       .hero{
         box-sizing:border-box;
-        background-image:url(assets/images/blake-wisz-t366j3tQz94-unsplash.jpg);
+        background-image:url(assets/images/compressedImages/Responsive/blake-wisz-t366j3tQz94-unsplashCropped.jpg);
         height: 87vh;
         background-repeat:no-repeat;
         background-size:cover;
@@ -44,8 +44,8 @@
         display: flex;
         align-items: flex-start;    
         justify-content: flex-start; 
-        padding-top: 360px;          
-        padding-left: 90px;          
+        padding-top: 58vh;
+        padding-left: 14vh; 
 
         font-family: "Hina Mincho", serif;
         font-style: normal;
@@ -182,7 +182,7 @@
 
         }
 
-        h4{
+        .headLineContainer h4{
           position:absolute;
           left:60%;
           top:50%;
@@ -423,4 +423,99 @@
       letter-spacing: 0.35rem;
       line-height: 3rem;
       font-size: 1rem;
+    }
+
+
+
+
+    /*==========================================
+    ===========================================
+                      MOBILE RESPONSIVE STYLE                                  
+    ===========================================
+    ===========================================*/
+
+
+
+
+    @media(max-width:768px){
+
+      .container{
+        padding:0 20px;
+      }
+      .pillarContainer{
+        flex-direction: column;
+      }
+      .pillar{
+        width:100%;
+        margin-bottom: 3rem;
+      }
+
+      .gridContainer{
+        grid-template-columns: 50% 50%;
+        grid-template-rows: auto;
+        margin: 0 auto;
+        width: 80%;
+      }
+      .pillar p{
+        width: 63%;
+        margin: 0 auto;
+      }
+
+      .sectionTitle p{
+        letter-spacing: 0.2rem;
+      }
+
+      .container{
+        padding: 0 9%;
+      }
+
+      .headLineContainer h4{
+        left: 70%;
+      }
+
+      .row{
+      flex-direction: column;
+      }
+
+      iframe{
+        height: 50vh;
+        width: 100%;
+      }
+
+      .textInfoContainer div{
+        margin-bottom: 1rem;
+      }
+      footer{
+        height: 11.5rem;
+      }
+
+      .whoAreWe .container{
+          flex-direction: column;
+      }
+
+      .messageContainer{
+            width: 100%;
+            margin: 0 auto;
+      }
+
+      .imageContainer{
+        width: 90%;
+        margin: 2rem auto;
+      }
+
+      .navBar{
+        display: none;
+      }
+      .hero{
+        background-image:url(assets/images/compressedImages/Responsive/forMobile/blake-wisz-t366j3tQz94-unsplash.jpg) ;
+      }
+
+
+    }
+
+
+
+
+    @media(max-width:480px){
+
     }
