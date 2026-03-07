@@ -26,34 +26,107 @@
       }
 
       .hero{
-        box-sizing:border-box;
-        background-image:url(assets/images/compressedImages/Responsive/blake-wisz-t366j3tQz94-unsplashCropped.jpg);
+        position: relative;
+        width: 100%;
+        overflow: hidden;
         height: 87vh;
+        display: flex;
+        align-items: flex-start;    
+        justify-content: flex-start; 
+        padding-top: 58vh;
+        padding-left: 14vh; 
+      }
+
+      .heroSlide{
+        box-sizing:border-box;
+       
         background-repeat:no-repeat;
         background-size:cover;
         background-position:center;
-        color:white;
-        font-weight:600;
-        font-size:30px;
+  
         /*
         display:flex;
         align-items:center;
         */
 
         /* position manipulation*/
-        display: flex;
-        align-items: flex-start;    
-        justify-content: flex-start; 
-        padding-top: 58vh;
-        padding-left: 14vh; 
-
-        font-family: "Hina Mincho", serif;
-        font-style: normal;
-        font-weight:600;
       
-        position: relative;
+        
         z-index:1;
+        height: 100%;
+        
+      }
 
+      .heroSlide.first{
+         background-image:url(assets/images/compressedImages/Responsive/blake-wisz-t366j3tQz94-unsplashCropped.jpg);
+        animation:fadeOutFor1 15s ease forwards;
+        z-index: 5;
+        animation-iteration-count: infinite;
+        top: 0;
+        left: 0;
+        width: 100%;
+        position: absolute;
+      }
+
+      .heroSlide.second{
+        background-image:url(assets/images/snapbythree-my-g6e641CiHFQ-unsplash.jpg);
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 4;
+        animation:fadeOut 15s ease  forwards;
+        width: 100%;
+        animation-iteration-count: infinite;
+        background-position:50% 70%;
+
+      }
+
+      .heroSlide.third{
+        background-image:url(assets/images/zarak-khan-69ilqMz0p1s-unsplash.jpg);
+         position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 3;
+        width: 100%;
+        animation:fadeOut 15s ease 5s forwards;
+        animation-iteration-count: infinite;
+      }
+
+      @keyframes fadeOut{
+        0%{opacity: 0;
+                  }
+
+        16%{opacity: 0;}
+        
+        33%{opacity: 1;
+                transform: scale(1);    
+                }
+
+        66%{opacity: 1;
+                }
+
+        82%{opacity: 0;}
+
+        100%{opacity: 0;
+                    transform: scale(1.05)
+                  }
+/* only 1/3 of this is shown */
+
+      }
+
+      @keyframes fadeOutFor1{
+        0%{opacity: 1;
+          transform: scale(1);
+          ;}
+
+
+          33%{opacity: 1;}
+          45%{opacity: 0;
+                  transform: scale(1.05);
+                }
+
+          88%{opacity: 0;}
+          100%{opacity: 1;}
       }
 
       header{
@@ -84,6 +157,11 @@
           margin:0px;
           font-size: 2rem;
           letter-spacing: 0.4rem;
+          color: white;
+          z-index: 6;
+            font-family: "Hina Mincho", serif;
+        font-style: normal;
+        font-weight:600;
         }
 
         .about{
