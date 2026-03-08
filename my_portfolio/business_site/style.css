@@ -58,7 +58,7 @@
       }
 
       .heroSlide.first{
-        background-image:url(assets/images/snapbythree-my-g6e641CiHFQ-unsplash.jpg);
+        background-image:url(assets/images/compressedImages/snapbythree-my-g6e641CiHFQ-unsplash.jpg);
          
         animation:fadeInOutFor1 15s linear forwards; /*delay -secondsを使うとなんか表示の周期がずれておかしくなるからつかわないほうがいい*/
         z-index: 5;
@@ -71,7 +71,7 @@
       }
 
       .heroSlide.second{
-        background-image:url(assets/images/tsuyoshi-kozu-uTC91Stlz0o-unsplash.jpg);
+        background-image:url(assets/images/compressedImages/tsuyoshi-kozu-uTC91Stlz0o-unsplash.jpg);
         position: absolute;
         top: 0;
         left: 0;
@@ -84,7 +84,7 @@
       }
 
       .heroSlide.third{
-        background-image:url(assets/images/zarak-khan-69ilqMz0p1s-unsplash.jpg);
+        background-image:url(assets/images/compressedImages/zarak-khan-69ilqMz0p1s-unsplash.jpg);
          position: absolute;
         top: 0;
         left: 0;
