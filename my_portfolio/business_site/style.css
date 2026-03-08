@@ -58,26 +58,28 @@
       }
 
       .heroSlide.first{
-         background-image:url(assets/images/compressedImages/Responsive/blake-wisz-t366j3tQz94-unsplashCropped.jpg);
-        animation:fadeOutFor1 15s ease forwards;
+        background-image:url(assets/images/snapbythree-my-g6e641CiHFQ-unsplash.jpg);
+         
+        animation:fadeInOutFor1 15s linear forwards; /*delay -secondsを使うとなんか表示の周期がずれておかしくなるからつかわないほうがいい*/
         z-index: 5;
         animation-iteration-count: infinite;
         top: 0;
         left: 0;
         width: 100%;
         position: absolute;
+        background-position:50% 65%;
       }
 
       .heroSlide.second{
-        background-image:url(assets/images/snapbythree-my-g6e641CiHFQ-unsplash.jpg);
+        background-image:url(assets/images/tsuyoshi-kozu-uTC91Stlz0o-unsplash.jpg);
         position: absolute;
         top: 0;
         left: 0;
         z-index: 4;
-        animation:fadeOut 15s ease  forwards;
+        animation:fadeInOutForOthers 15s linear forwards;
         width: 100%;
         animation-iteration-count: infinite;
-        background-position:50% 70%;
+        background-position:10% 60%;
 
       }
 
@@ -88,11 +90,37 @@
         left: 0;
         z-index: 3;
         width: 100%;
-        animation:fadeOut 15s ease 5s forwards;
+        animation:fadeInOutForOthers 15s linear 5s forwards;
         animation-iteration-count: infinite;
+        opacity: 0;
       }
 
-      @keyframes fadeOut{
+       @keyframes fadeInOutFor1{
+        /*Since there are 3 slides, 100/3=33
+        だから100%を三分割して1/3の間だけ表示
+        のこりの2/3の間は非表示にする
+        
+        */
+        0%{opacity: 0;
+         transform: scale(1);}
+          12%{opacity: 1;
+            
+          }
+
+
+          33%{opacity: 1;}
+          45%{opacity: 0;
+                  transform: scale(1.05);
+                }
+
+          88%{opacity: 0;}
+          100%{opacity: 0;
+                      transform: scale(1);}
+      }
+
+
+
+      @keyframes fadeInOutForOthers{
         0%{opacity: 0;
                   }
 
@@ -114,21 +142,7 @@
 
       }
 
-      @keyframes fadeOutFor1{
-        0%{opacity: 1;
-          transform: scale(1);
-          ;}
-
-
-          33%{opacity: 1;}
-          45%{opacity: 0;
-                  transform: scale(1.05);
-                }
-
-          88%{opacity: 0;}
-          100%{opacity: 1;}
-      }
-
+     
       header{
         background-color:rgb(85, 48, 23);
         width:100%;
