@@ -536,7 +536,13 @@
       font-size: 1rem;
     }
 
+    .hamburgerMenu{
+      display: none;
+    }
 
+    .modalWindow{
+      display: none;
+    }
 
 
     /*==========================================
@@ -619,8 +625,100 @@
       }
       .hero{
         background-image:url(assets/images/compressedImages/Responsive/forMobile/blake-wisz-t366j3tQz94-unsplash.jpg) ;
+        padding-top: 56vh;
+        padding-left: 8vh;
       }
 
+
+      p.message{
+        font-size: 1.7rem;
+      }
+
+      span.break{
+        display: block;
+      }
+
+  .hamburgerMenu{
+    display: block;
+    color: white;
+    font-size: 2.5rem;
+    height: 100%;
+}
+
+.hamburgerMenu a{
+  color: white;
+    text-decoration: none;
+    display: block;
+    height: 100%;
+    line-height: 13vh;
+    margin: 0 1rem;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.modalWindow{
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 18vw;
+  background: #854918;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+
+}
+
+.modalWindow ul{
+  list-style: none;
+  width: 100%;
+}
+
+.modalWindow ul li{
+height: 6vw;
+}
+
+.modalWindow ul li a{
+  text-decoration: none;
+  color: white;
+  display: block;
+  width: 100%;
+  height: 6vw;
+  padding-left: 25%;
+  font-size: 2.3vw;
+  line-height: 6vw;
+}
+
+.modalWindow ul li a:hover{
+  background-color: #a75c1e;
+}
+
+header{
+  z-index:6;
+}
+
+.closeButton {
+    width: 100%;
+    height: 13vh;
+    color: white;
+    font-size: 2rem;
+}
+
+.closeButton a{
+  width: 100%;
+  height: 100%;
+  display: block;
+  text-align: center;
+  line-height: 13vh;
+  text-decoration: none;
+  color: white;
+}
+
+.closeButton a:hover{
+  background-color: #a75c1e;
+}
 
     }
 

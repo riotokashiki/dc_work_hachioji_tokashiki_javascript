@@ -16,10 +16,23 @@
           <li><a href="#contact">CONTACT</a></li>
 
         </ul>
+        <div class="hamburgerMenu"><a id="hamburgerButton" href="#"><p>=</p></a></div>
+        <div class="modalWindow">
+          <div class="closeButton"><a href="">×</a></div>
+          <ul>
+            <li><a href="#about">ABOUT</a></li>
+            <li><a href="#news">NEWS</a></li>
+            <li><a href="#menu">MENU</a></li>
+            <li><a href="#contact">CONTACT</a></li>
+
+          </ul>
+
+
+        </div>
 
       </header>
       <section class="hero" >
-        <p class="message">まいにちに、ホっとひといきを。</p>
+        <p class="message">まいにちに、<span class="break">ホっとひといきを。</span></p>
       <div class="heroSlide first"></div>
       <div class="heroSlide second"></div>
       <div class="heroSlide third"></div>
@@ -296,9 +309,19 @@
         ///////////////////////////////////////////////////////////////////////////////////////////
         let latestDateDisplay=document.getElementById("latestDate"); // 最新更新日の表示欄を取得
         latestDateDisplay.textContent="Updated on "+result;
+        ////////////Hamburger Menu////////////////////////////////////////////////////////////
+        const theCloseButton=document.querySelector(".closeButton");
+        const theModalWindow=document.querySelector(".modalWindow");
+        const  theHamburgerButton=document.getElementById("hamburgerButton");
+        
+        
+        closeButton.addEventListener("click",()=>{
+          console.log("Button clicked!");
+          modalWindow.style.display="none";
+          console.log("display:none applied!");
 
 
-
+        })
       </script>
     </body>
 </html>

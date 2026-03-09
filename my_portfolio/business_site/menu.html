@@ -110,7 +110,41 @@
         width: 100%;
       }
 
+      @media(max-width:768px){
+
+    .menuContainer ul {
+        grid-template-columns: 45% 45%;
+    }
+
+
+.floatingNavBar {
+    position: fixed;
+    /* left: 0; */
+    top: 0;
+    height: 8vh;
+    width: 100vw;
+
+}
+
+
+.floatingNavBar ul {
+    flex-direction: row; 
+  
+}
+
+.floatingNavBar ul li a{
+  height: 100%;  
+  line-height: 8vh; /*setting height and line-height the same makes the sentence centered*/
+    
+}
+
+
+
+
+      }
       
+
+
       
     
     </style>
@@ -145,8 +179,8 @@
 
 
 
-         <section class="hero" >
-        <p class="message">まいにちに、ホっとひといきを。</p>
+        <section class="hero" >
+        <p class="message">まいにちに、<span class="break">ホっとひといきを。</span></p>
       <div class="heroSlide first"></div>
       <div class="heroSlide second"></div>
       <div class="heroSlide third"></div>
