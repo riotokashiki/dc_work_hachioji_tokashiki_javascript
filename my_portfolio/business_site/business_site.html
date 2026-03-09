@@ -18,12 +18,12 @@
         </ul>
         <div class="hamburgerMenu"><a id="hamburgerButton" href="#"><p>=</p></a></div>
         <div class="modalWindow">
-          <div class="closeButton"><a href="">×</a></div>
+          <div class="closeButton"><a href="#">×</a></div>
           <ul>
-            <li><a href="#about">ABOUT</a></li>
-            <li><a href="#news">NEWS</a></li>
-            <li><a href="#menu">MENU</a></li>
-            <li><a href="#contact">CONTACT</a></li>
+            <li><a href="#about" onclick="closingModalWindow()">ABOUT</a></li>
+            <li><a href="#news" onclick="closingModalWindow()">NEWS</a></li>
+            <li><a href="#menu" onclick="closingModalWindow()">MENU</a></li>
+            <li><a href="#contact" onclick="closingModalWindow()">CONTACT</a></li>
 
           </ul>
 
@@ -314,12 +314,28 @@
         const theModalWindow=document.querySelector(".modalWindow");
         const  theHamburgerButton=document.getElementById("hamburgerButton");
         
-        
-        closeButton.addEventListener("click",()=>{
+        theHamburgerButton.addEventListener("click",()=>{
+
+          theModalWindow.style.display="flex";
+
+        });
+
+        function closingModalWindow(){
           console.log("Button clicked!");
-          modalWindow.style.display="none";
+          theModalWindow.style.animation="slideOut 0.25s ease-in";
+          
+          setTimeout(()=>{
+            theModalWindow.style.display="none";
+          },250);
+          
           console.log("display:none applied!");
 
+        }
+
+        
+        theCloseButton.addEventListener("click",()=>{
+          
+          closingModalWindow();
 
         })
       </script>
