@@ -17,7 +17,7 @@
 
         </ul>
         <div class="hamburgerMenu"><a id="hamburgerButton" href="#"><p>=</p></a></div>
-        <div class="modalWindow">
+        <div class="modalWindow" id="modalWindow">
           <div class="closeButton"><a href="#">×</a></div>
           <ul>
             <li><a href="#about" onclick="closingModalWindow()">ABOUT</a></li>
@@ -311,31 +311,60 @@
         latestDateDisplay.textContent="Updated on "+result;
         ////////////Hamburger Menu////////////////////////////////////////////////////////////
         const theCloseButton=document.querySelector(".closeButton");
-        const theModalWindow=document.querySelector(".modalWindow");
+        const theModalWindow=document.getElementById("modalWindow");
         const  theHamburgerButton=document.getElementById("hamburgerButton");
-        
+        const theHeader=document.querySelector("header");
         theHamburgerButton.addEventListener("click",()=>{
 
-          theModalWindow.style.display="flex";
-
+          openingModalWindow();
+          console.log("display:flex applied!");
         });
 
         let clearKey=null;
 
+function openingModalWindow(){
+  
+  //this worked.
+theModalWindow.style.animation="none";
+theModalWindow.offsetHeight; 
+theModalWindow.style.animation="slideIn 0.25s ease-out";
+
+
+
+
+//They didn't work.
+  // theModalWindow.classList.remove(".modalWindow");
+  // theModalWindow.classList.add(".modalWindow");
+
+
+
+  //They didn't work.
+          // theHeader.removeChild(theModalWindow);
+          // theHeader.appendChild(theModalWindow);
+          // console.log("removed and appended the Modal Window!!");
+
+theModalWindow.style.display="flex";
+
+};
+
+
         function closingModalWindow(){
           if(clearKey){
           clearTimeout(clearKey);
-          console.log("clearTimeout Executed!");}
+          console.log("clearTimeout Executed!");};
 
           console.log("Button clicked!");
           theModalWindow.style.animation="slideOut 0.25s ease-in";
           console.log("Slide Out Animation Executed")
           clearKey=setTimeout(()=>{
+            console.log("setTimeout executed!");
             theModalWindow.style.display="none";
+            console.log("display:none applied!");
+           
           },250);
 
           
-          console.log("display:none applied!");
+        
 
         }
 
