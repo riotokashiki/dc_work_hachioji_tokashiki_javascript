@@ -325,9 +325,9 @@
 function openingModalWindow(){
   
   //this worked.
-theModalWindow.style.animation="none";
-theModalWindow.offsetHeight; 
-theModalWindow.style.animation="slideIn 0.25s ease-out";
+// theModalWindow.style.animation="none";
+// theModalWindow.offsetHeight; 
+// theModalWindow.style.animation="slideIn 0.25s ease-out";
 
 
 
@@ -343,24 +343,27 @@ theModalWindow.style.animation="slideIn 0.25s ease-out";
           // theHeader.appendChild(theModalWindow);
           // console.log("removed and appended the Modal Window!!");
 
-theModalWindow.style.display="flex";
+          //Never use this. element.style
+      //theModalWindow.style.display="flex";
+
+      theModalWindow.classList.add("shown");
 
 };
 
 
         function closingModalWindow(){
-          if(clearKey){
-          clearTimeout(clearKey);
-          console.log("clearTimeout Executed!");};
+          // if(clearKey){
+          // clearTimeout(clearKey);
+          // console.log("clearTimeout Executed!");};
 
           console.log("Button clicked!");
-          theModalWindow.style.animation="slideOut 0.25s ease-in";
-          console.log("Slide Out Animation Executed")
+          theModalWindow.classList.add("closing");
+          console.log(".closing added!");
           clearKey=setTimeout(()=>{
             console.log("setTimeout executed!");
-            theModalWindow.style.display="none";
-            console.log("display:none applied!");
-           
+            theModalWindow.classList.remove("shown");
+            console.log(".modalWindowShown removed!");
+           theModalWindow.classList.remove("closing");
           },250);
 
           

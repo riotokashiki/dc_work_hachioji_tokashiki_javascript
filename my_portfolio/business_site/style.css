@@ -677,6 +677,12 @@
   justify-content: flex-start;
 animation:slideIn 0.25s ease-out ;
 }
+.modalWindow.shown{
+  display: flex;
+  animation:slideIn 0.25s ease-out ;
+}
+
+
 
 @keyframes slideIn{
 0%{transform:translateX(12vw);}
@@ -685,9 +691,10 @@ animation:slideIn 0.25s ease-out ;
 
 }
 
-.closing{
-animation: slideOut 0.25s ease-in;
+.modalWindow.closing{
+animation: slideOut 0.25s linear;
 }
+
 @keyframes slideOut{
 0%{transform:translateX(0);}
 
