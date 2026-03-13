@@ -334,6 +334,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      padding: 0 2vw;
       }
       .row{
       display:flex;
@@ -446,14 +447,15 @@
         color:white;
         text-align: center;
         font-weight: 100;
-        font-size: 1.2rem;
-        letter-spacing: 0.07rem;
         line-height: 1.7rem;
+        font-size: 1.6vw;
+        letter-spacing: 0.1vw;
       }
     /*/////Contact Section////////////////////////////*/
       iframe {
     border-radius: 15px;
     height: 60vh;
+    width: 40vw;
     }
 
     .contact{
@@ -483,7 +485,7 @@
     }
 
     .navBar li{
-      width: 25%;
+      /* width: 25%; */
       text-align: center;
     }
 
@@ -491,10 +493,10 @@
     .navBar li a{
       text-decoration-line:none;
       color: white;
-      padding: 2.4rem 0.5rem;
+      padding: 2.4rem 0.4vw;
       transition:all 0.25s ease;
-      letter-spacing: 0.23rem;
-      font-size: 1rem;
+      letter-spacing: 0.3vw;
+      font-size: 1.3vw;
     }
 
     .navBar li a:hover{
@@ -513,7 +515,7 @@
       width: 100%;
       object-fit: cover;
       display: block;
-      height: 100vh;
+      height: 50vw;
     }
 
     .whoAreWe .container{
@@ -553,6 +555,7 @@
       opacity: 0;
       visibility: hidden;
       transform:translateX(12vw);
+      width: 0;
     }
 
 
@@ -787,6 +790,20 @@ header{
         width: 80%;
     }
 
+    footer .container p {
+    line-height: 1.7rem;
+    font-size: 2.5vw;
+    letter-spacing: 0.1vw;
+}
+
+.messageContainer p {
+    letter-spacing: 0.65vw;
+}
+
+.imageContainer img {
+    height: 50vw;
+}
+
     }
 
 
@@ -851,5 +868,43 @@ footer{
         display: none;
     }
 
+    footer .container p{
+    font-size: 3.8vw;
+    }
+
+    .messageContainer p
+  {
+    
+    line-height: 2rem;
+  
+}
+
+.modalWindow{
+  width: 70vw;
+
+}
+
+    .hero {
+        z-index: 5;
+    }
+
+    .modalWindow ul li{
+        height: 20vw;
+    }
+
+        .modalWindow ul li a {
+      
+        height: 100%;
+        line-height: 20vw;
+        font-size: 5.3vw;
+    }
+
+        .title {
+        font-size: 7vw;
+    }
+
+        .imageContainer img {
+        height: 90vw;
+    }
 
     }
