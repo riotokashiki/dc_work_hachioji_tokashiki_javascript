@@ -271,14 +271,19 @@
         }
         .container h3{
           color:white;
+          text-align: left;
+          padding-bottom: 1.2vw;
         }
 
         .articleContainer{
           border-bottom:0.5px solid white;
+          display: flex;
+          height: 7vw;
         }
 
         .articleContainer p{
           margin: 1.6rem 4.6rem;
+          width: 5vw;
         }
 
         .headLineContainer{
@@ -533,7 +538,9 @@
     .messageContainer h2{
       color: white;
       font-size: 1.6rem;
-      font-family: "Hina Mincho", serif;
+      /* font-family: "Hina Mincho", serif; */
+      /* font-family: "M PLUS 1 Code", monospace; */
+      font-family: "Kaisei Decol", serif;
       font-style: normal;
       font-weight:600;
       margin: 2.6rem auto;
@@ -544,6 +551,7 @@
       letter-spacing: 0.35rem;
       line-height: 3rem;
       font-size: 1rem;
+      font-family: "Kaisei Decol", serif;
     }
 
     .hamburgerMenu{
@@ -560,8 +568,15 @@
 
     .articleContainer h3{
       color: black;
+      height: 100%;
+      line-height: 7vw;
+      text-align: left;
     }
 
+      .pillar img{
+        display: block;
+        margin: 2vw auto;
+      }
 
     /*==========================================
     ===========================================
