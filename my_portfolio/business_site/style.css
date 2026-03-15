@@ -1,6 +1,7 @@
  html{
           font-size: 16px;
           overflow-x:hidden;
+          scroll-behavior: smooth; 
         }
         
         *{
@@ -197,6 +198,7 @@
             font-family: "Hina Mincho", serif;
         font-style: normal;
         font-weight:600;
+        text-shadow: 3px 3px 8px black;
         }
 
         .about{
@@ -269,7 +271,7 @@
           background: #b5b5b5;
           color: #000000;
         }
-        .container h3{
+        .about .container h3{
           color:white;
           text-align: left;
           padding-bottom: 1.2vw;
@@ -297,7 +299,7 @@
         .headLineContainer h3{
           letter-spacing: 0.23rem;
           line-height: 2.1rem;
-
+          color: white;
         }
 
         .headLineContainer h4{
@@ -512,7 +514,13 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 60%;
+      width: 100%;
+      position: absolute;
+      z-index: 2;
+      right: 0;
+      top: 0;
+      /* border-radius: 0px 30%; */
+      overflow: hidden;
     }
 
 
@@ -520,11 +528,12 @@
       width: 100%;
       object-fit: cover;
       display: block;
-      height: 50vw;
     }
 
     .whoAreWe .container{
       display:flex;
+      position: relative;
+      height: 80vh;
     }
 
     .messageContainer{
@@ -533,8 +542,15 @@
       justify-content: center;
       /* align-items: center; */
       padding: 0 1.6em;
-      width: 40%;
+      width: 50%;
+       position: absolute;
+    bottom: 0;
+    left: 0;
+    text-shadow: 3px 3px 8px black;
+    z-index: 3;
     }
+
+
     .messageContainer h2{
       color: white;
       font-size: 1.6rem;
@@ -544,6 +560,8 @@
       font-style: normal;
       font-weight:600;
       margin: 2.6rem auto;
+      position: relative;
+      z-index: 2;
   }
 
     .messageContainer p{
@@ -552,6 +570,19 @@
       line-height: 3rem;
       font-size: 1rem;
       font-family: "Kaisei Decol", serif;
+      position: relative;
+      z-index: 2;
+    }
+
+    .textBackground{
+      background-color: #3b3b3b;
+      /* border-radius: 30%; */
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      opacity: 0.62;
+      z-index: 1;
+      filter: blur(90px);
     }
 
     .hamburgerMenu{
@@ -576,6 +607,7 @@
       .pillar img{
         display: block;
         margin: 2vw auto;
+        scale: 1.25;
       }
 
     /*==========================================
