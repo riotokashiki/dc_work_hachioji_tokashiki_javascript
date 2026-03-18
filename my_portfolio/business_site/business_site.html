@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=M+PLUS+1+Code:wght@100..700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Kaisei+Decol&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     </head>
     <body>
       <header>
@@ -354,6 +355,7 @@ function openingModalWindow(){
       //theModalWindow.style.display="flex";
 
       theModalWindow.classList.add("shown");
+      document.documentElement.style.overflow="hidden";
 
 };
 
@@ -370,6 +372,7 @@ function openingModalWindow(){
             console.log("setTimeout executed!");
             theModalWindow.classList.remove("shown");
             console.log(".modalWindowShown removed!");
+            document.documentElement.style.overflow="auto";
            theModalWindow.classList.remove("closing");
           },250);
 

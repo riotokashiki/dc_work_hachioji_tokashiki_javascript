@@ -2,6 +2,7 @@
           font-size: 16px;
           overflow-x:hidden;
           scroll-behavior: smooth; 
+          background-color:rgb(107 77 57);
         }
         
         *{
@@ -547,7 +548,7 @@
       flex-direction: column;
       /* justify-content: center; */
       /* align-items: center; */
-      padding: 2rem 3rem;
+      padding: 2rem 0;
       width: 50%;
       position: absolute;
       top: 0;
@@ -560,7 +561,7 @@
 
     .messageContainer h2{
       color: white;
-      font-size: 1.6rem;
+      font-size: 1.5rem;
       /* font-family: "Hina Mincho", serif; */
       /* font-family: "M PLUS 1 Code", monospace; */
       font-family: "Kaisei Decol", serif;
@@ -569,17 +570,18 @@
       /* margin: 2.6rem auto; */
       position: relative;
       z-index: 2;
-      letter-spacing: 0.15rem;
+      letter-spacing: 0.15vw;
+      line-height: 3.4vw;
   }
 
     .messageContainer p{
       color:white;
-      letter-spacing: 0.2rem;
-      line-height: 2.7rem;
       font-size: 1rem;
       font-family: "Kaisei Decol", serif;
       position: relative;
       z-index: 2;
+      letter-spacing: 0.2vw;
+      line-height: 3.7vw;
     }
 
     .textBackground{
@@ -611,6 +613,7 @@
       height: 100%;
       line-height: 7vw;
       text-align: left;
+      text-wrap: wrap;
     }
 
       .pillar img{
@@ -624,6 +627,21 @@
                       MOBILE RESPONSIVE STYLE                                  
     ===========================================
     ===========================================*/
+
+@media(max-width: 1024px){
+  .container{
+    padding: 0 5%;
+  }
+  .navBar li a{
+    font-size: 1.6vw;
+    padding: 2.4rem 0.3vw;
+  }
+}
+
+
+
+
+
 
 
 
@@ -685,7 +703,7 @@
       }
 
       .messageContainer{
-            width: 100%;
+            width: 80%;
             margin: 0 auto;
       }
 
@@ -858,10 +876,34 @@ header{
 
 .messageContainer p {
     letter-spacing: 0.65vw;
+    line-height: 5.5vw;
 }
 
 .imageContainer img {
     height: 50vw;
+}
+
+.messageContainer h2{
+  padding-top: 1rem;
+  line-height: 6.4vw;
+}
+
+.about .container h3{
+    text-align: center;
+    
+}
+
+.articleContainer{
+    height: auto;
+}
+
+.articleContainer h3{
+  line-height: auto;
+}
+
+.articleContainer p{
+      margin: 1.6rem 10%;
+    width: 6vw;
 }
 
     }

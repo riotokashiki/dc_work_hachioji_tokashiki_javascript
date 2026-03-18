@@ -308,7 +308,7 @@ function openingModalWindow(){
       //theModalWindow.style.display="flex";
 
       theModalWindow.classList.add("shown");
-
+    document.documentElement.style.overflow="hidden";
 };
 
 
@@ -325,6 +325,7 @@ function openingModalWindow(){
             theModalWindow.classList.remove("shown");
             console.log(".modalWindowShown removed!");
            theModalWindow.classList.remove("closing");
+           document.documentElement.style.overflow="auto";
           },250);
 
           
