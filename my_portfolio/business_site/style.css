@@ -622,6 +622,20 @@
         scale: 1.25;
       }
 
+      .translation{
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+      }
+
+      #languageSelection{
+            position: absolute;
+            bottom: 0;
+            background: rgb(92, 2, 2);
+            color: #b5b5b5;
+      }
+
     /*==========================================
     ===========================================
                       MOBILE RESPONSIVE STYLE                                  
@@ -977,7 +991,7 @@ footer{
     .messageContainer p
   {
     
-    line-height: 2rem;
+    line-height: 9vw;
   
 }
 
@@ -1008,5 +1022,16 @@ footer{
         .imageContainer img {
         height: 90vw;
     }
+
+
+    .messageContainer h2{
+        padding-bottom: 6vw;
+        font-size: 1.2rem;
+        line-height: 8vw;
+}
+
+  .whoAreWe .container{
+            overflow: visible;
+      }
 
     }
