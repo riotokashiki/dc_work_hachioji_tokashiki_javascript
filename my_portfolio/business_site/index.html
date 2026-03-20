@@ -56,11 +56,11 @@
 <div class="container">
 
 <div class="messageContainer">
-  <h2>渋谷の喧騒からわずか徒歩9分<br> ゆったり落ち着いた大人な街,
+  <h2 data-i18n="headLine">渋谷の喧騒からわずか徒歩9分<br> ゆったり落ち着いた大人な街,
  代官山。<br>
 その一角にたたずむ、<br>ゆるやかな空間にフォーカスした、<br> ひと息つけるカフェ。</h2>
 
-<p>刺激的でエキセントリックな若者の街として知られる東京、渋谷。<br>
+<p data-i18n="aboutBody">刺激的でエキセントリックな若者の街として知られる東京、渋谷。<br>
 そこからわずか徒歩9分のところに、都会の喧騒を忘れさせる静かな街、代官山があります。<br>
 我々はそこで心からくつろげるリラクシングな場所を 創業年1998年以来 今日に至るまで提供し続けています。
 </p>
@@ -410,9 +410,11 @@ function openingModalWindow(){
 
         const languageTranslation={
 
-              en:{    title:"Yuru Yura Cafe",
+              en:{    /*data i18n name↓*/
+                          title:"Yuru Yura Cafe",
                           slogan:"Give Yourself a Chill Time.",
-
+                          headLine:"Daikanyama, which is an area just less than 10minutes away from Shibuya Tokyo.\nWe are a Caffee,focusing on a low key environment. ",
+                          aboutBody:"The world-known stimuful city of youth, aka Shibuya, Tokyo. \nIn there , There is a calm area called Daikan-yama, \njust within 10 minutes away from the hustle bustle of City life of Shibuya.\nWe have been serving a unwinding place of relaxation there, ever since we started our business in 1998."
 
 
               },
@@ -420,6 +422,8 @@ function openingModalWindow(){
               jp:{
                         title:"ゆるゆらカフェ",
                         slogan:"まいにちに、ホっとひといきを。",
+                        headLine:"渋谷の喧騒からわずか徒歩9分\n ゆったり落ち着いた大人な街、代官山。\nその一角にたたずむ、ゆるやかな空間にフォーカスした、ひと息つけるカフェ。",
+                        aboutBody:"刺激的でエキセントリックな若者の街として知られる東京、渋谷。\n そこからわずか徒歩9分のところに、都会の喧騒を忘れさせる静かな街、代官山があります。\n我々はそこで心からくつろげるリラクシングな場所を 創業年1998年以来 今日に至るまで提供し続けています。",
 
 
 
@@ -432,19 +436,40 @@ function openingModalWindow(){
 
 
         languageSelector.addEventListener("change",(event)=>{
-
           console.log(event.target.value);
+          setLanguage(event.target.value);
+        });
+        
+        function setLanguage(language){
+          console.log("debug1");
+          if(language=="jp"){
+            console.log("jp course!");
+            theTexts.forEach((element)=>{
+              let valueName=element.getAttribute("data-i18n");
+              console.log(valueName);  //title
+              
+              console.log(languageTranslation[language][valueName]);//ゆるゆらカフェ
+              element.innerText=languageTranslation[language][valueName];
 
-
-        })
-        const setLanguage=(language)=>{
-          if(language==jp){
-            // theTexts.
+            });
 
           }
+          else if(language=="en"){
+            console.log("en course!");
+            theTexts.forEach((element)=>{
+              let valueName=element.getAttribute("data-i18n");
+              console.log(valueName);  //title
+              
+              console.log(languageTranslation[language][valueName]);//ゆるゆらカフェ
+              element.innerText=languageTranslation[language][valueName];
+
+            });
 
 
-        }
+          };
+
+
+        };
 
 
 
