@@ -126,7 +126,7 @@
 
 <div class="container">
   <div class="headLineContainer">
-<h3>LATEST NEWS<br>最新情報</h3>
+<h3 data-i18n="news">LATEST NEWS<br>最新情報</h3>
 <h4 id="latestDate">updated on Feb 9th</h4>
 </div>
 <div class="newsFeedPlate">
@@ -234,7 +234,7 @@
 
 
 <div class="items">
-<a href="menu.html#menu">メニューを見る<div class="blackLayer"></div></a>
+<a href="javascript:void(0)" data-i18n="jumpToMenu">メニューを見る<div class="blackLayer"></div></a>
 <div class="blackLayer"></div>
 
 
@@ -257,17 +257,17 @@
 
 <section class="contact" id="contact">
 <div class="sectionTitle">
-  <p>CONTACT<br>店舗情報</p>
+  <p data-i18n="contactInformation">CONTACT<br>店舗情報</p>
 </div>
 <div class="container">
 <div class="row">
 <div class="textInfoContainer">
 <div>
-  <p>〒150-0033</p>
-<p>東京都 渋谷区 代官山 7-7-7 </p>
-<p>TEL: 03-1629-6505</p>
-<p>営業時間:10:00~19:00</p>
-<p>定休日：毎週木曜</p>
+  <p data-i18n="adress">〒150-0033<br>
+東京都 渋谷区 代官山 7-7-7 <br>
+TEL: 03-1629-6505<br>
+営業時間:10:00~19:00<br>
+定休日：毎週木曜</p>
 </div>
 </div>
 <div class="mapContainer">
@@ -396,6 +396,28 @@ function openingModalWindow(){
 
         })
 
+        ///////fade out effect//////////////////////
+        // const items=document.querySelectorAll(".items");
+        // let body=document.querySelector("body");
+        // body.addEventListener("transitionend",()=>{
+        //       window.location.href = "menu.html#menu";
+
+        //   })
+
+        //  items.forEach((el)=>{
+        //     el.addEventListener("click",()=>{
+              
+        //       fadeout();
+        //     })
+        //   });
+
+        // function fadeout(){
+        //   body.classList.add("fadeout");
+        //   console.log(".fadeout added to <body>!");
+          
+          
+        // };
+
         //======================================
         //========Translation function==============
         //=====================================
@@ -405,7 +427,7 @@ function openingModalWindow(){
         let languageSelector=document.querySelector("select");
 
         let theTexts=document.querySelectorAll("[data-i18n]");
-
+        let theSideText=document.getElementById("latestDate");
         /////////////////variables////////////////////////////
 
         const languageTranslation={
@@ -421,8 +443,11 @@ function openingModalWindow(){
                           specialBeanSelection:"The Best Bean Selections",
                           specialBeanSelectionMessage:"We have curated our bean selection out of so many good brands all around the world.\n And every cup of our cofee is made with care.",
                           domesticProduct:"Domestic Food Products",
-                          domesticProductMessage:"Our food materials are made by our contracted farmers for the best quality and safety."
-
+                          domesticProductMessage:"Our food materials are made by our contracted farmers for the best quality and safety.",
+                          news:"LATEST INFORMATION",
+                          jumpToMenu:"Jump to Menu Page",
+                          contactInformation:"Contact Information",
+                          adress:"Daikan-yama 7-7-7 Shibuya Tokyo\nZip Code:150-0033\nPhone Number:03-1629-6505\nBusiness Hours:10AM to 7PM\nWe are closed on Thursdays."
               },
 
               jp:{
@@ -436,7 +461,12 @@ function openingModalWindow(){
                         specialBeanSelection:"厳選された豆",
                         specialBeanSelectionMessage:"世界中から良質な豆ブランドのみを取り揃えております。\nそのコーヒーは\n バリスタが一杯一杯まごころをこめて淹れています。",
                         domesticProduct:"国産食材へのこだわり",
-                        domesticProductMessage:"フードに使用される食材は顔の見える信頼のできる契約農家さん達たちから直接仕入れているので、安心、安全です。"
+                        domesticProductMessage:"フードに使用される食材は顔の見える信頼のできる契約農家さん達たちから直接仕入れているので、安心、安全です。",
+                        news:"LATEST NEWS\n最新情報",
+                        jumpToMenu:"メニューを見る",
+                        contactInformation:"CONTACT\n店舗情報",
+                        adress:"〒150-0033\n東京都 渋谷区 代官山 7-7-7 \nTEL: 03-1629-6505\n営業時間:10:00~19:00\n定休日：毎週木曜"
+
 
 
               }
@@ -462,7 +492,7 @@ function openingModalWindow(){
               
               console.log(languageTranslation[language][valueName]);//ゆるゆらカフェ
               element.innerText=languageTranslation[language][valueName];
-
+              theSideText.style.opacity="1";
             });
 
           }
@@ -474,7 +504,7 @@ function openingModalWindow(){
               
               console.log(languageTranslation[language][valueName]);//ゆるゆらカフェ
               element.innerText=languageTranslation[language][valueName];
-
+              theSideText.style.opacity="0";
             });
 
 

@@ -17,7 +17,7 @@
         max-width:1440px;
         margin:0 auto;
         background-color:rgb(107 77 57);
-        
+        transition:opacity 0.25s ease;
         
       }
       
@@ -75,7 +75,7 @@
       }
 
       .heroSlide.second{
-        background-image:url(assets/images/compressedImages/tsuyoshi-kozu-uTC91Stlz0o-unsplash.jpg);
+        background-image:url(assets/images/kieran-ReVIa_Nm6fE-unsplashKai.jpg);
         position: absolute;
         top: 0;
         left: 0;
@@ -83,7 +83,7 @@
         animation:fadeInOutFor2 25s linear forwards;
         width: 100%;
         animation-iteration-count: infinite;
-        background-position:10% 60%;
+        background-position:10% 55%;
 
       }
 
@@ -634,9 +634,30 @@
             bottom: 0;
             background: rgb(92, 2, 2);
             color: #b5b5b5;
+            height: 40%;
+            width: 5rem;
+            border-bottom: 0px;
+            border-left: 0px;
       }
 
-      
+      img,div,iframe{
+        animation:fadeIn 0.25s ease;
+        transition:all 0.25s ease;
+      }
+
+      @keyframes fadeIn{
+
+        0%{opacity: 0}
+        100%{opacity: 1}
+
+
+
+      }
+
+      .fadeout{
+        opacity:0;
+      }
+
     /*==========================================
     ===========================================
                       MOBILE RESPONSIVE STYLE                                  
