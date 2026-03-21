@@ -162,7 +162,7 @@
     </head>
     <body>
       <header>
-        <a class="title" href="index.html">ゆるゆらカフェ</a>
+        <a class="title" href="index.html" data-i18n="title">ゆるゆらカフェ</a>
         <ul class="navBar">
           <li><a href="index.html#about">ABOUT</a></li>
           <li><a href="index.html#news">NEWS</a></li>
@@ -185,15 +185,23 @@
 
         </div>
 
+         <div class="translation">
+          <select name="languageSelection" id="languageSelection">
+            <option value="jp">🔴日本語</option>
+            <option value="en">🔵English</option>
+
+          </select>
+        </div>
+
 
       </header>
 
         <div class="floatingNavBar">
         <ul>
-        <li><a href="#food">フード</a></li>
-        <li><a href="#desert">デザート</a></li>
-        <li><a href="#coffee">コーヒー</a></li>
-        <li><a href="#tea">ティー</a></li>
+        <li><a href="#food" data-i18n="food">フード</a></li>
+        <li><a href="#desert" data-i18n="desert">デザート</a></li>
+        <li><a href="#coffee" data-i18n="coffee">コーヒー</a></li>
+        <li><a href="#tea" data-i18n="tea">ティー</a></li>
         </ul>
         </div>
 
@@ -204,7 +212,7 @@
 
 
         <section class="hero" >
-        <p class="message">まいにちに、<span class="break">ホっとひといきを。</span></p>
+        <p class="message" data-i18n="slogan">まいにちに、<span class="break">ホっとひといきを。</span></p>
       <div class="heroSlide first"></div>
       <div class="heroSlide second"></div>
       <div class="heroSlide third"></div>
@@ -214,11 +222,11 @@
 
 <section class="menu">
 <div class="container menuContainer">
-<h2 id="menu">メニュー</h2>
+<h2 id="menu" data-i18n="menu">メニュー</h2>
 
 
 
-<h3 id="food">フード</h3>
+<h3 id="food" data-i18n="food">フード</h3>
 <ul class="food">
 <li><a href="javascript:void(0)"><img src="assets/images/compressedImages/eiliv-aceron-mAQZ3X_8_l0-unsplash.jpg" alt="Sandwich"><p>ローストビーフサンドイッチ</p></a></li>
 <li><a href="javascript:void(0)"><img src="assets/images/compressedImages/jana-ohajdova-PLQ10xtiaKk-unsplash.jpg" alt="BLT Sandwich"><p>BLTサンドイッチ</p></a></li>
@@ -230,7 +238,7 @@
 <li><a href="javascript:void(0)"><img src="assets/images/compressedImages/you-le-l-mqDIEwcKk-unsplash.jpg" alt="Corn Potage"><p>コーンポタージュ</p></a></li>
 <li><a href="javascript:void(0)"><img src="assets/images/compressedImages/josie-rees-bsqO0kg9IvY-unsplash.jpg" alt="Tomato basil soup"><p>トマトバジルスープ</p></a></li>
 </ul>
-<h3 id="desert">デザート</h3>
+<h3 id="desert" data-i18n="desert">デザート</h3>
 <ul class="desert">
   <li><a href="javascript:void(0)"><img src="assets/images/compressedImages/yiseul-han-_K-yx6wIgt8-unsplash.jpg" alt="Chocolate cake"><p>ショコラケーキ</p></a></li>
 <li><a href="javascript:void(0)"><img src="assets/images/compressedImages/anna-heitmann-VEm0bjL0sZA-unsplash.jpg" alt="Scones"><p>チョコチップスコーン</p></a></li>
@@ -239,8 +247,8 @@
 
 </ul>
 
-<h3>ドリンク</h3>
-<h3 id="coffee">コーヒー</h3>
+<h3 data-i18n="drink">ドリンク</h3>
+<h3 id="coffee" data-i18n="coffee">コーヒー</h3>
 <ul class="coffee">
 <li><a href="javascript:void(0)"><img src="assets/images/compressedImages/shche_-team-heKg-V9yHwc-unsplash.jpg" alt="Black Coffee"><p>ブラックコーヒー</p></a></li>
 <li><a href="javascript:void(0)"><img src="assets/images/compressedImages/jeremy-yap-jn-HaGWe4yw-unsplash.jpg" alt="Moca"><p>モカ</p></a></li>
@@ -250,7 +258,7 @@
 
 
 </ul>
-<h3 id="tea">ティー</h3>
+<h3 id="tea" data-i18n="tea">ティー</h3>
 <ul class="tea">
 <li><a href="javascript:void(0)"><img src="assets/images/compressedImages/elena-leya-TnMonTHqYMk-unsplash.jpg" alt="Cranberry Juice"><p>クランベリージュース</p></a></li>
 <li><a href="javascript:void(0)"><img src="assets/images/compressedImages/rosalind-chang-P_wPicZYoPI-unsplash.jpg" alt="Boba"><p>ボバ</p></a></li>
@@ -279,7 +287,7 @@
   </div>
 </footer>
 
-    </body>
+
     <script>
       ////////////Hamburger Menu////////////////////////////////////////////////////////////
         const theCloseButton=document.querySelector(".closeButton");
@@ -352,6 +360,120 @@ function openingModalWindow(){
         });
 
 
+        
+        //======================================
+        //========Translation function==============
+        //=====================================
+
+        ///////////////////selectors///////////////////////////
+
+        let languageSelector=document.querySelector("select");
+
+        let theTexts=document.querySelectorAll("[data-i18n]");
+        let theSideText=document.getElementById("latestDate");
+        /////////////////variables////////////////////////////
+
+        const languageTranslation={
+
+              en:{    /*data i18n name↓*/
+                          title:"Yuru Yura Cafe",
+                          slogan:"Give Yourself a Time for Chill.",
+                          headLine:"Daikan-yama, which is an area just less than 10 minutes away from Shibuya Tokyo.\n We are a Caffee, focusing on a low key environment. ",
+                          aboutBody:"The world-known energetic city of youth, aka Shibuya, Tokyo. \nIn that place , There is a calm district called Daikan-yama, \njust within 10 minutes away from the hustle bustle city life of Shibuya.\nWe have been serving an unwinding place of relaxation there, ever since we started our business in 1998.",
+                          ourPolicies:"Our Three Mottoes",
+                          unwindingPlace:"Unwinding Place",
+                          unwindingPlaceMessage:"Based on Our motto for our customers to feel relaxed, \nwe have secured wide spaces between chairs and spacious desk spaces.",
+                          specialBeanSelection:"The Best Bean Selections",
+                          specialBeanSelectionMessage:"We have curated our bean selection out of so many good brands all around the world.\n And every cup of our cofee is made with care.",
+                          domesticProduct:"Domestic Food Products",
+                          domesticProductMessage:"Our food materials are made by our contracted farmers for the best quality and safety.",
+                          news:"LATEST INFORMATION",
+                          jumpToMenu:"Jump to Menu Page",
+                          contactInformation:"Contact Information",
+                          adress:"Daikan-yama 7-7-7 Shibuya Tokyo\nZip Code:150-0033\nPhone Number:03-1629-6505\nBusiness Hours:10AM to 7PM\nWe are closed on Thursdays.",
+                          menu:"Menu",
+                          food:"Food",
+                          desert:"Desert",
+                          drink:"Vebarages",
+                          coffee:"Coffee",
+                          tea:"Tea"
+              },
+
+              jp:{
+                        title:"ゆるゆらカフェ",
+                        slogan:"まいにちに、ホっとひといきを。",
+                        headLine:"渋谷の喧騒からわずか徒歩9分\n ゆったり落ち着いた大人な街、代官山。\nその一角にたたずむ、ゆるやかな空間にフォーカスした、ひと息つけるカフェ。",
+                        aboutBody:"刺激的でエキセントリックな若者の街として知られる東京、渋谷。\n そこからわずか徒歩9分のところに、都会の喧騒を忘れさせる静かな街、代官山があります。\n我々はそこで心からくつろげるリラクシングな場所を 創業年1998年以来 今日に至るまで提供し続けています。",
+                        ourPolicies:"わたしたちの３つのほっと",
+                        unwindingPlace:"やすらぎ空間",
+                        unwindingPlaceMessage:"お客様にひと息ついていただくをモットーに\n座席間隔、デスクスペースを広めにとってあります。\n時間制限もありません。",
+                        specialBeanSelection:"厳選された豆",
+                        specialBeanSelectionMessage:"世界中から良質な豆ブランドのみを取り揃えております。\nそのコーヒーは\n バリスタが一杯一杯まごころをこめて淹れています。",
+                        domesticProduct:"国産食材へのこだわり",
+                        domesticProductMessage:"フードに使用される食材は顔の見える信頼のできる契約農家さん達たちから直接仕入れているので、安心、安全です。",
+                        news:"LATEST NEWS\n最新情報",
+                        jumpToMenu:"メニューを見る",
+                        contactInformation:"CONTACT\n店舗情報",
+                        adress:"〒150-0033\n東京都 渋谷区 代官山 7-7-7 \nTEL: 03-1629-6505\n営業時間:10:00~19:00\n定休日：毎週木曜",
+                        menu:"メニュー",
+                        food:"フード",
+                        desert:"デザート",
+                        drink:"ドリンク",
+                        coffee:"コーヒー",
+                        tea:"ティー"
+
+
+              }
+
+
+
+
+        }
+
+
+        languageSelector.addEventListener("change",(event)=>{
+          console.log(event.target.value);
+          setLanguage(event.target.value);
+        });
+        
+        function setLanguage(language){
+          console.log("debug1");
+          if(language=="jp"){
+            console.log("jp course!");
+            theTexts.forEach((element)=>{
+              let valueName=element.getAttribute("data-i18n");
+              console.log(valueName);  //title
+              
+              console.log(languageTranslation[language][valueName]);//ゆるゆらカフェ
+              element.innerText=languageTranslation[language][valueName];
+              
+            });
+
+          }
+          else if(language=="en"){
+            console.log("en course!");
+            theTexts.forEach((element)=>{
+              let valueName=element.getAttribute("data-i18n");
+              console.log(valueName);  //title
+              
+              console.log(languageTranslation[language][valueName]);//ゆるゆらカフェ
+              element.innerText=languageTranslation[language][valueName];
+              
+            });
+
+
+          };
+
+
+        };
+
+
+
+
+
+
     </script>
+
+    </body>
 
 </html>
