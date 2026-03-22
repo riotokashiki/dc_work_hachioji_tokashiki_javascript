@@ -234,7 +234,7 @@
 
 
 <div class="items">
-<a href="javascript:void(0)" data-i18n="jumpToMenu">メニューを見る<div class="blackLayer"></div></a>
+<a href="menu.html#menu" data-i18n="jumpToMenu">メニューを見る<div class="blackLayer"></div></a>
 <div class="blackLayer"></div>
 
 
@@ -483,6 +483,8 @@ function openingModalWindow(){
         });
         
         function setLanguage(language){
+          localStorage.setItem("theLanguage",language);
+          console.log("The selected language saved to Local Storage");
           console.log("debug1");
           if(language=="jp"){
             console.log("jp course!");
@@ -513,7 +515,13 @@ function openingModalWindow(){
 
         };
 
+        const savedLanguage=localStorage.getItem("theLanguage");
+        if(savedLanguage){
+          languageSelector.value=savedLanguage;//It only visually changes the <select> and won't trigger the bound function.
 
+            setLanguage(savedLanguage);// So you have to manually run the function
+
+        }
 
 
 
