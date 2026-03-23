@@ -635,7 +635,7 @@
             background: rgb(92, 2, 2);
             color: #b5b5b5;
             height: 40%;
-            width: 5rem;
+
             border-bottom: 0px;
             border-left: 0px;
       }
@@ -656,6 +656,15 @@
 
       .fadeout{
         opacity:0;
+      }
+
+
+      .about .container h3.inEnglish{
+        height: 7rem;
+      }
+
+      .pillar p.inEnglish{
+            height: 20rem;
       }
 
     /*==========================================
@@ -1056,4 +1065,18 @@ footer{
             overflow: visible;
       }
 
+          #languageSelection {
+          width: 15vw;
+          font-size: 3vw;
+          height: 8vw;
+        }
+
+
+
+
+
     }
+
+
+
+

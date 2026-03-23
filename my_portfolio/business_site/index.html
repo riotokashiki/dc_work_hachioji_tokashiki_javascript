@@ -9,7 +9,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Kaisei+Decol&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    </head>
+      
+  </head>
     <body>
       <header>
         <a class="title" href="index.html" data-i18n="title">ゆるゆらカフェ</a>
@@ -36,8 +37,8 @@
 
         <div class="translation">
           <select name="languageSelection" id="languageSelection">
-            <option value="jp">日本語</option>
-            <option value="en">English</option>
+            <option value="jp">日本語🔴</option>
+            <option value="en">English🔵</option>
 
           </select>
         </div>
@@ -428,6 +429,8 @@ function openingModalWindow(){
 
         let theTexts=document.querySelectorAll("[data-i18n]");
         let theSideText=document.getElementById("latestDate");
+        let theH3=document.querySelectorAll(".about .container h3");
+        let theP=document.querySelectorAll(".pillar p");
         /////////////////variables////////////////////////////
 
         const languageTranslation={
@@ -475,7 +478,7 @@ function openingModalWindow(){
 
 
         }
-
+        
 
         languageSelector.addEventListener("change",(event)=>{
           console.log(event.target.value);
@@ -495,6 +498,9 @@ function openingModalWindow(){
               console.log(languageTranslation[language][valueName]);//ゆるゆらカフェ
               element.innerText=languageTranslation[language][valueName];
               theSideText.style.opacity="1";
+              theH3.forEach(el=>el.classList.remove("inEnglish"));
+              theP.forEach(el=>el.classList.remove("inEnglish"));
+              console.log(".inEnglish removed from theH3 and theP!");
             });
 
           }
@@ -507,6 +513,9 @@ function openingModalWindow(){
               console.log(languageTranslation[language][valueName]);//ゆるゆらカフェ
               element.innerText=languageTranslation[language][valueName];
               theSideText.style.opacity="0";
+              theH3.forEach(el=>el.classList.add("inEnglish"));
+              theP.forEach(el=>el.classList.add("inEnglish"));
+              console.log(".inEnglish added to theH3 and theP!");
             });
 
 
@@ -524,6 +533,8 @@ function openingModalWindow(){
         }
 
 
+        console.log(theH3);
+        console.log(theP);
 
 
       </script>
