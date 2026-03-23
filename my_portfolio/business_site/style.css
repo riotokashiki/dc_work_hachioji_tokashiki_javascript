@@ -951,6 +951,14 @@ header{
     width: 6vw;
 }
 
+.pillar p.inEnglish{
+  height: auto;
+}
+
+.about .container h3.inEnglish {
+    height: auto;
+}
+
     }
 
 
