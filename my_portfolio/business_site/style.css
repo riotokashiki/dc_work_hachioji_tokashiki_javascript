@@ -658,8 +658,8 @@
 
       .fadeInOnScroll {
     opacity: 0;
-    transform: translateX(-15%) scale(0.8);
-    transition: opacity 1s ease, transform 1s ease;
+    transform: translateX(-10%) scale(0.8);
+    transition: opacity 1s ease-out, transform 1s ease-out;
 }
 
 .fadeInOnScroll.visible {
