@@ -659,7 +659,7 @@
       .fadeInOnScroll {
     opacity: 0;
     transform: translateX(-15%) scale(0.8);
-    transition: opacity 1.2s ease, transform 1.2s ease;
+    transition: opacity 1s ease, transform 1s ease;
 }
 
 .fadeInOnScroll.visible {
@@ -1074,7 +1074,6 @@ footer{
       }
 
           #languageSelection {
-          width: 15vw;
           font-size: 3vw;
           height: 8vw;
         }
