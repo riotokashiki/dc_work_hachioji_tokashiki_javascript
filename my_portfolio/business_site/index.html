@@ -53,10 +53,10 @@
         
 </section>
 
-<section class="whoAreWe">
+<section class="whoAreWe " >
 <div class="container">
 
-<div class="messageContainer">
+<div class="messageContainer fadeInOnScroll">
   <h2 data-i18n="headLine">渋谷の喧騒からわずか徒歩9分<br> ゆったり落ち着いた大人な街,
  代官山。<br>
 その一角にたたずむ、<br>ゆるやかな空間にフォーカスした、<br> ひと息つけるカフェ。</h2>
@@ -87,7 +87,7 @@
 
 </section>
 
-<section class="about" id="about">
+<section class="about fadeInOnScroll" id="about">
 <div class="container">
 
 <div class="sectionTitle">
@@ -174,7 +174,7 @@
 
 
 </section>
-<section class="menu" id="menu">
+<section class="menu fadeInOnScroll" id="menu">
 <div class="container">
 <div class="sectionTitle">
   <p>MENU</p>
@@ -256,7 +256,7 @@
 
 </section>
 
-<section class="contact" id="contact">
+<section class="contact fadeInOnScroll" id="contact">
 <div class="sectionTitle">
   <p data-i18n="contactInformation">CONTACT<br>店舗情報</p>
 </div>
@@ -536,6 +536,17 @@ function openingModalWindow(){
         console.log(theH3);
         console.log(theP);
 
+///////fade in on scroll//////////////////////////////////
+
+        const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+        }
+    });
+        }, { threshold: 0.15 }); // triggers when 15% of element is visible
+
+document.querySelectorAll(".fadeInOnScroll").forEach(el => observer.observe(el));
 
       </script>
     </body>

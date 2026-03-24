@@ -395,7 +395,7 @@
         text-decoration: underline;
       }
       .items:nth-child(8):hover a .blackLayer{
-       z-index: 0;
+        z-index: 0;
       }
 
       .middle{
@@ -440,9 +440,9 @@
 
       footer{
         background-color:rgb(85, 48, 23);
-        height:8rem;
         position: relative;
         z-index: 1;
+        padding: 1rem;
       }
 
       footer .container{
@@ -668,6 +668,17 @@
       .pillar p.inEnglish{
             height: 20rem;
       }
+
+      .fadeInOnScroll {
+    opacity: 0;
+    transform: translateX(-200px) scale(0.8);
+    transition: opacity 1.2s ease, transform 1.2s ease;
+}
+
+.fadeInOnScroll.visible {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+}
 
     /*==========================================
     ===========================================
