@@ -188,6 +188,8 @@
         margin:0px auto;
         text-decoration:none;
         letter-spacing: 0.4rem;
+        position: relative;
+        z-index: 3;
       }
 
         p.message{
