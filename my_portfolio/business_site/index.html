@@ -494,13 +494,16 @@ function openingModalWindow(){
             theTexts.forEach((element)=>{
               let valueName=element.getAttribute("data-i18n");
               console.log(valueName);  //title
-              
               console.log(languageTranslation[language][valueName]);//ゆるゆらカフェ
-              element.innerText=languageTranslation[language][valueName];
-              theSideText.style.opacity="1";
+              element.classList.add("opacityZero");//クラスを付与
+              setTimeout(()=>{//時間差発動
+                  element.innerText=languageTranslation[language][valueName];//テキスト入れ替え
+              element.classList.remove("opacityZero");//クラスを除去
               theH3.forEach(el=>el.classList.remove("inEnglish"));
               theP.forEach(el=>el.classList.remove("inEnglish"));
               console.log(".inEnglish removed from theH3 and theP!");
+              },250);
+            
             });
 
           }
@@ -509,13 +512,15 @@ function openingModalWindow(){
             theTexts.forEach((element)=>{
               let valueName=element.getAttribute("data-i18n");
               console.log(valueName);  //title
-              
+              element.classList.add("opacityZero");//クラスを付与
               console.log(languageTranslation[language][valueName]);//ゆるゆらカフェ
-              element.innerText=languageTranslation[language][valueName];
-              theSideText.style.opacity="0";
+              setTimeout(()=>{//時間差発動
+                  element.innerText=languageTranslation[language][valueName];//テキスト入れ替え
+              element.classList.remove("opacityZero");//クラスを除去
               theH3.forEach(el=>el.classList.add("inEnglish"));
               theP.forEach(el=>el.classList.add("inEnglish"));
               console.log(".inEnglish added to theH3 and theP!");
+              },250);
             });
 
 
@@ -544,7 +549,7 @@ function openingModalWindow(){
             entry.target.classList.add("visible");
         }
     });
-        }, { threshold: 0.65 }); // triggers when 15% of element is visible
+        }, { threshold: 0.15 }); // triggers when 15% of element is visible
 
 document.querySelectorAll(".fadeInOnScroll").forEach(el => observer.observe(el));
 

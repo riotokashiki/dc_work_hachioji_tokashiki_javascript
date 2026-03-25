@@ -58,13 +58,13 @@
         
         z-index:1;
         height: 100%;
-        
+        background-attachment: fixed;
       }
 
       .heroSlide.first{
         background-image:url(assets/images/compressedImages/snapbythree-my-g6e641CiHFQ-unsplash.jpg);
          
-        animation:fadeInOutFor1 25s linear forwards; /*delay -secondsを使うとなんか表示の周期がずれておかしくなるからつかわないほうがいい*/
+        animation:fadeInOutFor1 15s linear forwards; /*delay -secondsを使うとなんか表示の周期がずれておかしくなるからつかわないほうがいい*/
         z-index: 5;
         animation-iteration-count: infinite;
         top: 0;
@@ -80,10 +80,10 @@
         top: 0;
         left: 0;
         z-index: 4;
-        animation:fadeInOutFor2 25s linear forwards;
+        animation:fadeInOutFor2 15s linear forwards;
         width: 100%;
         animation-iteration-count: infinite;
-        background-position:10% 55%;
+        background-position:10% 49%;
 
       }
 
@@ -94,7 +94,7 @@
         left: 0;
         z-index: 3;
         width: 100%;
-        animation:fadeInOutFor3 25s linear forwards;
+        animation:fadeInOutFor3 15s linear forwards;
         animation-iteration-count: infinite;
         opacity: 0;
       }
@@ -114,7 +114,7 @@
 
           33%{opacity: 1;}
           39%{opacity: 0;
-                  transform: scale(1.1);
+                  transform: scale(1.25);
                 }
 
           94%{opacity: 0;
@@ -132,7 +132,7 @@
         27%{opacity: 0;}
         
         33%{opacity: 1;
-                transform: scale(1);    
+                transform: scale(1.25) translateX(0);    
                 }
 
         66%{opacity: 1;
@@ -141,7 +141,7 @@
         72%{opacity: 0;}
 
         100%{opacity: 0;
-                    transform: scale(1.1)
+                    transform: scale(1.25) translateX(-15%)
                   }
 /* only 1/3 of this is shown */
 
@@ -155,10 +155,11 @@
         66%{opacity: 0;
                 }
 
-        72%{opacity: 1;}
+        68%/*72%*/{opacity: 1;
+                  transform: scale(1.25) translateY(-7%);}
 
         100%{opacity: 1;
-                    transform: scale(1.1)
+                    transform: scale(1.25) translateY(0%)
                   }
 /* only 1/3 of this is shown */
 
@@ -190,7 +191,10 @@
         letter-spacing: 0.4rem;
         position: relative;
         z-index: 3;
+        transition: all 0.25s ease-out;
       }
+    
+
 
         p.message{
           margin:0px;
@@ -202,7 +206,21 @@
         font-style: normal;
         font-weight:600;
         text-shadow: 3px 3px 8px black;
+        animation: fadeInTransition 3s ease-out;
+         transition: all 0.25s ease-out;
         }
+         @keyframes fadeInTransition{
+          0%{opacity: 0;}
+          18%{opacity: 0;
+                    transform: translateY(100%);
+                  }
+          100%{opacity: 100%;
+                      transform: translateY(0%);}
+
+
+        }
+
+
 
         .about{
           padding:120px 0;
@@ -658,14 +676,29 @@
 
       .fadeInOnScroll {
     opacity: 0;
-    transform: translateX(-10%) scale(0.8);
-    transition: opacity 1s ease-out, transform 1s ease-out;
+    transform: translateX(-15%) scale(0.8);
+    transition: opacity 1.2s ease, transform 1.2s ease;
 }
 
 .fadeInOnScroll.visible {
     opacity: 1;
     transform: translateX(0) scale(1);
 }
+
+
+[data-i18n]{
+  transition:all 0.25s ease-out;
+}
+
+@keyframes translationFadeIn{
+  0%{opacity: 0;}
+  100%{opacity: 1;}
+}
+
+.opacityZero{
+  opacity: 0;
+}
+
 
     /*==========================================
     ===========================================
@@ -821,7 +854,7 @@ transition: transform 0.25s ease-out,
                     opacity 0.25s ,
                     visibility 0.25s;
                       
-                
+    z-index: 3;
 }
 .modalWindow.shown{
   /* display: flex; */
@@ -1074,6 +1107,7 @@ footer{
       }
 
           #languageSelection {
+          
           font-size: 3vw;
           height: 8vw;
         }
