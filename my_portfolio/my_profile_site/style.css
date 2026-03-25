@@ -83,7 +83,7 @@
         animation:fadeInOutFor2 25s linear forwards;
         width: 100%;
         animation-iteration-count: infinite;
-        background-position:10% 55%;
+        background-position:10% 46%;
 
       }
 
@@ -821,7 +821,7 @@ transition: transform 0.25s ease-out,
                     opacity 0.25s ,
                     visibility 0.25s;
                       
-                
+    z-index: 3;
 }
 .modalWindow.shown{
   /* display: flex; */
