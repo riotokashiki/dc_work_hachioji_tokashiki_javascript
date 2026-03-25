@@ -543,13 +543,13 @@ function openingModalWindow(){
 
 ///////fade in on scroll//////////////////////////////////
 
-        const observer = new IntersectionObserver((entries) => {
+        const observer = new IntersectionObserver((entries) => { //entries means all the elements that gets in sight
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             entry.target.classList.add("visible");
         }
     });
-        }, { threshold: 0.15 }); // triggers when 15% of element is visible
+        }, { threshold: 0.05 }); // triggers when 15% of element is visible
 
 document.querySelectorAll(".fadeInOnScroll").forEach(el => observer.observe(el));
 
