@@ -674,6 +674,12 @@
             height: 20rem;
       }
 
+      [data-i18n]{
+  transition:all 0.25s ease-out;
+}
+
+
+
       .fadeInOnScroll {
     opacity: 0;
     transform: translateX(-15%) scale(0.8);
@@ -686,9 +692,7 @@
 }
 
 
-[data-i18n]{
-  transition:all 0.25s ease-out;
-}
+
 
 @keyframes translationFadeIn{
   0%{opacity: 0;}
