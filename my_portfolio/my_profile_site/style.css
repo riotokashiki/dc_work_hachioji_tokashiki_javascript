@@ -83,7 +83,7 @@
         animation:fadeInOutFor2 15s linear forwards;
         width: 100%;
         animation-iteration-count: infinite;
-        background-position:10% 46%;
+        background-position:10% 49%;
 
       }
 
@@ -205,7 +205,7 @@
         font-style: normal;
         font-weight:600;
         text-shadow: 3px 3px 8px black;
-        animation: fadeInTransition 1.8s ease-out;
+        animation: fadeInTransition 3s ease-out;
         }
          @keyframes fadeInTransition{
           0%{opacity: 0;}
