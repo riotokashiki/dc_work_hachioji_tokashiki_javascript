@@ -531,6 +531,28 @@
       background-color:rgb(134, 77, 38) ;
     }
   
+
+    .backgroundImage{
+      background-image: url(assets/images/compressedImages/irvin-zheng-77M4EfAOn-w-unsplash.jpg );
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      position: absolute;
+      z-index: 2;
+      right: 0;
+      top: 0;
+      /* border-radius: 0px 30%; */
+      overflow: hidden;
+        height: 90vh;
+        background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    }
+
+
     .imageContainer{
       display: flex;
       justify-content: center;
