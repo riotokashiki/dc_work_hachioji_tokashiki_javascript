@@ -177,7 +177,7 @@
         font-style: normal;
         font-weight:800;
         
-        position:relative;
+        position:fixed;
         align-items: center;
         z-index: 1;
       }
@@ -522,7 +522,7 @@
     }
 
     .navBar li a:hover{
-      background-color:rgb(134, 77, 38) ;
+      background-color:rgb(87, 87, 87) ;
     }
   
     .imageContainer{
@@ -682,6 +682,11 @@ object-fit: cover;
 height: 100%;
 width: 100%;
 }
+
+li{list-style: none;
+padding-left: 0;}
+
+
 ul.grid li{
   
     list-style: none;
@@ -795,7 +800,26 @@ header::after {
   100% { background-position: -200% 0; }
 }
 
+ul.skillGrid{
+display: grid;
+grid-template-columns: 30% 30%;
+gap: 1rem;
+}
 
+ul.skillGrid li{
+  background: gray;
+  border-radius: 10px;
+}
+
+
+#logo {
+    object-fit: contain;
+    height: 4rem;
+    width: 4rem;
+    box-shadow: 0px 0px 10px 5px #676767;
+    border-radius: 50%;
+    margin: 3rem;
+}
 
     /*==========================================
     ===========================================
