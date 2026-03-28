@@ -691,9 +691,9 @@ ul.grid li{
   
     list-style: none;
     padding-left: 0px;
-    border-radius: 20px;
+    border-radius: 2em;
     overflow: hidden;
-    border: solid 5px transparent;
+    border: solid 4px transparent;
     transition: all 0.25s ease;
 }
 ul.grid li a{
@@ -751,7 +751,7 @@ ul.grid li a div p{
     #f03 85%,
     transparent 90%
   );
-  border: solid 5px transparent;
+  border: solid 4px transparent;
   border-radius: 2em;
   background:
     var(--main-bg) padding-box,
