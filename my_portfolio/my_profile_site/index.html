@@ -54,6 +54,10 @@
 
       </header>
       <section class="hero" >
+        <div class="typing-wrapper">
+    <span id="type-text"></span>
+  
+</div>
       
       </section>
 
@@ -191,41 +195,8 @@
 </footer>
 
       <script>
-        const latestArticleDate=document.querySelector(".articleDate").textContent;
-        console.log("the latest article date is "+latestArticleDate);
+        
 
-        // const rawDate = "2026.02.09";
-
-        //I don't understand how this part works but used it and it worked anyway////////////////////////
-        // convert dots to dashes so JS can read it
-        const dateObj = new Date(latestArticleDate.replace(/\./g, "-"));
-
-        const formatted = dateObj.toLocaleDateString("en-US", {
-          year: "numeric",
-          month: "short",   // "Feb"
-          day: "numeric"    // "9"
-        });
-
-        console.log(formatted);
-
-
-        function addSuffix(day) {
-          if (day === 1 || day === 21 || day === 31) return day + "st";
-          if (day === 2 || day === 22) return day + "nd";
-          if (day === 3 || day === 23) return day + "rd";
-          return day + "th";
-        }
-
-        const day = dateObj.getDate();         // 9
-        const month = dateObj.toLocaleDateString("en-US", { month: "short" }); // "Feb"
-        const year = dateObj.getFullYear();    // 2026
-
-        const result = `${month} ${addSuffix(day)} ${year}`;
-        console.log(result); 
-
-        ///////////////////////////////////////////////////////////////////////////////////////////
-        let latestDateDisplay=document.getElementById("latestDate"); // 最新更新日の表示欄を取得
-        latestDateDisplay.textContent="Updated on "+result;
         ////////////Hamburger Menu////////////////////////////////////////////////////////////
         const theCloseButton=document.querySelector(".closeButton");
         const theModalWindow=document.getElementById("modalWindow");
@@ -328,7 +299,7 @@ function openingModalWindow(){
         let languageSelector=document.querySelector("select");
 
         let theTexts=document.querySelectorAll("[data-i18n]");
-        let theSideText=document.getElementById("latestDate");
+      
         let theH3=document.querySelectorAll(".about .container h3");
         let theP=document.querySelectorAll(".pillar p");
         /////////////////variables////////////////////////////
@@ -397,7 +368,7 @@ function openingModalWindow(){
               
               console.log(languageTranslation[language][valueName]);//ゆるゆらカフェ
               element.innerText=languageTranslation[language][valueName];
-              theSideText.style.opacity="1";
+            
               theH3.forEach(el=>el.classList.remove("inEnglish"));
               theP.forEach(el=>el.classList.remove("inEnglish"));
               console.log(".inEnglish removed from theH3 and theP!");
@@ -447,6 +418,55 @@ function openingModalWindow(){
         }, { threshold: 0.15 }); // triggers when 15% of element is visible
 
 document.querySelectorAll(".fadeInOnScroll").forEach(el => observer.observe(el));
+
+
+
+/////////Typing Effect////////////////////////////
+
+const texts = [
+    "動きをデザインする。",
+    "フロントエンド志望。",
+    "その先にある物は。",
+    // "Built With Clean Code"
+];
+
+let textIndex = 0;
+let charIndex = 0;
+let isDeleting = false;
+
+const typingSpeed = 90;
+const deletingSpeed = 45;
+const pauseTime = 1400;
+
+function typeLoop() {
+    const current = texts[textIndex];
+    const displayed = current.substring(0, charIndex);
+
+    document.getElementById("type-text").textContent = displayed;
+
+    if (!isDeleting && charIndex < current.length/*タイピング途中の時*/) {
+        charIndex++;
+        setTimeout(typeLoop, typingSpeed + Math.random() * 40); // natural typing
+    } 
+    else if (isDeleting && charIndex > 0/*消し途中の時*/) {
+        charIndex--;
+        setTimeout(typeLoop, deletingSpeed);
+    } 
+    else {
+        isDeleting = !isDeleting;
+
+        if (!isDeleting/*消してないとき*/) {
+            textIndex = (textIndex + 1) % texts.length;
+        }
+
+        setTimeout(typeLoop, pauseTime);
+    }
+}
+
+typeLoop();
+
+
+
 
       </script>
     </body>

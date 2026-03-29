@@ -702,8 +702,13 @@ ul.grid li{
     /* transition: all 0.02s ease; */
      position: relative; /* add this */
      z-index: 3;
-     
+     transition: transform 0.25s ease-out;
 }
+
+ul.grid li:hover{
+transform: scale(1.05);
+}
+
 
 ul.grid li::after {
   content: "";
@@ -940,6 +945,7 @@ p{ font-family: "Zen Maru Gothic", sans-serif;
 }
 
 .textInfoContainer h3{
+  font-family: "Zen Maru Gothic", sans-serif;
   font-size: 1.8rem;
     font-weight: bold;
     margin: 2.5rem
@@ -964,6 +970,16 @@ p{ font-family: "Zen Maru Gothic", sans-serif;
     background-size: 200% 100%;
     animation: border-slide 9s linear infinite;
 }
+
+.typing-wrapper {
+  
+    font-size: 48px;
+    font-weight: 600;
+    background: linear-gradient(90deg, #08f , #818cf8, #f03 );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
     /*==========================================
     ===========================================
                       MOBILE RESPONSIVE STYLE                                  
