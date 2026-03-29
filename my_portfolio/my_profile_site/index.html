@@ -5,8 +5,9 @@
     <title>Ryo Tokashiki Portfolio Site | Front-end Developer</title>
     <link href="https://fonts.googleapis.com/css2?family=Hina+Mincho&display=swap" rel="stylesheet">
     <!-- ↓ This font is Bimyou -->
-    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+1+Code:wght@100..700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Kaisei+Decol&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
       
@@ -43,19 +44,22 @@
           </select>
         </div>
 
-      </header>
-      <!-- <section class="hero" >
-        <p class="message" data-i18n="slogan">まいにちに、<span class="break">ホっとひといきを。</span></p>
-      <div class="heroSlide first"></div>
-      <div class="heroSlide second"></div>
-      <div class="heroSlide third"></div>
-      
-        
-</section> -->
+        <!-- <div class="readyToWork">
+          <div class="circle">
+          </div>
+          <p> 求職中</p>
 
-<section class="My Works " >
+
+        </div> -->
+
+      </header>
+      <section class="hero" >
+      
+      </section>
+
+<section class="works " id="works" >
 <div class="container">
-<h2>作品 My Works</h2>
+<h2>My Works</h2>
 <ul class="grid">
   <li class="box"><a href="https://riotokashiki.github.io/dc_work_hachioji_tokashiki_javascript/my_portfolio/business_site/index.html"><div class="itemContainer"><img src="assets/images/compressedImages/cafe3対2ratio.png" alt="">
     <h2>ゆるゆらカフェ</h2>
@@ -100,23 +104,23 @@
 <div class="container">
 
 <div class="sectionTitle">
-<p data-i18n="aboutMe">自己紹介</p>
+<h2 data-i18n="aboutMe">自己紹介</h2>
 </div>
 <p>
   はじめまして。<br>渡嘉敷 諒(Ryo Tokashiki)と申します。<br>
   フロントエンドエンジニアを目指し、勉強中です。<br>
-  アニメーションへのこだわりが強く、ユーザーが思わず触りたくなるインタラクティブなインターフェイスを作ることを目指しています。<br>
+  アニメーションへのこだわりが強く、<br>ユーザーが思わず触りたくなるインタラクティブなインターフェイスを作ることを目指しています。<br>
   現在積極的に就職先を探しています。<br>一緒に何か作りましょう！
 
 </p>
 
 <div class="skills">
-<h2>Skill</h2>
+<h2>My Skills</h2>
 <ul class="skillGrid">
-  <li>Javascript</li>
-  <li>CSS</li>
-  <li>HTML</li>
-  <li>GitHub</li>
+  <li><div class="circle"></div>Javascript</li>
+  <li><div class="circle"></div>CSS</li>
+  <li><div class="circle"></div>HTML</li>
+  <li><div class="circle"></div>GitHub</li>
 
 </ul>
 
@@ -154,26 +158,26 @@
 
 </section>
 
-<section class="contact fadeInOnScroll" id="contact">
+<section class="contact " id="contact">
+  <div class="container">
 <div class="sectionTitle">
-  <p data-i18n="contactInformation">CONTACT<br>店舗情報</p>
+  <p data-i18n="contactInformation">CONTACT
+</div>
 </div>
 <div class="container">
-<div class="row">
+
 <div class="textInfoContainer">
 <div>
-  <p data-i18n="adress">〒150-0033<br>
-東京都 渋谷区 代官山 7-7-7 <br>
-TEL: 03-1629-6505<br>
-営業時間:10:00~19:00<br>
-定休日：毎週木曜</p>
+  <h3>一緒に作りませんか。</h3>
+  <p data-i18n="adress">お気軽にご連絡ください。
 </div>
-</div>
-<div class="mapContainer">
-<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d405.2675773041435!2d139.70091160237104!3d35.64890696873008!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188b4f870a33b9%3A0xc5c11b5126283949!2z44CSMTUwLTAwMzMgVG9reW8sIFNoaWJ1eWEsIFNhcnVnYWt1Y2jFjSwgMjXiiJIxIOS7o-WumOWxseOCueODmuODvOOCuQ!5e0!3m2!1sen!2sjp!4v1771992986964!5m2!1sen!2sjp" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-</div>  
+<a href="mailto:your@email.com" class="yourEmailAdress">your@email.com</a>
 
 </div>
+
+
+
+
 </div>
 
 

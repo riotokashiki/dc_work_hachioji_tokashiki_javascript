@@ -179,7 +179,7 @@
         
         position:fixed;
         align-items: center;
-        z-index: 1;
+        z-index: 4;
       }
 
       .title{
@@ -191,6 +191,9 @@
         letter-spacing: 0.4rem;
         position: relative;
         z-index: 3;
+        font-family: "Syncopate", sans-serif;
+        font-weight: 400;
+        font-style: normal;
       }
     
 
@@ -258,7 +261,6 @@
         }
 
         .sectionTitle{
-          display:flex;
           margin:40px auto;
         font-style: normal;
           
@@ -266,12 +268,13 @@
 
         .sectionTitle p{
           color:white;
-          font-size:3.5vh;
+          font-size:1.3rem;
           text-align: center;
           font-size: 2rem;
           font-weight: 500;
           letter-spacing: 0.7rem;
           line-height: 2.8rem;
+          font-family: "Syncopate", sans-serif;
         }
         /*/////News Feed///////////////////////////////////////////////*/
         h3{
@@ -487,6 +490,7 @@
     font-size: 1.35rem;
     letter-spacing: 0.19rem;
     line-height: 2.1rem;
+        text-align: center;
 
     }
     
@@ -500,7 +504,7 @@
       align-items: center;
       justify-content: flex-end;
       position: absolute;
-      right:30%;
+      right: 13%;
       top:50%;
       transform: translateY(-50%);/*これめっちゃ使えるから覚えとこう*/
       
@@ -519,6 +523,10 @@
       transition:all 0.25s ease;
       letter-spacing: 0.3vw;
       font-size: 1.3vw;
+          font-size: 0.7rem;
+    font-family: "Syncopate", sans-serif;
+    font-weight: 400;
+    font-style: normal;
     }
 
     .navBar li a:hover{
@@ -691,18 +699,48 @@ ul.grid li{
   
     list-style: none;
     padding-left: 0px;
-    border-radius: 2em;
-    overflow: hidden;
+    border-radius: 20px;
+    /* overflow: hidden; */
     border: solid 4px transparent;
-    transition: all 0.25s ease;
+    /* transition: all 0.02s ease; */
+     position: relative; /* add this */
+     z-index: 3;
+     
 }
+
+ul.grid li::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: 20px;
+  border: solid 5px transparent;
+  background:
+    conic-gradient(from var(--border-angle), transparent 10%, #08f 15%, #f03 85%, transparent 90%)
+    border-box;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  animation: bg-spin 4s linear infinite reverse;
+  pointer-events: none;
+  z-index: -1;
+}
+
+ul.grid li:hover::after {
+  opacity: 1;
+  z-index: 0;
+}
+
 ul.grid li a{
   text-decoration: none;
+  z-index: 1; /* add this */
+  position: relative;
 }
 
 .itemContainer{
   width: auto;
   color: white;
+  overflow: hidden;
+  border-radius: 20px;
+  background: black;
 }
 ul.grid{
   display: grid;
@@ -713,10 +751,13 @@ ul.grid{
 ul.grid li a div h2{
   padding: 0.3rem 0.8rem;
       text-align: -webkit-auto;
+          font-size: 1.7rem;
+          font-weight: bold;
 }
 
 ul.grid li a div p{
   padding: 0.3rem 0.8rem;
+  font-size: 1.3rem;
 }
 
 .container>h2{
@@ -730,7 +771,7 @@ ul.grid li a div p{
   inherits: true;
   initial-value: 0turn;
 }
-
+/* 
 .box{
   transition: all 0.25s ease;
 }
@@ -760,7 +801,7 @@ ul.grid li a div p{
   background-position: center center;
   animation: bg-spin 4s linear infinite reverse;
   
-}
+} */
 
 
 @keyframes bg-spin {
@@ -809,6 +850,11 @@ gap: 1rem;
 ul.skillGrid li{
   background: gray;
   border-radius: 10px;
+  display: flex;
+      height: 50px;
+    align-items: center;
+        padding: 1rem;
+
 }
 
 
@@ -819,6 +865,88 @@ ul.skillGrid li{
     box-shadow: 0px 0px 10px 5px #676767;
     border-radius: 50%;
     margin: 3rem;
+}
+
+.readyToWork{
+  display: flex;
+  position: absolute;
+  align-items: center;
+  right: 0;
+  top: 0;
+      background: #2f2f2f;
+    border-radius: 15px;
+        width: 85px;
+    height: 30%;
+    margin: 0.5rem 0.1rem;
+
+}
+.readyToWork p{
+  color:rgb(15 185 43) ;
+}
+
+.circle{
+  height: 1rem;
+  width: 1rem;
+
+  background-color: rgb(145 255 163);
+  border-radius: 50%;
+  animation:puls 4s infinite;
+  margin: 0.3rem;
+}
+
+@keyframes puls{
+0%,100%{opacity: 1;
+                    transform: scale(1);}
+50%{opacity: 0.4;
+          transform: scale(0.8);}
+
+
+}
+
+.skill-dot {
+  background-color: greenyellow;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.skills{
+      margin-top: 4rem;
+}
+
+.skills h2{
+  margin-bottom: 1rem;
+}
+
+.aboutMe .container p {
+     letter-spacing: 0.05vw;
+    line-height: 2.8vw;
+    font-size: 1.4rem;
+}
+h2,h3{
+ font-family: "Syncopate", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+p{ font-family: "Zen Maru Gothic", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.textInfoContainer h3{
+  font-size: 1.8rem;
+    font-weight: bold;
+    margin: 2.5rem
+}
+
+.yourEmailAdress {
+    margin: 1rem;
+    color: #a9ffa5;;
+    font-size: 1.3rem;
+    text-decoration: none;
+    border-bottom: solid 1px gray;
 }
 
     /*==========================================
