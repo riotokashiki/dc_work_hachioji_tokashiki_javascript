@@ -972,13 +972,47 @@ p{ font-family: "Zen Maru Gothic", sans-serif;
 }
 
 .typing-wrapper {
-  
+  position: absolute;
+  left: 15%;
     font-size: 48px;
     font-weight: 600;
     background: linear-gradient(90deg, #08f , #818cf8, #f03 );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+
+.workButton:after{
+  content: "";
+    position: absolute;
+    inset: -6px;
+    border-radius: 20px;
+    border: solid 5px transparent;
+    background: conic-gradient(from var(--border-angle), transparent 10%, #08f 15%, #f03 85%, transparent 90%) border-box;
+    transition: opacity 0.3s ease;
+    animation: bg-spin 4s linear infinite reverse;
+    pointer-events: none;
+    z-index: -1;
+}
+
+  .workButton {
+    background: red;
+    border-radius: 7px;
+    text-decoration: none;
+    color: white;
+    padding: 1rem;
+    position: absolute;
+    left: 15%;
+    bottom: 10%;
+    transition: all 0.25s ease-out;
+    opacity: 0;
+    z-index: 10;
+}
+
+
+.workButton.emerged{
+  opacity: 1;
+}
+
 
     /*==========================================
     ===========================================

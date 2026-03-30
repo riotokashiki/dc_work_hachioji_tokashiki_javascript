@@ -55,10 +55,10 @@
       </header>
       <section class="hero" >
         <div class="typing-wrapper">
-    <span id="type-text"></span>
-  
-</div>
+          <span id="type-text"></span>
+        </div>
       
+        <a class="workButton" href="#works"><p>作品を見る</p></a>
       </section>
 
 <section class="works " id="works" >
@@ -68,13 +68,13 @@
   <li class="box"><a href="https://riotokashiki.github.io/dc_work_hachioji_tokashiki_javascript/my_portfolio/business_site/index.html"><div class="itemContainer"><img src="assets/images/compressedImages/cafe3対2ratio.png" alt="">
     <h2>ゆるゆらカフェ</h2>
   <p>代官山にあるカフェを題材にしたビジネスサイト。<br>
-  ・英語表記に切り替え可能の多言語対応<br>・スムーズなアニメーション</p>
+  ・英語表記に切り替え可能のバイリンガル対応<br>・スムーズなアニメーション<br>・テンプレを使わず一から制作</p>
 </div>
   </a></li>
 
   <li class="box"><a href="https://riotokashiki.github.io/dc_work_hachioji_tokashiki_javascript/js_hachioji_tokashiki.html"><div class="itemContainer"><img src="assets/images/compressedImages/pianoApp.png" alt="">
     <h2>ピアノアプリ</h2>
-  <p>おもちゃのピアノを題材にした楽器アプリ。<br>
+  <p>おもちゃのピアノを題材にした楽器アプリ。<br>・楽曲自動演奏機能<br>
   ・オクターブ調節機能で音階変更可能<br>・ミュート機能、音量調整UI<br>・なめらかなアニメーション</p>
 </div>
   </a></li>
@@ -334,12 +334,12 @@ function openingModalWindow(){
                         unwindingPlaceMessage:"お客様にひと息ついていただくをモットーに\n座席間隔、デスクスペースを広めにとってあります。\n時間制限もありません。",
                         specialBeanSelection:"厳選された豆",
                         specialBeanSelectionMessage:"世界中から良質な豆ブランドのみを取り揃えております。\nそのコーヒーは\n バリスタが一杯一杯まごころをこめて淹れています。",
-                        domesticProduct:"国産食材へのこだわり",
-                        domesticProductMessage:"フードに使用される食材は顔の見える信頼のできる契約農家さん達たちから直接仕入れているので、安心、安全です。",
-                        news:"LATEST NEWS\n最新情報",
-                        jumpToMenu:"メニューを見る",
-                        contactInformation:"CONTACT\n店舗情報",
-                        adress:"〒150-0033\n東京都 渋谷区 代官山 7-7-7 \nTEL: 03-1629-6505\n営業時間:10:00~19:00\n定休日：毎週木曜"
+                        domesticProduct:"",
+                        domesticProductMessage:"",
+                        news:"",
+                        jumpToMenu:"",
+                        contactInformation:"Contact",
+                        adress:""
 
 
 
@@ -423,6 +423,8 @@ document.querySelectorAll(".fadeInOnScroll").forEach(el => observer.observe(el))
 
 /////////Typing Effect////////////////////////////
 
+const workButton=document.querySelector(".workButton");
+
 const texts = [
     "動きをデザインする。",
     "フロントエンド志望。",
@@ -439,6 +441,7 @@ const deletingSpeed = 45;
 const pauseTime = 1400;
 
 function typeLoop() {
+  console.log("typeLoop Running!");
     const current = texts[textIndex];
     const displayed = current.substring(0, charIndex);
 
@@ -446,23 +449,37 @@ function typeLoop() {
 
     if (!isDeleting && charIndex < current.length/*タイピング途中の時*/) {
         charIndex++;
+        console.log("debug D");
         setTimeout(typeLoop, typingSpeed + Math.random() * 40); // natural typing
     } 
     else if (isDeleting && charIndex > 0/*消し途中の時*/) {
         charIndex--;
+        console.log("debug C");
         setTimeout(typeLoop, deletingSpeed);
     } 
     else {
         isDeleting = !isDeleting;
 
         if (!isDeleting/*消してないとき*/) {
-            textIndex = (textIndex + 1) % texts.length;
-        }
+            textIndex=(textIndex+1);
+          if(textIndex===texts.length){
+            setTimeout(()=>{
+              workButton.classList.add("emerged");
+              return;
 
+
+
+            },500)
+          }
+        }
+        console.log("debug B");
+        if(textIndex===texts.length){
+          return;
+        }
         setTimeout(typeLoop, pauseTime);
     }
 }
-
+console.log("debug A")
 typeLoop();
 
 
