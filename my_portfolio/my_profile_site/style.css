@@ -1015,6 +1015,9 @@ p{ font-family: "Zen Maru Gothic", sans-serif;
 .workButton.emerged{
   opacity: 1;
 }
+.workButton.emerged:hover{
+  transform: scale(1.05);
+}
 
 p.main {
     font-size: 3.5rem;
