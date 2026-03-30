@@ -54,6 +54,13 @@
 
       </header>
       <section class="hero" >
+
+        <div class="heroMessage">
+        <p class="main"><span class="message one">動きを</span><br><span class="message two">デザイン</span><br><span class="message three">する人。</span></p>
+        <p class="subtitle">アニメーションと細部へのこだわりで<br>使って気持ちいインターフェイスをつくります。</p>
+      </div>
+
+
         <div class="typing-wrapper">
           <span id="type-text"></span>
         </div>
@@ -464,12 +471,33 @@ function typeLoop() {
             textIndex=(textIndex+1);
           if(textIndex===texts.length){
             setTimeout(()=>{
-              workButton.classList.add("emerged");
-              return;
+              document.querySelector(".heroMessage").classList.add("emerged");
+              document.querySelector("span.message.one").classList.add("emerged");
+              setTimeout(()=>{
+                document.querySelector("span.message.two").classList.add("emerged");
+
+                setTimeout(()=>{
+                  document.querySelector("span.message.three").classList.add("emerged");
+
+                  setTimeout(()=>{
+                    document.querySelector("p.subtitle").classList.add("emerged");
+                    workButton.classList.add("emerged");
+
+                  },1000)
+
+                    
+
+                },1000)
+                
+
+
+                return;
+              },1000)
+              
 
 
 
-            },500)
+            },1000)
           }
         }
         console.log("debug B");

@@ -30,17 +30,19 @@
         
       }
 
-      .hero{
-        position: relative;
-        width: 100%;
-        overflow: hidden;
-        height: 87vh;
-        display: flex;
-        align-items: flex-start;    
-        justify-content: flex-start; 
-        padding-top: 58vh;
-        padding-left: 14vh; 
-      }
+    .hero {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    height: 87vh;
+    display: flex;
+    /* align-items: flex-start; */
+    /* justify-content: flex-start; */
+    /* padding-top: 58vh; */
+    /* padding-left: 14vh; */
+    z-index: 3;
+    padding-top: 13vh;
+}
 
       .heroSlide{
         box-sizing:border-box;
@@ -973,7 +975,8 @@ p{ font-family: "Zen Maru Gothic", sans-serif;
 
 .typing-wrapper {
   position: absolute;
-  left: 15%;
+  left: 6%;
+      top: 67%;
     font-size: 48px;
     font-weight: 600;
     background: linear-gradient(90deg, #08f , #818cf8, #f03 );
@@ -985,7 +988,7 @@ p{ font-family: "Zen Maru Gothic", sans-serif;
   content: "";
     position: absolute;
     inset: -6px;
-    border-radius: 20px;
+    border-radius: 7px;
     border: solid 5px transparent;
     background: conic-gradient(from var(--border-angle), transparent 10%, #08f 15%, #f03 85%, transparent 90%) border-box;
     transition: opacity 0.3s ease;
@@ -1001,11 +1004,11 @@ p{ font-family: "Zen Maru Gothic", sans-serif;
     color: white;
     padding: 1rem;
     position: absolute;
-    left: 15%;
-    bottom: 10%;
+    left: 6%;
+    bottom: 14%;
     transition: all 0.25s ease-out;
     opacity: 0;
-    z-index: 10;
+    
 }
 
 
@@ -1013,6 +1016,39 @@ p{ font-family: "Zen Maru Gothic", sans-serif;
   opacity: 1;
 }
 
+p.main {
+    font-size: 3.5rem;
+    font-weight: 600;
+}
+span.message{
+  opacity: 0;
+  transition: all 0.5s ease-out;
+}
+span.message.emerged{
+  opacity: 1;
+}
+
+.heroMessage {
+    position: absolute;
+    top: 31%;
+    left: 5%;
+    opacity: 0;
+    transition: all 0.5s ease-out;
+}
+.heroMessage.emerged{
+  opacity: 1;
+}
+
+p.subtitle{
+    padding: 1rem 0;
+    font-size: 1.35rem;
+    opacity: 0;
+    transition: all 0.5s ease-out;
+}
+
+p.subtitle.emerged{
+  opacity: 1;
+}
 
     /*==========================================
     ===========================================
