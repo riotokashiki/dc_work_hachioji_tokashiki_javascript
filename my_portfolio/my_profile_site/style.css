@@ -197,6 +197,7 @@
         font-family: "Syncopate", sans-serif;
         font-weight: 400;
         font-style: normal;
+        display: flex;
       }
     
 
@@ -504,7 +505,7 @@
       align-items: center;
       justify-content: flex-end;
       position: absolute;
-      right: 13%;
+      right: 9%;
       top:50%;
       transform: translateY(-50%);/*これめっちゃ使えるから覚えとこう*/
       height: 100%;
@@ -880,8 +881,17 @@ ul.skillGrid li{
     width: 4rem;
     box-shadow: 0px 0px 10px 5px #676767;
     border-radius: 50%;
-    margin: 3rem;
+    
 }
+
+.logoContainer {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 21%;
+}
+
 
 .readyToWork{
   display: flex;
@@ -982,8 +992,8 @@ p{ font-family: "Zen Maru Gothic", sans-serif;
 
 .typing-wrapper {
   position: absolute;
-  left: 6%;
-      top: 67%;
+  left: 10%;
+          top: 61%;
     font-size: 48px;
     font-weight: 600;
     background: linear-gradient(90deg, #08f , #818cf8, #f03 );
@@ -1011,8 +1021,8 @@ p{ font-family: "Zen Maru Gothic", sans-serif;
     color: white;
     padding: 1rem;
     position: absolute;
-    left: 6%;
-    bottom: 14%;
+    left: 11%;
+    bottom: 16%;
     transition: all 0.25s ease-out;
     opacity: 0;
     
@@ -1041,7 +1051,7 @@ span.message.emerged{
 .heroMessage {
     position: absolute;
     top: 31%;
-    left: 5%;
+    left: 11%;
     opacity: 0;
     transition: all 0.5s ease-out;
 }
@@ -1072,6 +1082,14 @@ video{
 
 video.emerged{
   opacity: 1;
+}
+
+.titleContainer {
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+        margin-left: 7.7%;
+            width: 50%;
 }
 
     /*==========================================

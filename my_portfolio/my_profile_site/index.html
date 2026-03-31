@@ -14,8 +14,12 @@
   </head>
     <body>
       <header>
+        <div class="titleContainer">
+          <div class="logoContainer">
         <img src="assets/icons/my logoForMySite.png" id="logo" alt="Logo">
+        </div>
         <a class="title" href="index.html" data-i18n="title">Ryo Tokashiki</a>
+        </div>
         <ul class="navBar">
           <li><a href="#works">works</a></li>
           <li><a href="#about">about</a></li>
@@ -95,13 +99,13 @@
   <p>多機能タスクリストアプリ。<br>・タスクに優先度 (高、中、低) を設定可能<br>・優先度に基づいてタスクを整列可能<br>・なめらかなアニメーション</p>
 </div>
   </a></li>
-
+<!-- 
   <li class="box fadeInOnScroll"><a href=""><div class="itemContainer"><img src="assets/images/compressedImages/cafe3対2ratio.png" alt="">
     <h2>ゆるゆらカフェ</h2>
   <p>代官山にあるカフェを題材にしたビジネスサイト。<br>
   日英言語切り替えの多言語対応とスムーズなアニメーションを実装。</p>
 </div>
-  </a></li>
+  </a></li> -->
 
 </ul>
 
@@ -485,24 +489,32 @@ function typeLoop() {
 
                   setTimeout(()=>{
                     document.querySelector("p.subtitle").classList.add("emerged");
-                    workButton.classList.add("emerged");
+                      workButton.classList.add("emerged");
+                    setTimeout(()=>{
+
+                        
                     document.querySelector("video").classList.add("emerged");
 
-                  },1000)
+
+
+                    },1200)
+
+
+                  },1200)
 
                     
 
-                },1000)
+                },1200)
                 
 
 
                 return;
-              },1000)
+              },1200)
               
 
 
 
-            },1000)
+            },1200)
           }
         }
         console.log("debug B");
