@@ -1070,14 +1070,19 @@ p.subtitle.emerged{
   opacity: 1;
 }
 
-video{
-  width: 100%;
-  object-fit: cover;
-  position: relative;
-  z-index: -2;
-  opacity: 0;
-  transition: all 0.5s ease-out;
-  filter: blur(3.5px);
+
+
+video {
+    width: 100%;
+    object-fit: cover;
+    position: absolute;
+    z-index: -2;
+    opacity: 0;
+    transition: all 0.5s ease-out;
+    filter: blur(3.5px);
+    top: 0;
+    left: 0;
+    height: 100vh;
 }
 
 video.emerged{
@@ -1505,7 +1510,33 @@ footer{
         }
 
 
+p.main {
+    font-size: 2.9rem;
+}
 
+p.subtitle {
+    font-size: 1.1rem;
+}
+
+.workButton {
+    bottom: 14%;
+}
+
+
+#logo {
+    height: 14vw;
+    width: 14vw;
+}
+
+.titleContainer {
+    margin-left: 18px;
+}
+
+    .title {
+        font-size: 7vw;
+        letter-spacing: 1vw;
+        margin-left: 7vw;
+    }
 
 
     }
