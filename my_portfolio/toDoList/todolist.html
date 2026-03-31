@@ -191,15 +191,15 @@ li[data-priority="low"] { border-left: 4px solid #4caf50; background: #e8f5e8; }
 </head>
 <body>
   <div class="container">
-    <h1>My To-Do List</h1>
-    <input type="text" id="task-input" placeholder="Enter a new task">
+    <h1>タスクリスト</h1>
+    <input type="text" id="task-input" placeholder="タスクを入力してください">
     <div class="interactionContainer">
       <div class="priorityContainer">
-        <div class="priorityExplanation">set the priority</div>
+        <div class="priorityExplanation">優先度</div>
         <select id="priority-select">
-        <option value="high">🔴 High</option>
-        <option value="medium" selected>🟡 Medium</option>
-        <option value="low">🟢 Low</option>
+        <option value="high">🔴高</option>
+        <option value="medium" selected>🟡中</option>
+        <option value="low">🟢低</option>
         </select>
       </div>
       
@@ -207,7 +207,7 @@ li[data-priority="low"] { border-left: 4px solid #4caf50; background: #e8f5e8; }
     </div>
     <ul id="task-list"></ul>
     <button id="sort-btn" style="width:100%; margin:10px 0; padding:8px; background:#2196F3; 
-    color:white; border:none; border-radius:4px; cursor:pointer;">Sort by Priority</button>
+    color:white; border:none; border-radius:4px; cursor:pointer;">優先度順に並べる</button>
     <ul id="completed-list"></ul>
   </div>
   <script src="todolist.js"></script>

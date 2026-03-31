@@ -4,7 +4,7 @@ const taskList = document.getElementById('task-list');
 const completedList = document.getElementById('completed-list');
 
 const completedHeading = document.createElement('h3');
-completedHeading.textContent = 'Completed';
+completedHeading.textContent = '完了';
 completedHeading.style.display = 'none'; 
 
 document.addEventListener('DOMContentLoaded', loadTasks);
@@ -53,7 +53,7 @@ function saveTasks() {
 
 function loadTasks() {
   const saved = localStorage.getItem('todoTasks');
-  if (!saved) return;
+  if (!saved) return; // if there is nothing saved, finish the function
   
   const tasks = JSON.parse(saved);
   tasks.forEach(task => {
@@ -67,7 +67,7 @@ function loadTasks() {
     taskSpan.textContent = task.text;
     
     const deleteButton = document.createElement('button');
-    deleteButton.textContent = 'Delete';
+    deleteButton.textContent = '削除';
     deleteButton.classList.add('delete-btn');
     
     taskItem.appendChild(checkbox);
@@ -143,7 +143,7 @@ function addTask() {
 
 /// fallback plan/////////////////////////////////////////////////////////////
   if (taskText === "") {//もしテキストがなにも記入されていなかったら、
-    alert("Please enter a task!");//アラートを鳴らし、
+    alert("タスクを入れてください！");//アラートを鳴らし、
     return;//関数を終了。
   }
   ////////////////////////////////////////////////////////////////////////////
@@ -166,7 +166,7 @@ const taskSpan = document.createElement('span');
 
   //  creating a delete button 
   const deleteButton = document.createElement('button'); //button要素を作成
-  deleteButton.textContent = "Delete";//buttonの上にDeleteと書いた
+  deleteButton.textContent = "削除";//buttonの上にDeleteと書いた
   deleteButton.classList.add('delete-btn');//.delete-btnのcssクラスを付与した
 
   // delete only, no toggle
@@ -272,8 +272,8 @@ taskInput.addEventListener('keypress', (e) => {//入力フィールドにkeypres
 });
 
 sortButton.addEventListener('click', () => {
-  sortButton.textContent = "Sorted by Priority ✅";
-  setTimeout(() => sortButton.textContent = "Sort by Priority", 1500);
+  sortButton.textContent = "優先度順に整列されました ✅";
+  setTimeout(() => sortButton.textContent = "優先度順に並べる", 1500);
   sortTasks();
 });
 

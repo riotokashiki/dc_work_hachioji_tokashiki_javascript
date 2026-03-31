@@ -205,6 +205,31 @@ align-items:center;
       }
 
 
+      input[type="range"]::-webkit-slider-runnable-track {
+  background: #0080ff;
+  height: 6px;
+ 
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 18px;
+  width: 18px;
+  background: #0080ff;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-top: -6px; /* centers thumb */
+}
+
+input[type="range"]::-moz-range-thumb {
+  height: 18px;
+  width: 18px;
+  background: #0080ff;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+
+
     </style>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
@@ -417,6 +442,7 @@ function endAutoPlay({ manuallyStopped }) {
 
   isPlaying = false;
   currentNoteIndex = 0;
+  currentSong=null;
 }
 
 
@@ -540,13 +566,13 @@ gainNode.gain.value=volume/100;
 }
 
 function startAutoPlay() {
-  if (isPlaying) {
-    finishAutoPlay();
-    return;
+  if (isPlaying) { //if a song is playing,
+    finishAutoPlay(); // execute finishAutoPlay()
+    return; //then finish
   }
 
-  isPlaying = true;
-  isManuallyStopped = false;
+  isPlaying = true; // setting it as playing
+  isManuallyStopped = false;  
   currentNoteIndex = 0;
 
   if (currentSong === null) {
