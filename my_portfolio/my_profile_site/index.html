@@ -68,7 +68,8 @@
       <div class="workButtonWrapper">
         <a class="workButton" href="#works"><p>作品を見る</p></a>
       </div>
-      
+      <video class="heroBg" autoplay loop muted playsinline src="assets/videos/VideoCompressor_20260330223946811.mp4"></video>
+
       </section>
 
 <section class="works " id="works" >
@@ -485,6 +486,7 @@ function typeLoop() {
                   setTimeout(()=>{
                     document.querySelector("p.subtitle").classList.add("emerged");
                     workButton.classList.add("emerged");
+                    document.querySelector("video").classList.add("emerged");
 
                   },1000)
 

@@ -1053,6 +1053,19 @@ p.subtitle.emerged{
   opacity: 1;
 }
 
+video{
+  width: 100%;
+  object-fit: cover;
+  position: relative;
+  z-index: -2;
+  opacity: 0;
+  transition: all 0.5s ease-out;
+}
+
+video.emerged{
+  opacity: 1;
+}
+
     /*==========================================
     ===========================================
                       MOBILE RESPONSIVE STYLE                                  
