@@ -1700,6 +1700,13 @@ ul.grid{
     
 }
 
+ul.skillGrid
+ {
+        grid-template-columns: 40% 40%;
+        gap: 1rem;
+    }
+
+
     }
 
 
