@@ -198,6 +198,7 @@
         font-weight: 400;
         font-style: normal;
         display: flex;
+        margin-left: 2vw;
       }
     
 
@@ -651,20 +652,26 @@
         scale: 1.25;
       }
 
-      .translation{
-        position: absolute;
-        right: 0;
-        bottom: 0;
+      .translation {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    height: 8vw;
+    display: flex;
+    align-items: flex-end;
+}
 
-      }
-
-      #languageSelection{
-            bottom: 0;
-            background: rgb(0, 0, 0);
-            color: #b5b5b5;
-            height: 3rem;
-            border-radius: 6px;
-      }
+      .languageSelection
+ {
+    bottom: 0;
+    background: rgb(0, 0, 0);
+    color: #b5b5b5;
+    height: 40%;
+    border-radius: 6px;
+    width: 100%;
+    font-size: 1.5vw;
+        margin-bottom: 2.6px;
+}
 
 
       .fadeout{
@@ -694,7 +701,6 @@
 ul.grid li a div img{
 display: block;
 object-fit: cover;
-height: 100%;
 width: 100%;
 }
 
@@ -745,16 +751,20 @@ ul.grid li a{
   text-decoration: none;
   z-index: 1; /* add this */
   position: relative;
+  display: block;
+    height: 100%;
 }
 
-.itemContainer{
-  width: auto;
-  color: white;
-  overflow: hidden;
-  border-radius: 20px;
-  background: black;
-  border: solid 3px #474747;
-}
+.itemContainer {
+    width: auto;
+    color: white;
+    overflow: hidden;
+    border-radius: 20px;
+    background: black;
+    border: solid 3px #474747;
+    display: flex;
+    flex-direction: column;
+    height: 100%;}
 .itemContainer:hover{
   border: solid 3px transparent;
 }
@@ -889,7 +899,7 @@ ul.skillGrid li{
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 21%;
+    width: 7vw;
 }
 
 
@@ -1022,7 +1032,7 @@ p{ font-family: "Zen Maru Gothic", sans-serif;
     padding: 1rem;
     position: absolute;
     left: 11%;
-    bottom: 16%;
+    bottom: 10%;
     transition: all 0.25s ease-out;
     opacity: 0;
     
@@ -1050,7 +1060,7 @@ span.message.emerged{
 
 .heroMessage {
     position: absolute;
-    top: 31%;
+    top: 28%;
     left: 11%;
     opacity: 0;
     transition: all 0.5s ease-out;
@@ -1095,6 +1105,10 @@ video.emerged{
     justify-content: flex-start;
         margin-left: 7.7%;
             width: 50%;
+}
+
+.sectionTitle h2{
+   font-family: "Hina Mincho", serif;
 }
 
     /*==========================================
@@ -1187,9 +1201,7 @@ video.emerged{
         margin: 2rem auto;
       }
 
-      .navBar{
-        display: none;
-      }
+      
       .hero{
         background-image:url(assets/images/compressedImages/Responsive/forMobile/blake-wisz-t366j3tQz94-unsplash.jpg) ;
         padding-top: 56vh;
@@ -1205,13 +1217,13 @@ video.emerged{
         display: block;
       }
 
-  .hamburgerMenu{
-    display: block;
-    color: white;
-    font-size: 2.5rem;
-    height: 100%;
-    
-}
+      .hamburgerMenu {
+        display: block;
+        color: white;
+        font-size: 2.5rem;
+        height: 100%;
+        display: none;
+    }
 
 .hamburgerMenu a{
   color: white;
@@ -1229,7 +1241,7 @@ video.emerged{
 }
 
 .hamburgerMenu a:hover{
-  background-color: #854918;
+  background-color: #5b5b5b;
 }
 
 .modalWindow{
@@ -1242,7 +1254,7 @@ video.emerged{
   right: 0;
   height: 100vh;
   width: 18vw;
-  background: #854918;
+  background: black;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
@@ -1306,7 +1318,7 @@ height: 6vw;
 }
 
 .modalWindow ul li a:hover{
-  background-color: #a75c1e;
+  background-color: #5b5b5b;
 }
 
 header{
@@ -1331,7 +1343,7 @@ header{
 }
 
 .closeButton a:hover{
-  background-color: #a75c1e;
+  background-color: #5b5b5b;
 }
 
 .middle{
@@ -1387,6 +1399,86 @@ header{
 
 .about .container h3.inEnglish {
     height: auto;
+}
+
+    .title {
+        letter-spacing: 0.2vw;
+        font-size: 4.5vw;
+        margin-left: 4vw;
+    }
+
+.titleContainer {
+   
+    margin-left: 4vw;
+}
+
+p.subtitle {
+    
+    font-size: 1.25rem;
+   
+}
+
+p.main {
+    font-size: 3.1rem;
+}
+
+.workButton {
+    padding: 0.65rem;
+    bottom: 17%;
+}
+
+
+ul.grid {
+
+    grid-template-columns: 80% ;
+    gap: 5vw;
+    justify-content: center;
+}
+
+.aboutMe .container p {
+    line-height: 2rem;
+    font-size: 1.4rem;
+}
+
+ul.skillGrid {
+    display: grid;
+    grid-template-columns: 30% 30%;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.skills h2 {
+    text-align: center;
+}
+
+.works .container h2{
+  text-align: center;
+}
+
+.sectionTitle h2{
+  text-align: center;
+}
+
+.languageSelection
+ {
+    font-size: 1.8vw;
+}
+.translation {
+
+    height: 11vw;
+    
+}
+
+.modalTranslation{
+  width: 100%;
+  height: 7%;
+}
+
+select#languageSelection
+ {
+  color: white;
+  background-color: black;
+  height: 100%;
 }
 
     }
@@ -1503,23 +1595,26 @@ footer{
             overflow: visible;
       }
 
-          #languageSelection {
+          .languageSelection {
           width: 15vw;
           font-size: 3vw;
           height: 8vw;
         }
 
 
-p.main {
-    font-size: 2.9rem;
-}
-
+     p.main {
+        font-size: 10vw;
+        letter-spacing: -1vw;
+        line-height: 14vw;
+    }
 p.subtitle {
     font-size: 1.1rem;
 }
 
 .workButton {
-    bottom: 14%;
+    bottom: auto;
+            top: 72%;
+                    font-size: 4vw;
 }
 
 
@@ -1537,6 +1632,38 @@ p.subtitle {
         letter-spacing: 1vw;
         margin-left: 7vw;
     }
+
+ul.grid{
+    display: grid;
+    grid-template-columns: 90%;
+
+    justify-content: center;
+}
+
+.aboutMe .container p {
+   
+    line-height: 8.8vw;
+    
+}
+
+.navBar{
+  display: none;
+}
+
+    .hamburgerMenu {
+        display: block;
+    
+    }
+
+        .translation {
+        display: none;
+    }
+
+        .hamburgerMenu a{
+        padding: 0 5vw;
+        font-size: 11vw;
+    }
+
 
 
     }

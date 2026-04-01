@@ -29,6 +29,12 @@
         <div class="hamburgerMenu"><a id="hamburgerButton" href="#"><p>=</p></a></div>
         <div class="modalWindow" id="modalWindow">
           <div class="closeButton"><a href="javascript:void(0)">×</a></div>
+          <div class="modalTranslation">
+          <select name="languageSelection" id="languageSelection" class="modalLanguageSelection">
+            <option value="jp">日本語🔴</option>
+            <option value="en">English🔵</option>
+          </select>
+        </div>
           <ul>
             <li><a href="#about" onclick="closingModalWindow()">ABOUT</a></li>
             <li><a href="#news" onclick="closingModalWindow()">NEWS</a></li>
@@ -41,7 +47,7 @@
         </div>
 
         <div class="translation">
-          <select name="languageSelection" id="languageSelection">
+          <select name="languageSelection" id="languageSelection" class="languageSelection">
             <option value="jp">日本語🔴</option>
             <option value="en">English🔵</option>
 
