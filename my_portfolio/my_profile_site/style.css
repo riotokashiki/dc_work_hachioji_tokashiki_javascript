@@ -1481,6 +1481,12 @@ select#languageSelection
   height: 100%;
 }
 
+ul.skillGrid li
+ {
+    padding: 1rem;
+    min-width: 137px;
+}
+
     }
 
 
@@ -1664,7 +1670,16 @@ ul.grid{
         font-size: 11vw;
     }
 
-
+  ul.skillGrid li {
+    background: gray;
+    border-radius: 10px;
+    display: flex;
+    height: 50px;
+    align-items: center;
+    padding: 0.2rem;
+    overflow: hidden;
+    min-width: 113px;
+}
 
     }
 
