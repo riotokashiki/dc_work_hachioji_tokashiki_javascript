@@ -1001,7 +1001,7 @@ p{ font-family: "Zen Maru Gothic", sans-serif;
 }
 
 .typing-wrapper {
-  /* position: absolute; */
+  position: absolute;
   left: 10%;
           top: 61%;
     font-size: 48px;
@@ -1119,8 +1119,12 @@ video.emerged{
     position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: center;
 }
+.workButtonWrapper {
+    margin-top: 2rem;
+}
+
     /*==========================================
     ===========================================
                       MOBILE RESPONSIVE STYLE                                  
@@ -1626,11 +1630,11 @@ p.subtitle {
 }
 
 .workButton {
-    bottom: auto;
-            top: 72%;
-                    font-size: 4vw;
-}
-
+        position: relative;
+        /* bottom: auto; */
+        /* top: 72%; */
+        font-size: 4vw;
+    }
 
 #logo {
     height: 14vw;
@@ -1687,6 +1691,13 @@ ul.grid{
     padding: 0.2rem;
     overflow: hidden;
     min-width: 113px;
+}
+
+.typing-wrapper {
+    position: absolute;
+    left: 6%;
+    top: 56%;
+    
 }
 
     }
