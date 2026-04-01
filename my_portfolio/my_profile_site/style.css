@@ -506,7 +506,7 @@
       align-items: center;
       justify-content: flex-end;
       position: absolute;
-      right: 9%;
+      right: 13vw;
       top:50%;
       transform: translateY(-50%);/*これめっちゃ使えるから覚えとこう*/
       height: 100%;
@@ -656,7 +656,7 @@
     position: absolute;
     right: 0;
     bottom: 0;
-    height: 8vw;
+    height: 6vw;
     display: flex;
     align-items: flex-end;
 }
@@ -1203,7 +1203,7 @@ video.emerged{
 
       
       .hero{
-        background-image:url(assets/images/compressedImages/Responsive/forMobile/blake-wisz-t366j3tQz94-unsplash.jpg) ;
+      
         padding-top: 56vh;
         padding-left: 8vh;
       }
@@ -1465,7 +1465,7 @@ ul.skillGrid {
 }
 .translation {
 
-    height: 11vw;
+    height: 7vw;
     
 }
 
