@@ -718,7 +718,7 @@ ul.grid li{
     /* transition: all 0.02s ease; */
      position: relative; /* add this */
      z-index: 3;
-     transition: transform 0.25s ease-out;
+     /* transition: transform 0.5s ease-out; */
 }
 
 ul.grid li:hover{
@@ -1024,18 +1024,20 @@ p{ font-family: "Zen Maru Gothic", sans-serif;
     z-index: -1;
 }
 
-  .workButton {
+.workButton
+ {
     background: red;
     border-radius: 7px;
     text-decoration: none;
     color: white;
     padding: 1rem;
-    position: absolute;
-    left: 11%;
-    bottom: 10%;
+    position: relative;
+    /* left: 11%; */
+    /* bottom: 10%; */
     transition: all 0.25s ease-out;
     opacity: 0;
-    
+    display:inline-block;
+    width: auto;
 }
 
 
@@ -1059,9 +1061,9 @@ span.message.emerged{
 }
 
 .heroMessage {
-    position: absolute;
+    /* position: absolute;
     top: 28%;
-    left: 11%;
+    left: 11%; */
     opacity: 0;
     transition: all 0.5s ease-out;
 }
@@ -1088,7 +1090,7 @@ video {
     position: absolute;
     z-index: -2;
     opacity: 0;
-    transition: all 0.5s ease-out;
+    transition: all 2s ease;
     filter: blur(3.5px);
     top: 0;
     left: 0;
@@ -1230,11 +1232,7 @@ ul.grid li.onGoing:hover::after
       }
 
       
-      .hero{
       
-        padding-top: 56vh;
-        padding-left: 8vh;
-      }
 
 
       p.message{
@@ -1343,6 +1341,7 @@ height: 6vw;
   padding-left: 25%;
   font-size: 2.3vw;
   line-height: 6vw;
+  transition: all 0.25s ease-out;
 }
 
 .modalWindow ul li a:hover{
@@ -1368,6 +1367,7 @@ header{
   line-height: 13vh;
   text-decoration: none;
   color: white;
+  transition: all 0.25s ease-out;
 }
 
 .closeButton a:hover{
@@ -1509,6 +1509,12 @@ select#languageSelection
   height: 100%;
 }
 
+ul.skillGrid li
+ {
+    padding: 1rem;
+    min-width: 137px;
+}
+
     }
 
 
@@ -1640,11 +1646,11 @@ p.subtitle {
 }
 
 .workButton {
-    bottom: auto;
-            top: 72%;
-                    font-size: 4vw;
-}
-
+        position: relative;
+        /* bottom: auto; */
+        /* top: 72%; */
+        font-size: 4vw;
+    }
 
 #logo {
     height: 14vw;
@@ -1692,6 +1698,29 @@ ul.grid{
         font-size: 11vw;
     }
 
+  ul.skillGrid li {
+    background: gray;
+    border-radius: 10px;
+    display: flex;
+    height: 50px;
+    align-items: center;
+    padding: 0.2rem;
+    overflow: hidden;
+    min-width: 113px;
+}
+
+.typing-wrapper {
+    position: absolute;
+    left: 6%;
+    top: 56%;
+    
+}
+
+ul.skillGrid
+ {
+        grid-template-columns: 40% 40%;
+        gap: 1rem;
+    }
 
 
     }
