@@ -62,7 +62,7 @@
       }
 
       .heroSlide.first{
-        background-image:url(assets/images/compressedImages/snapbythree-my-g6e641CiHFQ-unsplash.jpg);
+        background-image:url(assets/images/compressedImages/snapbythree-my-g6e641CiHFQ-unsplashKai.jpg);
          
         animation:fadeInOutFor1 15s linear forwards; /*delay -secondsを使うとなんか表示の周期がずれておかしくなるからつかわないほうがいい*/
         z-index: 5;
@@ -75,7 +75,7 @@
       }
 
       .heroSlide.second{
-        background-image:url(assets/images/kieran-ReVIa_Nm6fE-unsplashKai.jpg);
+        background-image:url(assets/images/compressedImages/kieran-ReVIa_Nm6fE-unsplashKai.jpg);
         position: absolute;
         top: 0;
         left: 0;
@@ -88,7 +88,7 @@
       }
 
       .heroSlide.third{
-        background-image:url(assets/images/compressedImages/zarak-khan-69ilqMz0p1s-unsplash.jpg);
+        background-image:url(assets/images/compressedImages/zarak-khan-69ilqMz0p1s-unsplashKai.jpg);
          position: absolute;
         top: 0;
         left: 0;
