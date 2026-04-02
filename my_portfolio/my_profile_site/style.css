@@ -1111,6 +1111,34 @@ video.emerged{
    font-family: "Hina Mincho", serif;
 }
 
+ul.grid li.onGoing{
+  
+  position: relative
+}
+ul.grid li.onGoing:hover{
+  transform: scale(1);
+}
+
+ul.grid li.onGoing a .itemContainer{
+filter: brightness(0.5);
+}
+
+ul.grid li.onGoing::before{
+  content:"現在進行中";
+  position: absolute;
+  z-index: 5;
+  color: white;
+  font-size: 2.5rem;
+    top: 35%;
+    left: 25%;
+}
+
+ul.grid li.onGoing:hover::after
+ {
+    opacity: 0;
+}
+
+
     /*==========================================
     ===========================================
                       MOBILE RESPONSIVE STYLE                                  
