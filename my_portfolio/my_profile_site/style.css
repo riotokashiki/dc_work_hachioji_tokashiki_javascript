@@ -1135,7 +1135,7 @@ filter: brightness(0.5);
 }
 
 ul.grid li.onGoing::before {
-    content: "現在進行中";
+    content: "制作進行中";
     position: absolute;
     z-index: 5;
     color: white;
@@ -1363,6 +1363,8 @@ height: 6vw;
   font-size: 2.3vw;
   line-height: 6vw;
   transition: all 0.25s ease-out;
+  font-family: "Syncopate", "Hina Mincho",sans-serif;
+  font-weight: 400;
 }
 
 .modalWindow ul li a:hover{

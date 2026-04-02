@@ -39,10 +39,10 @@
         </div>
           <ul>
             <li><a href="#works" onclick="closingModalWindow()">MY WORKS</a></li>
-            <li><a href="#about" onclick="closingModalWindow()">ABOUT</a></li>
+            <li><a href="#about" onclick="closingModalWindow()">ABOUT ME</a></li>
            
             <li><a href="#contact" onclick="closingModalWindow()">CONTACT</a></li>
-            <li><a href="#" onclick="closingModalWindow()">BACK TO TOP</a></li>
+            <li><a href="#" onclick="closingModalWindow()">BACK TO TOP↑</a></li>
 
           </ul>
 
@@ -372,7 +372,7 @@ function openingModalWindow(){
                         weatherApp:"Weather App",
                         weatherAppDescription:"An App that can show weathers and temperatures around the world.\nSmooth Animations",
                         aboutMe:"About Me",
-                        selfIntroductionSentences:"Hi guys,\nI'm Ryo Tokashiki,learning website building skills to become a front-end engineer.\nMy favorite part about web designing is Animation.\nI'd love to create smooth animated UIs for my users to feel good. \nI'm job hunting right now.\nLet's make something Awesome with me!",
+                        selfIntroductionSentences:"Hi, I'm Ryo Tokashiki,learning website building skills to become a front-end engineer.\nMy favorite part about web designing is Animation.\nI'd love to create smooth animated UIs for my users to feel good. \nI'm job hunting right now.\nLet's make something Awesome with me!",
                         letsMakeSomethingTogether:"Let's make something Great Together!!",
                         callMe:"Feel Free to Reach me Out!",
                         messageOne:"I Focus",
@@ -451,6 +451,10 @@ function openingModalWindow(){
               theH3.forEach(el=>el.classList.remove("inEnglish"));
               theP.forEach(el=>el.classList.remove("inEnglish"));
               console.log(".inEnglish removed from theH3 and theP!");
+
+              languageSelector.value="jp";//It only visually changes the <select> and won't trigger the bound function.
+            languageSelectorTwo.value="jp";
+
             });
 
           }
@@ -469,6 +473,11 @@ function openingModalWindow(){
               theH3.forEach(el=>el.classList.add("inEnglish"));
               theP.forEach(el=>el.classList.add("inEnglish"));
               console.log(".inEnglish added to theH3 and theP!");
+
+              languageSelector.value="en";//It only visually changes the <select> and won't trigger the bound function.
+              languageSelectorTwo.value="en";
+
+
             });
 
 
