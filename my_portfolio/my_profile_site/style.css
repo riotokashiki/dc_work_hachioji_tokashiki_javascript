@@ -990,7 +990,7 @@ p{ font-family: "Zen Maru Gothic", sans-serif;
 }
 
 .yourEmailAdress {
-    margin: 1rem;
+    margin: 4rem;
     color: #a9ffa5;;
     font-size: 1.3rem;
     text-decoration: none;
@@ -1161,6 +1161,11 @@ ul.grid li a div img.weather{
 }
 .circle.passion{
   background-color: orange;
+}
+
+.gitHubLink{
+  color: white;
+
 }
     /*==========================================
     ===========================================
