@@ -19,6 +19,7 @@
         height:250px;
         display:flex;
         justify-content: center;
+        align-items: center;
         flex-direction: column;
       }
       .addButton{
@@ -62,7 +63,7 @@
             padding-left: 0;
       }
 
-      .checked{
+      .completed{
         text-decoration: line-through;
       }
     </style>
@@ -70,11 +71,13 @@
     <body>
 
       <div class="wholeContainer">
+        <p>To-Do List</p>
+        <p>タスクを入力してください</p>
         <div class="inputContainer">
         <input type="text" id="inputField">
         <button class="addButton" id="addButton">+</button>
           </div>
-        <ul class="taskList">
+        <ul id="taskList">
 
 
 

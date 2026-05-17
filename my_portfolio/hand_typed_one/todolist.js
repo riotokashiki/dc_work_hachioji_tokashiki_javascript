@@ -1,100 +1,129 @@
-//element取得
-let textValue=document.getElementById("inputField").value.trim();
-const inputField=document.getElementById("inputField");
-const addButton=document.getElementById("addButton");
-const ul=document.querySelector(".taskList");
 
-addButton.addEventListener("click",(e)=>{ //addButtonへclick handlerを付与
-  console.log("add button clicked!")
-  addTask();
+let inputField=document.getElementById("inputField");
+let addButton=document.getElementById("addButton");
+let taskList=document.getElementById("taskList");
+
+let uncompletedList=[];
+
+
+///タスク追加ボタン///////////////
+addButton.addEventListener("click",()=>{
+let taskText=inputField.value.trim();
+if(!taskText){
+  window.alert("タスクを入力してください！");
+}else{
+
+let li =document.createElement("li");
+taskList.appendChild(li);
+
+let span=document.createElement("span");
+li.appendChild(span);
+span.textContent=taskText;
+
+///配列に追加＋localStorageへ保存///////
+uncompletedList.push({taskName:taskText,completed:false});
+console.log(uncompletedList);
+localStorage.setItem("savedUncompletedList",JSON.stringify(uncompletedList));
+console.log(localStorage.getItem("savedUncompletedList"))
+///削除ボタン////////////////
+let delButton=document.createElement("button");
+li.appendChild(delButton);
+delButton.innerHTML="削除";
+
+delButton.addEventListener("click",(e)=>{//クリックハンドラ設置
+delButton.parentElement.remove();//liを削除
+let clicked_li_text=e.target.previousElementSibling.innerHTML
+console.log(clicked_li_text);
+let clicked_index=uncompletedList.findIndex((item)=>{
+return item.taskName===clicked_li_text
+});
+console.log("The clicked index is.."+clicked_index);
+uncompletedList.splice(clicked_index,1);//JS配列からアイテムを削除
+console.log("Current JS array")
+console.log(uncompletedList);//アイテムが配列から削除されたことを確認
+localStorage.setItem("savedUncompletedList",JSON.stringify(uncompletedList))//localStorageを更新されたJS配列で上書き
+console.log("Current localStorage array");
+console.log(localStorage.getItem("savedUncompletedList"));
+
+
+console.log(JSON.parse(localStorage.getItem("savedUncompletedList")));
+
+
 
 })
-inputField.addEventListener("keypress",(e)=>{
-if(e.key==="Enter"){
-  addTask();
-
-}
-
+///チェックボックス/////////
+let checkBox=document.createElement("input");
+checkBox.type="checkbox";
+li.prepend(checkBox);
+checkBox.addEventListener("change",()=>{
+span.classList.toggle("completed")
 })
-
-
-
-
-
-
-function addTask(){
-
-//fetching the input field value////////////////////////////////////////
-textValue=document.getElementById("inputField").value.trim();
-////////////////////////////////////////////////////////////////////////
-
-
-
-////////creating elements in memory//////////////////////////////
-//list//
-const generatedLi =document.createElement("li");
-generatedLi.classList.add("list");
-
-//check box
-const generatedCheckBox=document.createElement("input");
-generatedCheckBox.type="checkbox";
-generatedCheckBox.addEventListener("change",()=>{
-generatedLi.classList.toggle("checked");
-});
-
-
-//text span//
-if(textValue===""){
-  alert("input something!!");
-  return;//ここで関数は止まる
 }
 
-const generatedSpan=document.createElement("span");
-generatedSpan.classList.add("span");
-generatedSpan.textContent=textValue;
-
-
-//delete button//
-const generatedDeleteButton=document.createElement("button");
-generatedDeleteButton.textContent="delete";
-generatedDeleteButton.classList.add("deleteButton");
-generatedDeleteButton.addEventListener("click",()=>{
-  generatedLi.remove()
-});
-
-////////////////////////////////////////////////////////////////////////
-
-
-////attaching those elements above onto DOM structure/////////////
-
-generatedLi.appendChild(generatedCheckBox);
-generatedLi.appendChild(generatedSpan);
-generatedLi.appendChild(generatedDeleteButton);
-
-
-ul.prepend(generatedLi);
-
-
-////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-
-
-//clearing the input field////////////////////////////////////////////
 inputField.value="";
-//////////////////////////////////////////////////////////////////////
+
+
+})
+
+
+///セーブデータ復元////////////
+restoreState()
+
+function restoreState(){
+let restoredData=JSON.parse(localStorage.getItem("savedUncompletedList"));//JSON.parseでJS配列に変換
+if(!restoredData){
+  console.log("There is no data.");
+return
+}else{
+  uncompletedList=restoredData;//JS配列にrestoredDataを入れる　じゃないとリフレッシュすると空になってしまう
+  console.log(uncompletedList);
+restoredData.forEach((item,i)=>{
+let li=document.createElement("li");
+let span=document.createElement("span");
+span.textContent=item.taskName;
+li.appendChild(span);
+taskList.appendChild(li);
+
+///削除ボタン//////////
+let delButton=document.createElement("button");
+li.appendChild(delButton);
+delButton.innerHTML="削除";
+
+delButton.addEventListener("click",(e)=>{
+delButton.parentElement.remove();
+let clicked_li_text=e.target.previousElementSibling.innerHTML
+console.log(clicked_li_text);
+let clicked_index=uncompletedList.findIndex((item)=>{
+return item.taskName===clicked_li_text
+});
+console.log("The clicked index is.."+clicked_index);
+uncompletedList.splice(clicked_index,1);//JS配列からアイテムを削除
+console.log("Current JS array")
+console.log(uncompletedList);//アイテムが配列から削除されたことを確認
+localStorage.setItem("savedUncompletedList",JSON.stringify(uncompletedList))//localStorageを更新されたJS配列で上書き
+console.log("Current localStorage array");
+console.log(localStorage.getItem("savedUncompletedList"));
+
+
+console.log(JSON.parse(localStorage.getItem("savedUncompletedList")));
+})
+
+
+///チェックボックス////////
+let checkBox=document.createElement("input");
+checkBox.type="checkbox";
+li.prepend(checkBox);
+checkBox.addEventListener("change",()=>{
+span.classList.toggle("completed")
+})
+
+
+
+})
+
 }
 
 
-
-function checked(){
-
-
-
-
-
-
 }
+
+
