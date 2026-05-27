@@ -16,11 +16,12 @@ function createDeleteButton(li){
 
         delButton.addEventListener("click",(e)=>{//クリックハンドラ設置
         delButton.parentElement.remove();//liを削除
-        let clicked_li_text=e.target.previousElementSibling.innerHTML
+        let clicked_li_text=e.target.previousElementSibling.previousElementSibling.innerHTML
         console.log(clicked_li_text);
         let clicked_index=uncompletedList.findIndex((item)=>{
         return item.taskName===clicked_li_text
         });
+        console.log("del button clicked!");
         console.log("The clicked index is.."+clicked_index);
         uncompletedList.splice(clicked_index,1);//JS配列からアイテムを削除
         console.log("Current JS array")
@@ -55,6 +56,54 @@ li.prepend(checkBox);
     })
 }
 
+function createEditButton(li,span){
+let editButton=document.createElement("button");
+li.appendChild(editButton);
+        editButton.innerHTML="編集";
+let input_to_be_swapped=document.createElement("input");
+editButton.addEventListener("click",(e)=>{//クリックハンドラ設置
+        console.log("edit button clicked!");
+        let clicked_li_text=e.target.previousElementSibling.innerHTML
+        console.log("clicked_li_text =...");
+        console.log(clicked_li_text);
+        let clicked_index=uncompletedList.findIndex((item)=>{
+        return item.taskName===clicked_li_text
+        });
+        let clicked_li_span=e.target.previousElementSibling;
+        input_to_be_swapped.value=clicked_li_text;
+        clicked_li_span.replaceWith(input_to_be_swapped);
+        
+
+        let set_button=document.createElement("button");
+        set_button.innerHTML="決定";
+        set_button.addEventListener("click",(e)=>{
+                let edited_value=input_to_be_swapped.value;
+                clicked_li_span.innerHTML=edited_value;
+                console.log("e.target.previousElementSibling is..."+e.target.previousElementSibling);
+                e.target.previousElementSibling.replaceWith(clicked_li_span);
+                set_button.replaceWith(editButton);
+                uncompletedList[clicked_index].taskName=edited_value;
+                localStorage.setItem("savedUncompletedList",JSON.stringify(uncompletedList));
+                console.log("current JSON is...");
+                console.log(JSON.parse(localStorage.getItem("savedUncompletedList")));
+        })
+
+        editButton.replaceWith(set_button);
+
+        console.log("The clicked index is.."+clicked_index);
+        console.log("Current JS array")
+        console.log(uncompletedList);//アイテムが配列から削除されたことを確認
+        console.log("Current localStorage array");
+        console.log(localStorage.getItem("savedUncompletedList"));
+
+
+        console.log(JSON.parse(localStorage.getItem("savedUncompletedList")));
+            
+})}
+
+
+
+
 
 ///タスク追加ボタン///////////////
 addButton.addEventListener("click",()=>{
@@ -76,16 +125,21 @@ addButton.addEventListener("click",()=>{
         console.log(uncompletedList);
         localStorage.setItem("savedUncompletedList",JSON.stringify(uncompletedList));
         console.log(localStorage.getItem("savedUncompletedList"));
-        ///削除ボタン////////////////
-
-createDeleteButton(li);
-    
+ 
 
 ///チェックボックス/////////
 
 
 createCheckBox(li,span);
 
+///編集ボタン/////////////
+
+createEditButton(li,span);
+
+
+       ///削除ボタン////////////////
+
+createDeleteButton(li);
 
 
 }
@@ -116,8 +170,15 @@ if(!restoredData){
         li.appendChild(span);
         taskList.appendChild(li);
 
+        ///編集ボタン/////////////
+
+        createEditButton(li,span);
+
+
+
+
         ///削除ボタン//////////
-            createDeleteButton(li);
+        createDeleteButton(li);
 
 
         ///チェックボックス////////
