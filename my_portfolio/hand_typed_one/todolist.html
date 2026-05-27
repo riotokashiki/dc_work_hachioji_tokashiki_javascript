@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <title>to do list</title>
     <style>
+
+        *{
+          box-sizing:border-box;
+          margin:0;
+          padding:0;
+        }
+
+
       body,html{
         display: flex;
         justify-content: center;
@@ -16,18 +24,20 @@
         border:1px solid black;
         border-radius:15px;
         width:500px;
-        height:250px;
         display:flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
+        position: relative;
       }
       .addButton{
         border:1px solid black;
         background: green;
+        width: 15%;
       }
       .inputContainer{
         display: flex;
+        flex-direction: column;
         justify-content: center;
       }
       ul{
@@ -66,6 +76,18 @@
       .completed{
         text-decoration: line-through;
       }
+      
+      .pritorityContainer{
+        display: flex;
+        justify-content: center;
+      }
+
+      #sort{
+        position: absolute;
+        right:0px;
+        top:22%;
+      }
+
     </style>
     </head>
     <body>
@@ -73,9 +95,20 @@
       <div class="wholeContainer">
         <p>To-Do List</p>
         <p>タスクを入力してください</p>
+        <button id="sort">整列</button>
         <div class="inputContainer">
         <input type="text" id="inputField">
+        
+        <div class="pritorityContainer">
+        <p>優先度：</p>
+        <select name="priority_selector" id="priority">
+            <option value="1">高</option>
+            <option value="2" selected="selected">中</option>
+            <option value="3">低</option>
+        </select>
         <button class="addButton" id="addButton">+</button>
+        </div>
+        
           </div>
         <ul id="taskList">
 

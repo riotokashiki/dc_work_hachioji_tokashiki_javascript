@@ -5,7 +5,7 @@ let addButton=document.getElementById("addButton");
 let taskList=document.getElementById("taskList");
 
 let uncompletedList=[];
-
+let dropDown=document.getElementById("priority");
 
 
 
@@ -114,14 +114,14 @@ addButton.addEventListener("click",()=>{
         ///li/////////////////////////////
         let li =document.createElement("li");
         let span=document.createElement("span");
-        taskList.appendChild(li);
+        taskList.prepend(li);
         li.appendChild(span);
 
 
         span.textContent=taskText;
 
         ///配列に追加＋localStorageへ保存///////
-        uncompletedList.push({taskName:taskText,completed:false});
+        uncompletedList.unshift({taskName:taskText,completed:false,priority:chosenPriority});
         console.log(uncompletedList);
         localStorage.setItem("savedUncompletedList",JSON.stringify(uncompletedList));
         console.log(localStorage.getItem("savedUncompletedList"));
