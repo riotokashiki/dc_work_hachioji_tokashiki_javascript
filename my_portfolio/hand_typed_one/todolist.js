@@ -6,7 +6,64 @@ let taskList=document.getElementById("taskList");
 
 let uncompletedList=[];
 let dropDown=document.getElementById("priority");
+let sort_button=document.getElementById("sort");
 
+
+
+function do_the_sequence(){
+
+        let taskText=inputField.value.trim();
+        if(!taskText){
+        window.alert("タスクを入力してください！");
+        }else{
+        ///li/////////////////////////////
+        let li =document.createElement("li");
+        let span=document.createElement("span");
+        taskList.prepend(li);
+        li.appendChild(span);
+
+
+        span.textContent=taskText;
+
+        ///配列に追加＋localStorageへ保存///////
+        uncompletedList.unshift({taskName:taskText,completed:false,priority:Number(dropDown.value)});
+        console.log(uncompletedList);
+        localStorage.setItem("savedUncompletedList",JSON.stringify(uncompletedList));
+        console.log("dropDown.value is..."+dropDown.value);
+        console.log(localStorage.getItem("savedUncompletedList"));
+        
+        let priorityValue=Number(dropDown.value);
+
+        if(priorityValue===1){
+                li.classList.add("priority1");
+        }else if(priorityValue===2){
+                li.classList.add("priority2");
+        }else { 
+                li.classList.add("priority3");
+        }
+
+///チェックボックス/////////
+
+
+createCheckBox(li,span);
+
+///編集ボタン/////////////
+
+createEditButton(li,span);
+
+
+       ///削除ボタン////////////////
+
+createDeleteButton(li);
+
+
+}
+
+inputField.value="";
+dropDown.value="2";
+inputField.removeAttribute("class");
+inputField.classList.add("priority2");
+        }
 
 
 function createDeleteButton(li){
@@ -102,49 +159,55 @@ editButton.addEventListener("click",(e)=>{//クリックハンドラ設置
 })}
 
 
+dropDown.addEventListener("change",(e)=>{
+        inputField.removeAttribute("class");
+
+if(e.target.value==="1"){
+
+        inputField.classList.add("priority1");
+}else if(e.target.value==="2"){
+
+        inputField.classList.add("priority2")
+}else{
+        inputField.classList.add("priority3")
+}
+
+        
+})
+
+
+///Enterキーイベントリスナー//////////
+
+window.addEventListener("keydown",(e)=>{
+if(e.key=="Enter" && document.activeElement===inputField){
+        do_the_sequence();
+}
+})
+
+
+
+
+///整列ボタン//////////////////////
+
+sort_button.addEventListener("click",()=>{
+        uncompletedList.sort((a,b) =>{ return a.priority - b.priority});
+        console.log("sort button clicked!");
+        console.log(uncompletedList);
+        localStorage.setItem("savedUncompletedList",JSON.stringify(uncompletedList));
+        console.log(localStorage.getItem("savedUncompletedList"));
+        taskList.innerHTML="";
+        restoreState();
+})
+
+
+
 
 
 
 ///タスク追加ボタン///////////////
 addButton.addEventListener("click",()=>{
-        let taskText=inputField.value.trim();
-        if(!taskText){
-        window.alert("タスクを入力してください！");
-        }else{
-        ///li/////////////////////////////
-        let li =document.createElement("li");
-        let span=document.createElement("span");
-        taskList.prepend(li);
-        li.appendChild(span);
-
-
-        span.textContent=taskText;
-
-        ///配列に追加＋localStorageへ保存///////
-        uncompletedList.unshift({taskName:taskText,completed:false,priority:chosenPriority});
-        console.log(uncompletedList);
-        localStorage.setItem("savedUncompletedList",JSON.stringify(uncompletedList));
-        console.log(localStorage.getItem("savedUncompletedList"));
- 
-
-///チェックボックス/////////
-
-
-createCheckBox(li,span);
-
-///編集ボタン/////////////
-
-createEditButton(li,span);
-
-
-       ///削除ボタン////////////////
-
-createDeleteButton(li);
-
-
-}
-
-inputField.value="";
+        
+        do_the_sequence();
 
 
 })
@@ -169,6 +232,13 @@ if(!restoredData){
         span.textContent=item.taskName;
         li.appendChild(span);
         taskList.appendChild(li);
+        if(item.priority===1){
+                li.classList.add("priority1");
+        }else if(item.priority===2){
+                li.classList.add("priority2");
+        }else{
+                li.classList.add("priority3");
+        };
 
         ///編集ボタン/////////////
 
