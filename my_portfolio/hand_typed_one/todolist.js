@@ -12,6 +12,7 @@ let isThereTheHeader=false;
 let visual_completed_ul=document.createElement("ul");
 let completedList=[];
 let completed_index=null;
+let span_text=null;
 
 function do_the_sequence(){
 
@@ -152,9 +153,10 @@ li.prepend(checkBox);
                         visual_completed_li.prepend(checkBox);
                         span.classList.add("completed");
                         checkBox.addEventListener("change",(e)=>{//イベントリスナー
-                                e.target.parentElement.remove();
+                              
 
-                                completed_index= completedList.findIndex((item)=>{
+                                completed_index= completedList.findIndex((item)=>{//completed_indexがうまくいかない
+                                        span_text=e.target.nextElementSibling.innerText
                                         return e.target.nextElementSibling.innerText===item.taskName
                                 })
 
@@ -163,16 +165,18 @@ li.prepend(checkBox);
                         console.log("completedList is...");
                         console.log(completedList);
                        let li= document.createElement("li");
-                           
+                       let span=document.createElement("span");
+                       span.innerText=span_text;
                        createCheckBox(li,span);
+                       li.appendChild(span);
                        createEditButton(li,span);
                        createDeleteButton(li); 
 
                         taskList.appendChild(li);
+                        uncompletedList
+                        e.target.parentElement.remove();
 
-
-
-                })
+                }, { once: true })
 
 
 
@@ -202,8 +206,8 @@ li.prepend(checkBox);
 
 
 
-        })}
-    })
+        }, { once: true })}
+    }, { once: true })
 
                 
 }
