@@ -10,6 +10,8 @@ let sort_button=document.getElementById("sort");
 let wholeContainer=document.querySelector(".wholeContainer");
 let isThereTheHeader=false;
 let visual_completed_ul=document.createElement("ul");
+let completedList=[];
+let completed_index=null;
 
 function do_the_sequence(){
 
@@ -98,7 +100,7 @@ let checkBox=document.createElement("input");
 checkBox.type="checkbox";
 li.prepend(checkBox);
 
-        checkBox.addEventListener("change",(e)=>{
+        checkBox.addEventListener("change",(e)=>{  //イベントリスナー
                 span.classList.toggle("completed");
                 let clicked_li_text=e.target.nextElementSibling.innerHTML
                 console.log("clicked_li_text is..."+clicked_li_text);
@@ -112,10 +114,10 @@ li.prepend(checkBox);
                 console.log(uncompletedList[clicked_index]);
 
 
-                
-                let completedList=uncompletedList.filter((item)=>{
+                //↓completedList生成
+                completedList=uncompletedList.filter((item)=>{
                         return item.completed
-                })
+                });
                 console.log("competedList is...");
                 console.log(completedList);
                 if(completedList.length>0){
@@ -149,15 +151,24 @@ li.prepend(checkBox);
                         checkBox.checked=true;
                         visual_completed_li.prepend(checkBox);
                         span.classList.add("completed");
-                        checkBox.addEventListener("change",(e)=>{
+                        checkBox.addEventListener("change",(e)=>{//イベントリスナー
                                 e.target.parentElement.remove();
-                                let completed_index= completedList.findIndex((item)=>{
-                                        return e.target.nextElementSibling.innerHTML===item.taskName
+
+                                completed_index= completedList.findIndex((item)=>{
+                                        return e.target.nextElementSibling.innerText===item.taskName
                                 })
+
                         console.log("completed_index is..."+completed_index);        
                         completedList.splice(completed_index,1);
                         console.log("completedList is...");
                         console.log(completedList);
+                       let li= document.createElement("li");
+                           
+                       createCheckBox(li,span);
+                       createEditButton(li,span);
+                       createDeleteButton(li); 
+
+                        taskList.appendChild(li);
 
 
 
