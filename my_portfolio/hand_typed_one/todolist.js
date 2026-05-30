@@ -14,6 +14,13 @@ let completedList=[];
 let completed_index=null;
 let span_text=null;
 let isThereCompletedList=false;
+let former_index=null;
+let current_index=null;
+
+//ヘッダー生成↓↓
+let completed_header =document.createElement("div");
+completed_header.innerHTML="完了したタスク";
+
 
 function do_the_sequence(){
 
@@ -97,6 +104,89 @@ function createDeleteButton(li){
             
 })}
 
+
+function createCompletedCheckBox(li,span){
+                                let checkBox=document.createElement("input");
+                                checkBox.type="checkbox";
+                                checkBox.checked=true;
+                                checkBox.classList.add("completed_checkBox");
+                                li.prepend(checkBox);
+                                span.classList.add("completed");
+                                checkBox.addEventListener("change",(e)=>{//イベントリスナー
+                              
+                                                span_text=e.target.nextElementSibling.innerText//li のtaskNameを取得
+                                                completed_index= completedList.findIndex((item)=>{//completed_indexがうまくいかない
+                                                        return e.target.nextElementSibling.innerText===item.taskName
+                                                })
+                                                former_index=completedList[completed_index].index;
+                                                console.log("completed_index is..."+completed_index);        
+                                                current_index=uncompletedList.findIndex((item)=>{
+                                                        return item.index===former_index
+                                                });
+                                                console.log("current_index is..."+current_index);
+                                                uncompletedList[current_index].completed=false;
+                                                completedList.splice(completed_index,1);
+                                                localStorage.setItem("savedCompletedList",JSON.stringify(completedList));
+                                                console.log("savedCompletedList is...");
+                                                console.log(localStorage.getItem("savedCompletedList"));
+                                                console.log("completedList is...");
+                                                console.log(completedList);
+                                                let li= document.createElement("li");
+                                                let span=document.createElement("span");
+                                                span.innerText=span_text;
+                                                createCheckBox(li,span);
+                                                li.appendChild(span);
+                                                createEditButton(li,span);
+                                                createDeleteButton(li); 
+
+                                                taskList.appendChild(li);
+                                                
+                                                e.target.parentElement.remove();
+                                                localStorage.setItem("savedUncompletedList",JSON.stringify(uncompletedList))
+                                        })
+                                }
+
+
+function createCompletedDelButton(li,span){
+                                let delButton=document.createElement("button");
+                                li.appendChild(delButton);
+                                delButton.innerHTML="削除";
+
+                                delButton.addEventListener("click",(e)=>{//クリックハンドラ設置
+                                        delButton.parentElement.remove();//liを視覚的に削除
+                                        let clicked_li_text=e.target.previousElementSibling.previousElementSibling.innerText
+                                        console.log("clicked_li_text is..."+clicked_li_text);
+                                        let clicked_index=completedList.findIndex((item)=>{
+                                        return item.taskName===clicked_li_text
+                                        });
+                                        console.log("del button clicked!");
+                                        console.log("The clicked index is.."+clicked_index);
+                                        uncompletedList.splice(clicked_index,1);//uncompletedListからアイテムを削除
+                                        console.log("Current JS array")
+                                        console.log(uncompletedList);//アイテムがuncompletedListから削除されたことを確認
+                                        localStorage.setItem("savedUncompletedList",JSON.stringify(uncompletedList))//localStorageを更新されたJS配列で上書き
+                                        console.log("Current localStorage array");
+                                        console.log(localStorage.getItem("savedUncompletedList"));
+                                        completedList.splice(clicked_index,1);//completedListからアイテムを削除
+
+                                        localStorage.setItem("savedCompletedList",JSON.stringify(completedList));//completedListをlocalStorageに保存
+                                        console.log("savedCompletedList is...");
+                                        //savedCompletedListを確認↓↓
+                                        console.log(JSON.parse(localStorage.getItem("savedCompletedList")));
+
+
+
+                                })
+                
+                        }
+
+
+
+
+
+
+
+
 function createCheckBox(li,span){
 let checkBox=document.createElement("input");
 checkBox.type="checkbox";
@@ -111,17 +201,22 @@ li.prepend(checkBox);
                 return item.taskName===clicked_li_text
                 });
                 console.log("clicked_index is..."+clicked_index);
+                //uncompletedListを更新↓↓
                 uncompletedList[clicked_index].completed=!uncompletedList[clicked_index].completed?true:false;
                 console.log("uncompletedList[clicked?index] is...");
                 console.log(uncompletedList[clicked_index]);
-
-
+                //localStorageへuncompletedListを保存↓↓
+                localStorage.setItem("savedUncompletedList",JSON.stringify(uncompletedList));
+                console.log("uncompletedList is...");
+                console.log(uncompletedList);
                 //↓completedList生成
                 completedList=uncompletedList.filter((item)=>{
                         return item.completed
                 });
                 console.log("competedList is...");
                 console.log(completedList);
+                //localStorageへcompletedListを保存↓↓
+                localStorage.setItem("savedCompletedList",JSON.stringify(completedList));
                 if(completedList.length>0){
                         let completed_header =document.createElement("div");
                         completed_header.innerHTML="完了したタスク";
@@ -139,49 +234,19 @@ li.prepend(checkBox);
                                 
                                
                                
-                                let visual_completed_li=document.createElement("li");
+                                let li=document.createElement("li");
                                 let span=document.createElement("span");
                                 span.innerHTML=item.taskName;
                                  wholeContainer.appendChild(visual_completed_ul);
-                                visual_completed_ul.appendChild(visual_completed_li);
-                                visual_completed_li.appendChild(span);
+                                visual_completed_ul.appendChild(li);
+                                li.appendChild(span);
                                 e.target.parentElement.remove();  //視覚的にuncompletedListから除去
 
-                                  //チェックボックス生成/////////
-                                let checkBox=document.createElement("input");
-                                checkBox.type="checkbox";
-                                checkBox.checked=true;
-                                checkBox.classList.add("completed_checkBox");
-                                visual_completed_li.prepend(checkBox);
-                                span.classList.add("completed");
-                                checkBox.addEventListener("change",(e)=>{//イベントリスナー
-                              
-                                                span_text=e.target.nextElementSibling.innerText//li のtaskNameを取得
-                                                completed_index= completedList.findIndex((item)=>{//completed_indexがうまくいかない
-                                                        return e.target.nextElementSibling.innerText===item.taskName
-                                                })
-
-                                                console.log("completed_index is..."+completed_index);        
-                                                completedList.splice(completed_index,1);
-                                                console.log("completedList is...");
-                                                console.log(completedList);
-                                                let li= document.createElement("li");
-                                                let span=document.createElement("span");
-                                                span.innerText=span_text;
-                                                createCheckBox(li,span);
-                                                li.appendChild(span);
-                                                createEditButton(li,span);
-                                                createDeleteButton(li); 
-
-                                                taskList.appendChild(li);
-                                                uncompletedList
-                                                e.target.parentElement.remove();
-
-                                        })
-
-
+                                //チェックボックス生成/////////
+                                createCompletedCheckBox(li,span);
+                                //削除ボタン生成/////////////
+                                createCompletedDelButton(li,span);
                                 
-
 
 
                                 
@@ -193,7 +258,12 @@ li.prepend(checkBox);
                        
 
 
-    }})
+    }else if(completedList.length===0){
+        completed_header.remove();
+
+    }
+
+})
 
                 
 }
@@ -302,15 +372,25 @@ addButton.addEventListener("click",()=>{
 restoreState()
 
 function restoreState(){
-let restoredData=JSON.parse(localStorage.getItem("savedUncompletedList"));//JSON.parseでJS配列に変換
-if(!restoredData){
+let restoredUncompletedListData=JSON.parse(localStorage.getItem("savedUncompletedList"));//JSON.parseでJS配列に変換
+let restoredCompletedListData=JSON.parse(localStorage.getItem("savedCompletedList"));
+if(!restoredUncompletedListData && !restoredCompletedListData){
         console.log("There is no data.");
         return
-}else{
-        uncompletedList=restoredData;//JS配列にrestoredDataを入れる　じゃないとリフレッシュすると空になってしまう
+}else if(restoredUncompletedListData || restoredCompletedListData){
+        uncompletedList=restoredUncompletedListData;//JS配列にrestoredUncompletedListDataを入れる　じゃないとリフレッシュすると空になってしまう
+        completedList=restoredCompletedListData;
         console.log("uncompletedList=");
         console.log(uncompletedList);
-        restoredData.forEach((item,i)=>{
+         console.log("completedList=");
+        console.log(completedList);
+       
+       
+       //uncompletedListを復元////////////////////
+        restoredUncompletedListData.forEach((item,i)=>{
+        if(item.completed){
+                return
+        }
         ///li////////////////////   
         let li=document.createElement("li");
         let span=document.createElement("span");
@@ -325,40 +405,62 @@ if(!restoredData){
                 li.classList.add("priority3");
         };
 
-        ///編集ボタン/////////////
+        ///編集ボタン生成/////////////
 
         createEditButton(li,span);
 
 
 
 
-        ///削除ボタン//////////
+        ///削除ボタン生成//////////
         createDeleteButton(li);
 
 
-        ///チェックボックス////////
-        let checkBox=document.createElement("input");
-        checkBox.type="checkbox";
-        if(item.completed){
-        checkBox.checked=true;        
-        span.classList.add("completed");
-        }
-        li.prepend(checkBox);
-        checkBox.addEventListener("change",(e)=>{
-        span.classList.toggle("completed");
-        let clicked_li_text=e.target.nextElementSibling.innerHTML
-        console.log("clicked_li_text is..."+clicked_li_text);
+      ///チェックボックス生成////////
+        createCheckBox(li,span);
 
-        let clicked_index=uncompletedList.findIndex((item)=>{
-        return item.taskName===clicked_li_text
-        });
-        console.log("clicked_index is..."+clicked_index);
-        uncompletedList[clicked_index].completed=!uncompletedList[clicked_index].completed?true:false;
-        console.log("uncompletedList[clicked?index] is...");
-        console.log(uncompletedList[clicked_index]);
-        localStorage.setItem("savedUncompletedList",JSON.stringify(uncompletedList));
 
         })
+
+
+        //competedListを復元//////////
+
+        //     もし復元したcompletedリストにアイテムが存在したら
+          if(restoredCompletedListData.length>0){
+                        
+                        
+                       //もしヘッダーがすでになかったら　 
+                        if(!isThereTheHeader){
+                        //ヘッダーを設置
+                        wholeContainer.appendChild(completed_header);
+                        //ヘッダーが存在する　にtrueをセット
+                        isThereTheHeader=true;
+                        }
+                }else if(restoredCompletedListData.length===0){
+                        completed_header.remove();
+                }
+
+
+        restoredCompletedListData.forEach((item,i)=>{
+
+        
+                        let li=document.createElement("li");
+                        let span=document.createElement("span");
+                        span.innerHTML=item.taskName;
+                                wholeContainer.appendChild(visual_completed_ul);
+                        visual_completed_ul.appendChild(li);
+                        li.appendChild(span);
+               
+                        //チェックボックスを生成/////////////
+                        createCompletedCheckBox(li,span);
+
+                        //削除ボタンを生成//////////////////
+                        createCompletedDelButton(li,span);
+
+
+
+
+
 
 
 
