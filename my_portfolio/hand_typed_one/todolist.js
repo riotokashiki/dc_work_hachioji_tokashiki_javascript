@@ -9,7 +9,9 @@ let dropDown=document.getElementById("priority");
 let sort_button=document.getElementById("sort");
 let wholeContainer=document.querySelector(".wholeContainer");
 let isThereTheHeader=false;
+//competed tasklist↓↓//////
 let visual_completed_ul=document.createElement("ul");
+        visual_completed_ul.classList.add("completed");
 let completedList=[];
 let completed_index=null;
 let span_text=null;
@@ -17,12 +19,16 @@ let isThereCompletedList=false;
 let former_index=null;
 let current_index=null;
 
+let clicked_index=null;
+
 //ヘッダー生成↓↓
 let completed_header =document.createElement("div");
 completed_header.innerHTML="完了したタスク";
 
 
 function do_the_sequence(){
+
+        wholeContainer.appendChild(taskList);
 
         let taskText=inputField.value.trim();
         if(!taskText){
@@ -102,7 +108,23 @@ function createDeleteButton(li){
 
         console.log(JSON.parse(localStorage.getItem("savedUncompletedList")));
             
+        cleaningItself();
+
 })}
+
+
+ function cleaningItself(){                                           
+                                                       if(completedList.length===0){
+                                                                completed_header.remove();
+                                                                visual_completed_ul.remove();
+                                                            };
+
+                                                        if(uncompletedList.length===0){
+                                                                taskList.remove();
+
+                                                        }
+                                                            }     
+
 
 
 function createCompletedCheckBox(li,span){
@@ -114,6 +136,8 @@ function createCompletedCheckBox(li,span){
                                 span.classList.add("completed");
                                 checkBox.addEventListener("change",(e)=>{//イベントリスナー
                               
+                                 
+
                                                 span_text=e.target.nextElementSibling.innerText//li のtaskNameを取得
                                                 completed_index= completedList.findIndex((item)=>{//completed_indexがうまくいかない
                                                         return e.target.nextElementSibling.innerText===item.taskName
@@ -125,14 +149,22 @@ function createCompletedCheckBox(li,span){
                                                 });
                                                 console.log("current_index is..."+current_index);
                                                 uncompletedList[current_index].completed=false;
-                                                completedList.splice(completed_index,1);
+                                               
+                                                let li= document.createElement("li");
+                                                let span=document.createElement("span");
+                                                if(completedList[completed_index].priority===1){
+                                                li.classList.add("priority1");
+                                                }else if(completedList[completed_index].priority===2){
+                                                        li.classList.add("priority2");
+                                                }else if(completedList[completed_index].priority===3){
+                                                        li.classList.add("priority3");
+                                                }
+                                                 completedList.splice(completed_index,1);
                                                 localStorage.setItem("savedCompletedList",JSON.stringify(completedList));
                                                 console.log("savedCompletedList is...");
                                                 console.log(localStorage.getItem("savedCompletedList"));
                                                 console.log("completedList is...");
                                                 console.log(completedList);
-                                                let li= document.createElement("li");
-                                                let span=document.createElement("span");
                                                 span.innerText=span_text;
                                                 createCheckBox(li,span);
                                                 li.appendChild(span);
@@ -142,6 +174,11 @@ function createCompletedCheckBox(li,span){
                                                 taskList.appendChild(li);
                                                 
                                                 e.target.parentElement.remove();
+
+                                               
+                                                cleaningItself();
+
+
                                                 localStorage.setItem("savedUncompletedList",JSON.stringify(uncompletedList))
                                         })
                                 }
@@ -174,7 +211,7 @@ function createCompletedDelButton(li,span){
                                         //savedCompletedListを確認↓↓
                                         console.log(JSON.parse(localStorage.getItem("savedCompletedList")));
 
-
+                                        cleaningItself();
 
                                 })
                 
@@ -197,7 +234,7 @@ li.prepend(checkBox);
                 let clicked_li_text=e.target.nextElementSibling.innerHTML
                 console.log("clicked_li_text is..."+clicked_li_text);
 
-                let clicked_index=uncompletedList.findIndex((item)=>{
+                clicked_index=uncompletedList.findIndex((item)=>{
                 return item.taskName===clicked_li_text
                 });
                 console.log("clicked_index is..."+clicked_index);
@@ -218,9 +255,8 @@ li.prepend(checkBox);
                 //localStorageへcompletedListを保存↓↓
                 localStorage.setItem("savedCompletedList",JSON.stringify(completedList));
                 if(completedList.length>0){
-                        let completed_header =document.createElement("div");
-                        completed_header.innerHTML="完了したタスク";
                         
+                        wholeContainer.appendChild(completed_header);
                         
 
                         if(!isThereTheHeader){
@@ -374,6 +410,9 @@ restoreState()
 function restoreState(){
 let restoredUncompletedListData=JSON.parse(localStorage.getItem("savedUncompletedList"));//JSON.parseでJS配列に変換
 let restoredCompletedListData=JSON.parse(localStorage.getItem("savedCompletedList"));
+
+
+
 if(!restoredUncompletedListData && !restoredCompletedListData){
         console.log("There is no data.");
         return
@@ -385,6 +424,7 @@ if(!restoredUncompletedListData && !restoredCompletedListData){
          console.log("completedList=");
         console.log(completedList);
        
+        cleaningItself()
        
        //uncompletedListを復元////////////////////
         restoredUncompletedListData.forEach((item,i)=>{
