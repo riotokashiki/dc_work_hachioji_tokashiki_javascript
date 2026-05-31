@@ -27,11 +27,18 @@ completed_header.innerHTML="完了したタスク";
 
 
 function do_the_sequence(){
+        //追加ボタンアニメーション///////
+    addButton.classList.add('addButtonPushed');
+    setTimeout(() => {
+    addButton.classList.remove('addButtonPushed');
+  }, 100); // matches your 0.1s-ish transition
+
+
 
         wholeContainer.appendChild(taskList);
 
         let taskText=inputField.value.trim();
-        if(!taskText){
+        if(!taskText){                  
         window.alert("タスクを入力してください！");
         }else{
         ///li/////////////////////////////
@@ -39,6 +46,15 @@ function do_the_sequence(){
         let span=document.createElement("span");
         taskList.prepend(li);
         li.appendChild(span);
+        //レシーブアニメーション/////
+        li.classList.add('receivingInCompletedList');
+        li.addEventListener('animationend', () => {
+        li.classList.remove('receivingInCompletedList');
+        
+        })
+                
+
+        
 
 
         span.textContent=taskText;
@@ -218,7 +234,16 @@ function createCompletedDelButton(li,span){
                         }
 
 
+function receiveAnimation(li,item){
+             
 
+                                //レシーブアニメーション/////
+                                   li.classList.add('receivingInCompletedList');
+                                li.addEventListener('animationend', () => {
+                                li.classList.remove('receivingInCompletedList');
+                                },{ once: true })
+                                
+}
 
 
 
@@ -276,8 +301,20 @@ li.prepend(checkBox);
                                  wholeContainer.appendChild(visual_completed_ul);
                                 visual_completed_ul.appendChild(li);
                                 li.appendChild(span);
-                                e.target.parentElement.remove();  //視覚的にuncompletedListから除去
+                                
+                    
 
+                                //退去アニメーション/////
+                                e.target.parentElement.classList.add('taskCompleted');
+                                e.target.parentElement.addEventListener('animationend', () => {
+                                e.target.parentElement.classList.remove('taskCompleted');
+                                e.target.parentElement.remove();  //視覚的にuncompletedListから除去
+                                })
+
+                                //レシーブアニメーション/////
+                                       if(item.index===uncompletedList[clicked_index].index){
+                                receiveAnimation(li,item);
+                                       }
                                 //チェックボックス生成/////////
                                 createCompletedCheckBox(li,span);
                                 //削除ボタン生成/////////////

@@ -9,6 +9,7 @@
           box-sizing:border-box;
           margin:0;
           padding:0;
+          transition:all 0.25s ease ;
         }
 
 
@@ -40,18 +41,28 @@
         align-items: center;
       }
 
-      .addButton{
-            border: 1px solid black;
-    background: #4dde4d;
-    width: 10%;
-    height: 2.7rem;
-    position: absolute;
-    right: 23%;
-    bottom: 0%;
-    font-size: 26px;
-    color: white;
+  .addButton {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+    border: 0;
+    border-bottom: 5px solid #367039;
+  border-radius: 4px;
+  cursor: pointer;
+  transition:all 0.03s ease;
+  margin:5px;
 
-      }
+}
+.addButton:hover {
+  background-color: #5fc962;
+  border-bottom:5px solid #478a4a;
+}
+.addButtonPushed{
+  background-color: #63c266;
+  border-bottom:0px!important;
+  transform:translateY(5px);
+  transition:all 0.03s ease;
+} 
       .inputContainer{
         display: flex;
         flex-direction: column;
@@ -124,6 +135,40 @@
         border-left:blue 10px solid;
       }
       
+      
+      .taskCompleted{
+      animation-name:completed;
+      animation-timing-function: ease;
+      animation-duration:0.25s;
+
+      }
+      @keyframes completed{
+      from{opacity:1;
+                  transform:translateY(0px);
+      }
+      to{opacity:0;
+            transform:translateY(30px);
+      }
+      }
+
+
+            .receivingInCompletedList{
+      animation-name:receiving;
+      animation-timing-function: ease;
+      animation-duration:0.25s;
+      }
+
+      @keyframes receiving{
+      from{opacity:0;
+                  transform:translateY(-30px);
+      }
+      to{opacity:1;
+            transform:translateY(0px);
+      }
+      }
+
+
+
     </style>
     </head>
     <body>
