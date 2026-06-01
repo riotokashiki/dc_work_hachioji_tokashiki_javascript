@@ -59,9 +59,10 @@ function do_the_sequence(){
 
         span.textContent=taskText;
 
-        ///配列に追加＋localStorageへ保存///////
-        uncompletedList.unshift({taskName:taskText,completed:false,priority:Number(dropDown.value),index:uncompletedList.length+1});
+        ///配列に追加(プリペンド)///////////////
+        uncompletedList.unshift({taskName:taskText,completed:false,priority:Number(dropDown.value),index:uncompletedList.length+1,id:Date.now()});
         console.log(uncompletedList);
+        //localStorageへ保存///////
         localStorage.setItem("savedUncompletedList",JSON.stringify(uncompletedList));
         console.log("dropDown.value is..."+dropDown.value);
         console.log(localStorage.getItem("savedUncompletedList"));
@@ -253,8 +254,8 @@ function createCheckBox(li,span){
 let checkBox=document.createElement("input");
 checkBox.type="checkbox";
 li.prepend(checkBox);
-
-        checkBox.addEventListener("change",(e)=>{  //イベントリスナー
+        //チェックボックスにイベントリスナー↓↓/////
+        checkBox.addEventListener("change",(e)=>{  
                 span.classList.toggle("completed");
                 let clicked_li_text=e.target.nextElementSibling.innerHTML
                 console.log("clicked_li_text is..."+clicked_li_text);
