@@ -78,9 +78,9 @@ function do_the_sequence(){
         }
 
 ///チェックボックス/////////
+let id=uncompletedList[0].id;
 
-
-createCheckBox(li,span);
+createCheckBox(li,span,id);
 
 ///編集ボタン/////////////
 
@@ -144,21 +144,25 @@ function createDeleteButton(li){
 
 
 
-function createCompletedCheckBox(li,span){
+function createCompletedCheckBox(li,span,item){
                                 let checkBox=document.createElement("input");
                                 checkBox.type="checkbox";
                                 checkBox.checked=true;
+                                checkBox.dataset.id=item.id;
                                 checkBox.classList.add("completed_checkBox");
                                 li.prepend(checkBox);
                                 span.classList.add("completed");
-                                checkBox.addEventListener("change",(e)=>{//イベントリスナー
+                                //イベントリスナー↓↓/////
+                                checkBox.addEventListener("change",(e)=>{
                               
                                  
-
+                                                let clicked_checkBox_id=Number(e.target.dataset.id);
                                                 span_text=e.target.nextElementSibling.innerText//li のtaskNameを取得
-                                                completed_index= completedList.findIndex((item)=>{//completed_indexがうまくいかない
-                                                        return e.target.nextElementSibling.innerText===item.taskName
+                                                //completedList上のインデックス↓↓////
+                                                completed_index= completedList.findIndex((item)=>{
+                                                        return item.id===clicked_checkBox_id
                                                 })
+                                                //uncompletedList（前のリストでの）インデックス↓↓///
                                                 former_index=completedList[completed_index].index;
                                                 console.log("completed_index is..."+completed_index);        
                                                 current_index=uncompletedList.findIndex((item)=>{
@@ -176,21 +180,28 @@ function createCompletedCheckBox(li,span){
                                                 }else if(completedList[completed_index].priority===3){
                                                         li.classList.add("priority3");
                                                 }
-                                                 completedList.splice(completed_index,1);
+                                              
+
+                                                //チェックボックス生成↓↓////
+                                                let id=completedList[completed_index].id;
+                                                createCheckBox(li,span,id);
+                                                li.appendChild(span);
+                                                //編集ボタン生成↓↓/////
+                                                createEditButton(li,span);
+                                                //削除ボタン生成↓↓////
+                                                createDeleteButton(li); 
+
+                                                taskList.appendChild(li);
+                                                
+                                                e.target.parentElement.remove();
+                                                   completedList.splice(completed_index,1);
                                                 localStorage.setItem("savedCompletedList",JSON.stringify(completedList));
                                                 console.log("savedCompletedList is...");
                                                 console.log(localStorage.getItem("savedCompletedList"));
                                                 console.log("completedList is...");
                                                 console.log(completedList);
                                                 span.innerText=span_text;
-                                                createCheckBox(li,span);
-                                                li.appendChild(span);
-                                                createEditButton(li,span);
-                                                createDeleteButton(li); 
-
-                                                taskList.appendChild(li);
                                                 
-                                                e.target.parentElement.remove();
 
                                                
                                                 cleaningItself();
@@ -250,18 +261,20 @@ function receiveAnimation(li,item){
 
 
 
-function createCheckBox(li,span){
+function createCheckBox(li,span,id){
 let checkBox=document.createElement("input");
 checkBox.type="checkbox";
+//チェックボックスにid付与↓↓////
+checkBox.dataset.id=id;
 li.prepend(checkBox);
         //チェックボックスにイベントリスナー↓↓/////
         checkBox.addEventListener("change",(e)=>{  
                 span.classList.toggle("completed");
-                let clicked_li_text=e.target.nextElementSibling.innerHTML
-                console.log("clicked_li_text is..."+clicked_li_text);
+                let clicked_checkBox_id=e.target.dataset.id;
+                console.log("clicked_checkBox_id"+clicked_checkBox_id);
 
                 clicked_index=uncompletedList.findIndex((item)=>{
-                return item.taskName===clicked_li_text
+                return item.id===Number(clicked_checkBox_id)
                 });
                 console.log("clicked_index is..."+clicked_index);
                 //uncompletedListを更新↓↓
@@ -317,7 +330,7 @@ li.prepend(checkBox);
                                 receiveAnimation(li,item);
                                        }
                                 //チェックボックス生成/////////
-                                createCompletedCheckBox(li,span);
+                                createCompletedCheckBox(li,span,item);
                                 //削除ボタン生成/////////////
                                 createCompletedDelButton(li,span);
                                 
@@ -495,7 +508,8 @@ if(!restoredUncompletedListData && !restoredCompletedListData){
 
 
       ///チェックボックス生成////////
-        createCheckBox(li,span);
+      let id=item.id
+        createCheckBox(li,span,id);
 
 
         })
@@ -530,7 +544,7 @@ if(!restoredUncompletedListData && !restoredCompletedListData){
                         li.appendChild(span);
                
                         //チェックボックスを生成/////////////
-                        createCompletedCheckBox(li,span);
+                        createCompletedCheckBox(li,span,item);
 
                         //削除ボタンを生成//////////////////
                         createCompletedDelButton(li,span);
