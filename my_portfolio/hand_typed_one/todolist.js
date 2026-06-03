@@ -9,7 +9,7 @@ let uncompletedList=[];
 let sort_button=document.getElementById("sort");
 let wholeContainer=document.querySelector(".wholeContainer");
 let isThereTheHeader=false;
-//competed tasklist↓↓//////
+//completed tasklist↓↓//////
 let visual_completed_ul=document.createElement("ul");
         visual_completed_ul.classList.add("completed");
 let completedList=[];
@@ -21,12 +21,13 @@ let current_index=null;
 
 let clicked_index=null;
 
-let uncompletedListContainer=document.querySelector(".uncompetedListContainer");
-let competedListContainer=document.querySelector(".completedListContainer");
+let uncompletedListContainer=document.querySelector(".uncompletedListContainer");
+let completedListContainer=document.querySelector(".completedListContainer");
+completedListContainer.classList.add("completedListContainer");
 //ヘッダー生成↓↓
 let completed_header =document.createElement("div");
 completed_header.innerHTML="完了したタスク";
-completed_header.classList.add("center");
+completed_header.classList.add("header");
 
 
 let radio_buttons=Array.from(document.querySelectorAll("input[type='radio']"));
@@ -124,6 +125,7 @@ function createDeleteButton(li){
         let delButton=document.createElement("button");
         li.appendChild(delButton);
         delButton.innerHTML="削除";
+        delButton.classList.add("li_button");
 
         delButton.addEventListener("click",(e)=>{//クリックハンドラ設置
                 delButton.parentElement.classList.add("smoothDelete");
@@ -329,17 +331,17 @@ li.prepend(checkBox);
                 completedList=uncompletedList.filter((item)=>{
                         return item.completed
                 });
-                console.log("competedList is...");
+                console.log("completedList is...");
                 console.log(completedList);
                 //localStorageへcompletedListを保存↓↓
                 localStorage.setItem("savedCompletedList",JSON.stringify(completedList));
                 if(completedList.length>0){
                         
-                        competedListContainer.prepend(completed_header);
+                        completedListContainer.prepend(completed_header);
                         
 
                         if(!isThereTheHeader){
-                        competedListContainer.prepend(completed_header);
+                        completedListContainer.prepend(completed_header);
                         isThereTheHeader=true;
                         }
                          visual_completed_ul.innerHTML="";
@@ -361,7 +363,7 @@ li.prepend(checkBox);
                                 });
                                 }
 
-                                 competedListContainer.appendChild(visual_completed_ul);
+                                 completedListContainer.appendChild(visual_completed_ul);
                                 visual_completed_ul.appendChild(li);
                                 li.appendChild(span);
                                 
@@ -408,6 +410,7 @@ function createEditButton(li,span){
 let editButton=document.createElement("button");
 li.appendChild(editButton);
         editButton.innerHTML="編集";
+        editButton.classList.add("li_button");
 let input_to_be_swapped=document.createElement("input");
 editButton.addEventListener("click",(e)=>{//クリックハンドラ設置
         console.log("edit button clicked!");
@@ -575,7 +578,7 @@ if(!restoredUncompletedListData && !restoredCompletedListData){
       
 
 
-        //competedListを復元//////////
+        //completedListを復元//////////
 
         //     もし復元したcompletedリストにアイテムが存在したら
           if(uncompletedList_true_array.length>0 && !isThereTheHeader){
@@ -585,7 +588,7 @@ if(!restoredUncompletedListData && !restoredCompletedListData){
                 
                       
                         //ヘッダーを設置
-                        competedListContainer.prepend(completed_header);
+                        completedListContainer.prepend(completed_header);
                         //ヘッダーが存在する　にtrueをセット
                         isThereTheHeader=true;  
                         console.log("debug A")
@@ -600,7 +603,7 @@ if(!restoredUncompletedListData && !restoredCompletedListData){
                         isThereTheHeader=false;
                 }else{
                         //ヘッダーを設置
-                        competedListContainer.prepend(completed_header);
+                        completedListContainer.prepend(completed_header);
                         //ヘッダーが存在する　にtrueをセット
                         isThereTheHeader=true;  
                         console.log("debug A")
@@ -614,7 +617,7 @@ if(!restoredUncompletedListData && !restoredCompletedListData){
                         let li=document.createElement("li");
                         let span=document.createElement("span");
                         span.innerHTML=item.taskName;
-                                wholeContainer.appendChild(visual_completed_ul);
+                                completedListContainer.appendChild(visual_completed_ul);
                         visual_completed_ul.appendChild(li);
                         li.appendChild(span);
                
