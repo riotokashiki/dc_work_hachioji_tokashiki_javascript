@@ -578,20 +578,33 @@ if(!restoredUncompletedListData && !restoredCompletedListData){
         //competedListを復元//////////
 
         //     もし復元したcompletedリストにアイテムが存在したら
-          if(uncompletedList_true_array.length>0){
+          if(uncompletedList_true_array.length>0 && !isThereTheHeader){
                         
                         
 
                 
-                       //もしヘッダーがすでになかったら　 
-                        if(!isThereTheHeader){
+                      
                         //ヘッダーを設置
                         competedListContainer.prepend(completed_header);
                         //ヘッダーが存在する　にtrueをセット
-                        isThereTheHeader=true;
-                        }
-                }else if(restoredCompletedListData.length===0){
+                        isThereTheHeader=true;  
+                        console.log("debug A")
+                        
+                }else if(uncompletedList_true_array.length>0 && isThereTheHeader){
+                         console.log("debug B")
+                        return
+                }
+                else if(restoredCompletedListData.length===0){
+                         console.log("debug C")
                         completed_header.remove();
+                        isThereTheHeader=false;
+                }else{
+                        //ヘッダーを設置
+                        competedListContainer.prepend(completed_header);
+                        //ヘッダーが存在する　にtrueをセット
+                        isThereTheHeader=true;  
+                        console.log("debug A")
+
                 }
 
 

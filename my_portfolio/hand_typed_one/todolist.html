@@ -22,7 +22,7 @@
         }
 
       .wholeContainer{
-        border:1px solid black;
+        box-shadow: 0px 0px 5px gray;
         border-radius:15px;
         max-width:500px;
         display:flex;
@@ -30,6 +30,7 @@
         align-items: center;
         flex-direction: column;
         min-width: 500px;
+        padding: 1rem 0;
       }
       .upperHalfContainer{
         position: relative;
@@ -40,21 +41,22 @@
         align-items: center;
       }
 
-  .addButton {
-  padding: 10px 20px;
-  background-color: #4CAF50;
-  color: white;
+ .addButton {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
     border: 0;
     border-bottom: 5px solid #367039;
-  border-radius: 4px;
-  cursor: pointer;
-  transition:all 0.03s ease;
-  margin:5px;
-
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.03s ease;
+    position: absolute;
+    bottom: 24%;
+    right: 21%;
 }
 .addButton:hover {
-  background-color: #5fc962;
-  border-bottom:5px solid #478a4a;
+  background-color:#78e37b;
+  border-bottom:5px solid #66c26b;;
 }
 .addButtonPushed{
   background-color: #63c266;
@@ -66,13 +68,23 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
+        width: 40%;
       }
+
+      #inputField{
+        height: 2rem;
+            box-shadow: inset 0px 0px 4px gray;
+            border: none;
+            padding: 1rem;
+      }
+
       ul{
         border-radius:15px;
-        border:1px solid black;
+        
         max-width: 100%;
         width: 100%;
         overflow: hidden;
+        box-shadow: 0px 0px 5px gray;
       }
       .list{
         color:black;
@@ -179,10 +191,10 @@
       }
 
       .uncompetedListContainer{
-        width: 100%;
+            width: 89%;
       }
       .completedListContainer{
-        width: 100%;
+            width: 89%;
       }
 
       .center{
@@ -233,8 +245,14 @@
             max-height: 0rem;
       }
       }
-
-
+      ul.completed{
+            width: 89%;
+      }
+      button {
+    border: none;
+    box-shadow: 0px 0px 1px gray;
+    color: #4c4c4c;
+}
 
     </style>
     </head>
@@ -243,10 +261,9 @@
       <div class="wholeContainer">
         <div class="upperHalfContainer">
             <p>To-Do List</p>
-            <p>タスクを入力してください</p>
             <button id="sort">優先度順に整列</button>
             <div class="inputContainer">
-            <input type="text" id="inputField" class="priority2">
+            <input type="text" id="inputField" class="priority2" placeholder="タスクを入力してください">
             
             <div class="pritorityContainer">
             <p class="priority-title">優先度：</p>
