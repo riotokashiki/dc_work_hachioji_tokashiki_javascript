@@ -5,7 +5,7 @@ let addButton=document.getElementById("addButton");
 let taskList=document.getElementById("taskList");
 
 let uncompletedList=[];
-let dropDown=document.getElementById("priority");
+// let dropDown=document.getElementById("priority");
 let sort_button=document.getElementById("sort");
 let wholeContainer=document.querySelector(".wholeContainer");
 let isThereTheHeader=false;
@@ -21,9 +21,20 @@ let current_index=null;
 
 let clicked_index=null;
 
+let uncompletedListContainer=document.querySelector(".uncompetedListContainer");
+let competedListContainer=document.querySelector(".completedListContainer");
 //ヘッダー生成↓↓
 let completed_header =document.createElement("div");
 completed_header.innerHTML="完了したタスク";
+completed_header.classList.add("center");
+
+
+let radio_buttons=Array.from(document.querySelectorAll("input[type='radio']"));
+
+  let uncompletedList_true_array=uncompletedList.filter((item)=>{
+        return item.completed
+        })
+
 
 
 function do_the_sequence(){
@@ -35,7 +46,7 @@ function do_the_sequence(){
 
 
 
-        wholeContainer.appendChild(taskList);
+        uncompletedListContainer.appendChild(taskList);
 
         let taskText=inputField.value.trim();
         if(!taskText){                  
@@ -51,11 +62,11 @@ function do_the_sequence(){
         taskList.prepend(li);
         li.appendChild(span);
         //レシーブアニメーション/////
-        li.classList.add('receivingInCompletedList');
-        li.addEventListener('animationend', () => {
-        li.classList.remove('receivingInCompletedList');
+        // li.classList.add('receivingInCompletedList');
+        // li.addEventListener('animationend', () => {
+        // li.classList.remove('receivingInCompletedList');
         
-        })
+        // })
                 
 
         
@@ -63,15 +74,18 @@ function do_the_sequence(){
 
         span.textContent=taskText;
 
+        //ラジオボタンの値を取得↓↓/////
+        let chosen_radio_button_value=document.querySelector("input[type='radio']:checked").value;
+
         ///配列に追加(プリペンド)///////////////
-        uncompletedList.unshift({taskName:taskText,completed:false,priority:Number(dropDown.value),index:uncompletedList.length+1,id:Date.now()});
+        uncompletedList.unshift({taskName:taskText,completed:false,priority:Number(chosen_radio_button_value),index:uncompletedList.length+1,id:Date.now()});
         console.log(uncompletedList);
         //localStorageへ保存///////
         localStorage.setItem("savedUncompletedList",JSON.stringify(uncompletedList));
-        console.log("dropDown.value is..."+dropDown.value);
+        console.log("chosen_radio.value is..."+chosen_radio_button_value);
         console.log(localStorage.getItem("savedUncompletedList"));
         
-        let priorityValue=Number(dropDown.value);
+        let priorityValue=Number(chosen_radio_button_value);
 
         if(priorityValue===1){
                 li.classList.add("priority1");
@@ -99,7 +113,8 @@ createDeleteButton(li);
 }
 
 inputField.value="";
-dropDown.value="2";
+chosen_radio_button_value="2";
+radio_buttons[1].checked=true;
 inputField.removeAttribute("class");
 inputField.classList.add("priority2");
         }
@@ -111,7 +126,10 @@ function createDeleteButton(li){
         delButton.innerHTML="削除";
 
         delButton.addEventListener("click",(e)=>{//クリックハンドラ設置
-        delButton.parentElement.remove();//liを削除
+                delButton.parentElement.classList.add("smoothDelete");
+                delButton.parentElement.addEventListener("animationend",()=>{
+        
+                delButton.parentElement.remove();//liを削除
         let clicked_li_text=e.target.previousElementSibling.previousElementSibling.innerHTML
         console.log(clicked_li_text);
         let clicked_index=uncompletedList.findIndex((item)=>{
@@ -130,6 +148,7 @@ function createDeleteButton(li){
         console.log(JSON.parse(localStorage.getItem("savedUncompletedList")));
             
         cleaningItself();
+})
 
 })}
 
@@ -141,7 +160,7 @@ function createDeleteButton(li){
                                                             };
 
                                                         if(uncompletedList.length===0){
-                                                                taskList.remove();
+                                                                taskList.innerHTML="";
 
                                                         }
                                                             }     
@@ -156,7 +175,7 @@ function createCompletedCheckBox(li,span,item){
                                 checkBox.classList.add("completed_checkBox");
                                 li.prepend(checkBox);
                                 span.classList.add("completed");
-                                //イベントリスナー↓↓/////
+                                //イベントリスナー（アンチェック時）↓↓/////
                                 checkBox.addEventListener("change",(e)=>{
                               
                                  
@@ -194,10 +213,19 @@ function createCompletedCheckBox(li,span,item){
                                                 createEditButton(li,span);
                                                 //削除ボタン生成↓↓////
                                                 createDeleteButton(li); 
+                                                li.classList.add("smoothGrowing");
+                                                li.addEventListener("animationend",()=>{
+                                                        li.classList.remove("smoothGrowing");
 
+                                                })
                                                 taskList.appendChild(li);
+
+
                                                 
-                                                e.target.parentElement.remove();
+                                                e.target.parentElement.classList.add("smoothDelete");
+                                                e.target.parentElement.addEventListener("animationend",()=>{
+
+                                                e.target.parentElement.remove();//liを視覚的に除去
                                                    completedList.splice(completed_index,1);
                                                 localStorage.setItem("savedCompletedList",JSON.stringify(completedList));
                                                 console.log("savedCompletedList is...");
@@ -212,6 +240,7 @@ function createCompletedCheckBox(li,span,item){
 
 
                                                 localStorage.setItem("savedUncompletedList",JSON.stringify(uncompletedList))
+                                                },{ once: true })
                                         })
                                 }
 
@@ -222,7 +251,11 @@ function createCompletedDelButton(li,span){
                                 delButton.innerHTML="削除";
 
                                 delButton.addEventListener("click",(e)=>{//クリックハンドラ設置
-                                        delButton.parentElement.remove();//liを視覚的に削除
+                                        delButton.parentElement.classList.add("smoothDelete");
+                                        delButton.parentElement.addEventListener("animationend",()=>{
+                                                delButton.parentElement.remove();//liを視覚的に削除
+                                                
+                                        
                                         let clicked_li_text=e.target.previousElementSibling.previousElementSibling.innerText
                                         console.log("clicked_li_text is..."+clicked_li_text);
                                         let clicked_index=completedList.findIndex((item)=>{
@@ -244,6 +277,9 @@ function createCompletedDelButton(li,span){
                                         console.log(JSON.parse(localStorage.getItem("savedCompletedList")));
 
                                         cleaningItself();
+
+                                        });
+
 
                                 })
                 
@@ -299,11 +335,11 @@ li.prepend(checkBox);
                 localStorage.setItem("savedCompletedList",JSON.stringify(completedList));
                 if(completedList.length>0){
                         
-                        wholeContainer.appendChild(completed_header);
+                        competedListContainer.prepend(completed_header);
                         
 
                         if(!isThereTheHeader){
-                        wholeContainer.appendChild(completed_header);
+                        competedListContainer.prepend(completed_header);
                         isThereTheHeader=true;
                         }
                          visual_completed_ul.innerHTML="";
@@ -316,12 +352,16 @@ li.prepend(checkBox);
                                 let li=document.createElement("li");
                                 let span=document.createElement("span");
                                 span.innerHTML=item.taskName;
+
+                                if(Number(e.target.dataset.id)===item.id){
+                                //スムーズアニメーション↓↓////
                                 li.classList.add("smoothGrowing");
                                 li.addEventListener('animationend', () => {
                                 li.classList.remove('smoothGrowing');
                                 });
+                                }
 
-                                 wholeContainer.appendChild(visual_completed_ul);
+                                 competedListContainer.appendChild(visual_completed_ul);
                                 visual_completed_ul.appendChild(li);
                                 li.appendChild(span);
                                 
@@ -410,21 +450,28 @@ editButton.addEventListener("click",(e)=>{//クリックハンドラ設置
 })}
 
 
-dropDown.addEventListener("change",(e)=>{
-        inputField.removeAttribute("class");
+radio_buttons.forEach((item)=>{
 
-if(e.target.value==="1"){
+        item.addEventListener("change",(e)=>{
+                inputField.removeAttribute("class");
 
-        inputField.classList.add("priority1");
-}else if(e.target.value==="2"){
+        if(e.target.value==="1"){
 
-        inputField.classList.add("priority2")
-}else{
-        inputField.classList.add("priority3")
-}
+                inputField.classList.add("priority1");
+        }else if(e.target.value==="2"){
 
-        
+                inputField.classList.add("priority2")
+        }else{
+                inputField.classList.add("priority3")
+        }
+
+                
+        })
+
 })
+
+
+
 
 
 ///Enterキーイベントリスナー//////////
@@ -470,6 +517,8 @@ restoreState()
 function restoreState(){
 let restoredUncompletedListData=JSON.parse(localStorage.getItem("savedUncompletedList"));//JSON.parseでJS配列に変換
 let restoredCompletedListData=JSON.parse(localStorage.getItem("savedCompletedList"));
+
+
 
 
 
@@ -523,17 +572,21 @@ if(!restoredUncompletedListData && !restoredCompletedListData){
 
         })
 
+      
+
 
         //competedListを復元//////////
 
         //     もし復元したcompletedリストにアイテムが存在したら
-          if(restoredCompletedListData.length>0){
+          if(uncompletedList_true_array.length>0){
                         
                         
+
+                
                        //もしヘッダーがすでになかったら　 
                         if(!isThereTheHeader){
                         //ヘッダーを設置
-                        wholeContainer.appendChild(completed_header);
+                        competedListContainer.prepend(completed_header);
                         //ヘッダーが存在する　にtrueをセット
                         isThereTheHeader=true;
                         }

@@ -9,7 +9,6 @@
           box-sizing:border-box;
           margin:0;
           padding:0;
-          transition:all 0.25s ease ;
         }
 
 
@@ -102,7 +101,7 @@
         display: flex;
       
         padding: 5px 20px;
-        
+        overflow: hidden;
       }
 
       ul{
@@ -144,10 +143,10 @@
       }
       @keyframes completed{
       from{opacity:1;
-                  transform:translateY(0px);
+                  max-height: 2rem;
       }
       to{opacity:0;
-            transform:translateY(30px);
+            max-height: 0rem;
       }
       }
 
@@ -175,7 +174,63 @@
                   max-height: 0rem;
       }
       to{opacity:1;
-            max-height: 1rem;
+            max-height: 2rem;
+      }
+      }
+
+      .uncompetedListContainer{
+        width: 100%;
+      }
+      .completedListContainer{
+        width: 100%;
+      }
+
+      .center{
+        text-align: center;
+      }
+
+      .choiceWrapper1{
+       background-color: rgb(248, 147, 147);
+       display: flex;
+       flex-direction: column;
+       width: 2rem;
+       justify-content: center;
+       align-items: center;
+      }
+       .choiceWrapper2{
+       background-color: rgb(243, 248, 147);
+          display: flex;
+       flex-direction: column;
+        width: 2rem;
+       justify-content: center;
+       align-items: center;
+      }
+       .choiceWrapper3{
+       background-color: rgb(147, 177, 248);
+          display: flex;
+       flex-direction: column;
+        width: 2rem;
+       justify-content: center;
+       align-items: center;
+      }
+
+      .priority-title{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+
+      .smoothDelete{
+        animation :smoothDelete 0.15s ease;
+      }
+
+         @keyframes smoothDelete{
+      from{opacity:1;
+                  max-height: 2rem;
+      }
+      to{opacity:0;
+            max-height: 0rem;
       }
       }
 
@@ -189,24 +244,31 @@
         <div class="upperHalfContainer">
             <p>To-Do List</p>
             <p>タスクを入力してください</p>
-            <button id="sort">整列</button>
+            <button id="sort">優先度順に整列</button>
             <div class="inputContainer">
             <input type="text" id="inputField" class="priority2">
             
             <div class="pritorityContainer">
-            <p>優先度：</p>
-            <select name="priority_selector" id="priority">
-                <option value="1">🔴高</option>
-                <option value="2" selected="selected">🟡中</option>
-                <option value="3">🔵低</option>
-            </select>
+            <p class="priority-title">優先度：</p>
+            <div class="choiceWrapper1">
+                <input type="radio" id="priorityChoice1" name="priority" value="1">
+                <label for="priorityChoice1">高</label>
+            </div>
+            <div class="choiceWrapper2">
+                <input type="radio" id="priorityChoice2" name="priority" value="2" checked>
+                <label for="priorityChoice2">中</label>
+            </div>
+            <div class="choiceWrapper3">
+                <input type="radio" id="priorityChoice3" name="priority" value="3">
+                <label for="priorityChoice3">低</label>
+            </div>
             </div>
             
               </div>
                           <button class="addButton" id="addButton">+</button>
 
           </div>
-
+          <div class="uncompetedListContainer">
         <ul id="taskList">
 
 
@@ -224,7 +286,12 @@
 
 
       </div>
+      <div class="completedListContainer">
 
+
+      </div>
+
+</div>
 
 
 
