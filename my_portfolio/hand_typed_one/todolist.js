@@ -44,6 +44,10 @@ function do_the_sequence(){
         ///li/////////////////////////////
         let li =document.createElement("li");
         let span=document.createElement("span");
+        li.classList.add("smoothGrowing");
+          li.addEventListener('animationend', () => {
+        li.classList.remove('smoothGrowing');
+        });
         taskList.prepend(li);
         li.appendChild(span);
         //レシーブアニメーション/////
@@ -312,6 +316,11 @@ li.prepend(checkBox);
                                 let li=document.createElement("li");
                                 let span=document.createElement("span");
                                 span.innerHTML=item.taskName;
+                                li.classList.add("smoothGrowing");
+                                li.addEventListener('animationend', () => {
+                                li.classList.remove('smoothGrowing');
+                                });
+
                                  wholeContainer.appendChild(visual_completed_ul);
                                 visual_completed_ul.appendChild(li);
                                 li.appendChild(span);
