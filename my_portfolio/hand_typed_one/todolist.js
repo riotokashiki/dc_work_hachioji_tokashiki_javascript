@@ -11,7 +11,7 @@ let wholeContainer=document.querySelector(".wholeContainer");
 let isThereTheHeader=false;
 //completed tasklist↓↓//////
 let visual_completed_ul=document.createElement("ul");
-        visual_completed_ul.classList.add("completed");
+        // visual_completed_ul.classList.add("completed");
 let completedList=[];
 let completed_index=null;
 let span_text=null;
@@ -251,6 +251,7 @@ function createCompletedDelButton(li,span){
                                 let delButton=document.createElement("button");
                                 li.appendChild(delButton);
                                 delButton.innerHTML="削除";
+                                delButton.classList.add("li_button");
 
                                 delButton.addEventListener("click",(e)=>{//クリックハンドラ設置
                                         delButton.parentElement.classList.add("smoothDelete");
