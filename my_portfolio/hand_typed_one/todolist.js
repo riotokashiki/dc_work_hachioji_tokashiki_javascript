@@ -118,8 +118,8 @@ createDeleteButton(li,id);
 }
 
 inputField.value="";
-chosen_radio_button_value="2";
-radio_buttons[1].checked=true;
+// chosen_radio_button_value="2";
+// radio_buttons[1].checked=true;
 inputField.removeAttribute("class");
 inputField.classList.add("priority2");
         }
@@ -276,7 +276,7 @@ function createCompletedDelButton(li,span,id){
                                         console.log("[CD]del button clicked!");
                                         console.log("[CD]The clicked index2 is.."+clicked_index2);
                                         
-                                        if(clicked_index!==-1 ||clicked_index2!==-1){
+                                        if(clicked_index!==-1 &&clicked_index2!==-1){
                                         uncompletedList.splice(clicked_index,1);//uncompletedListからアイテムを削除
                                         console.log("uncompletedList")
                                         console.log(uncompletedList);//アイテムがuncompletedListから削除されたことを確認
