@@ -3,6 +3,8 @@
     <head>
     <meta charset="UTF-8">
     <title>to do list</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+      <link rel="stylesheet" type="text/css" href="reset.css">
     <style>
 
         *{
@@ -40,7 +42,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-            height: 15vh;
+                height: 17vh;
       }
 
 .addButton {
@@ -52,7 +54,7 @@
     border-radius: 4px;
     cursor: pointer;
     transition: all 0.03s ease;
-      margin-top: 30px;
+         margin-top: 43%;
         top: 27%;
     left: 0%;
     max-height: 10vh;
@@ -77,6 +79,8 @@
       }
       .devidingContainer2 p{
         text-align: center;
+            margin: 1rem;
+          
       }
 
       .devidingContainer1,.devidingContainer3{
@@ -89,6 +93,7 @@
 
       .devidingContainer2{
         width: 60%;
+            height: 100%;
       }
 
       #inputField{
@@ -97,6 +102,7 @@
             border: none;
             padding: 1rem;
                 font-size: 0.9rem;
+                width: 100%;
       }
       input:focus{
         outline:none;
@@ -267,7 +273,9 @@
         justify-content: center;
         align-items: center;
       }
-
+p.title{
+  margin:1rem;
+}
 
       .smoothDelete{
         animation :smoothDelete 0.15s ease;
@@ -309,6 +317,39 @@
 
 .completedListContainer ul{
   width: 89%;
+}
+
+button.reset {
+    color: black;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: gray;
+}
+
+.resetWindow{
+  color: black;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: gray;
+ 
+      height: 10vh;
+    width: 10vh;
+display: flex;
+flex-direction: column;
+   display: none;
+}
+
+.resetButtonContainer button{
+      margin-right: 4%;
+}
+
+.show{
+  display: flex;
+}
+.hide{
+  display: none;
 }
 
 @media (max-width: 768px) {
@@ -363,9 +404,9 @@ span {
           <div class="devidingContainer1"></div>
             <div class="devidingContainer2">
             
-            <p>タスク管理アプリ</p>
+            <p class="title">タスク管理アプリ</p>
           
-            <div class="inputContainer">
+            
             <input type="text" id="inputField" class="priority2" placeholder="タスクを入力してください">
             
             <div class="pritorityContainer">
@@ -382,7 +423,7 @@ span {
                 <div class="choiceWrapper3">
                     <input type="radio" id="priorityChoice3" name="priority" value="3">
                     <label for="priorityChoice3">低</label>
-                </div>
+                
             </div>
             </div>
             
@@ -418,8 +459,14 @@ span {
 
 </div>
 
-
-
+<button class="reset">リセット</button>
+<div class="resetWindow">
+  <p>リセットしますか？</p>
+  <div class="resetButtonContainer">
+  <button class="no">いいえ</button>
+  <button class="yes">はい</button>
+  </div>
+</div>
 
   <script src="todolist.js"></script><!--Where to put JS sheet is before the closing body tag.   -->
     </body>

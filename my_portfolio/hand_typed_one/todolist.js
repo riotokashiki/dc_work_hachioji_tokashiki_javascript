@@ -36,6 +36,10 @@ let radio_buttons=Array.from(document.querySelectorAll("input[type='radio']"));
         return item.completed
         })
 
+let yes_button=document.querySelector(".yes");
+let no_button=document.querySelector(".no");
+let reset_window=document.querySelector(".resetWindow");
+let reset_open_button=document.querySelector(".reset");
 
 
 function do_the_sequence(){
@@ -660,5 +664,39 @@ if(!restoredUncompletedListData && !restoredCompletedListData){
 
 
 }
+
+function reset_option(){
+reset_window.classList.remove("hide");
+reset_window.classList.add("show");
+reset_open_button.classList.add("hide");
+yes_button.addEventListener("click",()=>{
+uncompletedList=[];
+localStorage.setItem("savedUncompletedList",JSON.stringify(uncompletedList));
+completedList=[];
+localStorage.setItem("savedCompletedList",JSON.stringify(completedList));
+
+restoreState();
+
+reset_window.classList.add("hide");
+reset_open_button.classList.remove("hide");
+
+},{ once: true })
+
+
+no_button.addEventListener("click",()=>{
+reset_window.classList.add("hide");
+reset_open_button.classList.remove("hide");
+reset_open_button.classList.add("show");
+},{ once: true });
+
+}
+
+reset_open_button.addEventListener("click",()=>{
+
+reset_option()
+
+
+
+});
 
 
