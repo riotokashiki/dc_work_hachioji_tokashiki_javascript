@@ -81,6 +81,10 @@ function do_the_sequence(){
         ///配列に追加(プリペンド)///////////////
         uncompletedList.unshift({taskName:taskText,completed:false,priority:Number(chosen_radio_button_value),index:uncompletedList.length+1,id:Date.now()});
         console.log(uncompletedList);
+        //liにdataset.idを追加↓↓//////////////
+        li.dataset.id=uncompletedList[0].id;
+        let id =Number(uncompletedList[0].id);
+
         //localStorageへ保存///////
         localStorage.setItem("savedUncompletedList",JSON.stringify(uncompletedList));
         console.log("chosen_radio.value is..."+chosen_radio_button_value);
@@ -97,18 +101,18 @@ function do_the_sequence(){
         }
 
 ///チェックボックス/////////
-let id=uncompletedList[0].id;
+
 
 createCheckBox(li,span,id);
 
 ///編集ボタン/////////////
 
-createEditButton(li,span);
+createEditButton(li,span,id);
 
 
        ///削除ボタン////////////////
 
-createDeleteButton(li);
+createDeleteButton(li,id);
 
 
 }
@@ -121,7 +125,7 @@ inputField.classList.add("priority2");
         }
 
 
-function createDeleteButton(li){
+function createDeleteButton(li,id){
         let delButton=document.createElement("button");
         li.appendChild(delButton);
         delButton.innerHTML="削除";
@@ -129,19 +133,23 @@ function createDeleteButton(li){
 
         delButton.addEventListener("click",(e)=>{//クリックハンドラ設置
                 delButton.parentElement.classList.add("smoothDelete");
+                //削除アニメーション↓↓////
                 delButton.parentElement.addEventListener("animationend",()=>{
         
-                delButton.parentElement.remove();//liを削除
-        let clicked_li_text=e.target.previousElementSibling.previousElementSibling.innerHTML
-        console.log(clicked_li_text);
+              
+        
         let clicked_index=uncompletedList.findIndex((item)=>{
-        return item.taskName===clicked_li_text
+        return item.id===id
         });
+        delButton.parentElement.remove();//liを削除
         console.log("del button clicked!");
         console.log("The clicked index is.."+clicked_index);
+        if(clicked_index!==-1){
         uncompletedList.splice(clicked_index,1);//JS配列からアイテムを削除
         console.log("Current JS array")
         console.log(uncompletedList);//アイテムが配列から削除されたことを確認
+        
+        }
         localStorage.setItem("savedUncompletedList",JSON.stringify(uncompletedList))//localStorageを更新されたJS配列で上書き
         console.log("Current localStorage array");
         console.log(localStorage.getItem("savedUncompletedList"));
@@ -169,7 +177,7 @@ function createDeleteButton(li){
 
 
 
-function createCompletedCheckBox(li,span,item){
+function createCompletedCheckBox(li,span,item,id){
                                 let checkBox=document.createElement("input");
                                 checkBox.type="checkbox";
                                 checkBox.checked=true;
@@ -212,9 +220,9 @@ function createCompletedCheckBox(li,span,item){
                                                 createCheckBox(li,span,id);
                                                 li.appendChild(span);
                                                 //編集ボタン生成↓↓/////
-                                                createEditButton(li,span);
+                                                createEditButton(li,span,id);
                                                 //削除ボタン生成↓↓////
-                                                createDeleteButton(li); 
+                                                createDeleteButton(li,id); 
                                                 li.classList.add("smoothGrowing");
                                                 li.addEventListener("animationend",()=>{
                                                         li.classList.remove("smoothGrowing");
@@ -247,38 +255,43 @@ function createCompletedCheckBox(li,span,item){
                                 }
 
 
-function createCompletedDelButton(li,span){
+function createCompletedDelButton(li,span,id){
                                 let delButton=document.createElement("button");
                                 li.appendChild(delButton);
                                 delButton.innerHTML="削除";
                                 delButton.classList.add("li_button");
-
-                                delButton.addEventListener("click",(e)=>{//クリックハンドラ設置
+                                //クリックハンドラ設置↓↓/////////
+                                delButton.addEventListener("click",(e)=>{
                                         delButton.parentElement.classList.add("smoothDelete");
                                         delButton.parentElement.addEventListener("animationend",()=>{
-                                                delButton.parentElement.remove();//liを視覚的に削除
-                                                
                                         
-                                        let clicked_li_text=e.target.previousElementSibling.previousElementSibling.innerText
-                                        console.log("clicked_li_text is..."+clicked_li_text);
-                                        let clicked_index=completedList.findIndex((item)=>{
-                                        return item.taskName===clicked_li_text
+                                                
+                                
+                                        let clicked_index=uncompletedList.findIndex((item)=>{
+                                        return item.id===id
                                         });
-                                        console.log("del button clicked!");
-                                        console.log("The clicked index is.."+clicked_index);
+                                        let clicked_index2=completedList.findIndex((item)=>{
+                                        return item.id===id
+                                        });
+                                        console.log("[CD]del button clicked!");
+                                        console.log("[CD]The clicked index2 is.."+clicked_index2);
+                                        
+                                        if(clicked_index!==-1 ||clicked_index2!==-1){
                                         uncompletedList.splice(clicked_index,1);//uncompletedListからアイテムを削除
-                                        console.log("Current JS array")
+                                        console.log("uncompletedList")
                                         console.log(uncompletedList);//アイテムがuncompletedListから削除されたことを確認
                                         localStorage.setItem("savedUncompletedList",JSON.stringify(uncompletedList))//localStorageを更新されたJS配列で上書き
                                         console.log("Current localStorage array");
                                         console.log(localStorage.getItem("savedUncompletedList"));
-                                        completedList.splice(clicked_index,1);//completedListからアイテムを削除
+                                        
+                                        completedList.splice(clicked_index2,1);//completedListからアイテムを削除
 
                                         localStorage.setItem("savedCompletedList",JSON.stringify(completedList));//completedListをlocalStorageに保存
                                         console.log("savedCompletedList is...");
                                         //savedCompletedListを確認↓↓
                                         console.log(JSON.parse(localStorage.getItem("savedCompletedList")));
-
+                                        delButton.parentElement.remove();//liを視覚的に削除
+                                                }
                                         cleaningItself();
 
                                         });
@@ -313,11 +326,11 @@ li.prepend(checkBox);
         //チェックボックスにイベントリスナー↓↓/////
         checkBox.addEventListener("change",(e)=>{  
                 span.classList.toggle("completed");
-                let clicked_checkBox_id=e.target.dataset.id;
+                let clicked_checkBox_id=Number(e.target.dataset.id);
                 console.log("clicked_checkBox_id"+clicked_checkBox_id);
 
                 clicked_index=uncompletedList.findIndex((item)=>{
-                return item.id===Number(clicked_checkBox_id)
+                return item.id===clicked_checkBox_id
                 });
                 console.log("clicked_index is..."+clicked_index);
                 //uncompletedListを更新↓↓
@@ -353,6 +366,7 @@ li.prepend(checkBox);
                                
                                
                                 let li=document.createElement("li");
+                                li.dataset.id=item.id;
                                 let span=document.createElement("span");
                                 span.innerHTML=item.taskName;
 
@@ -384,7 +398,7 @@ li.prepend(checkBox);
                                 //チェックボックス生成/////////
                                 createCompletedCheckBox(li,span,item);
                                 //削除ボタン生成/////////////
-                                createCompletedDelButton(li,span);
+                                createCompletedDelButton(li,span,id);
                                 
 
 
@@ -407,7 +421,7 @@ li.prepend(checkBox);
                 
 }
 
-function createEditButton(li,span){
+function createEditButton(li,span,id){
 let editButton=document.createElement("button");
 li.appendChild(editButton);
         editButton.innerHTML="編集";
@@ -419,7 +433,7 @@ editButton.addEventListener("click",(e)=>{//クリックハンドラ設置
         console.log("clicked_li_text =...");
         console.log(clicked_li_text);
         let clicked_index=uncompletedList.findIndex((item)=>{
-        return item.taskName===clicked_li_text
+        return item.id===id
         });
         let clicked_li_span=e.target.previousElementSibling;
         input_to_be_swapped.value=clicked_li_text;
@@ -544,8 +558,12 @@ if(!restoredUncompletedListData && !restoredCompletedListData){
         if(item.completed){
                 return
         }
+
+
+        let id=item.id
         ///li////////////////////   
         let li=document.createElement("li");
+        li.dataset.id=item.id;
         let span=document.createElement("span");
         span.textContent=item.taskName;
         li.appendChild(span);
@@ -560,17 +578,17 @@ if(!restoredUncompletedListData && !restoredCompletedListData){
 
         ///編集ボタン生成/////////////
 
-        createEditButton(li,span);
+        createEditButton(li,span,id);
 
 
 
 
         ///削除ボタン生成//////////
-        createDeleteButton(li);
+        createDeleteButton(li,id);
 
 
       ///チェックボックス生成////////
-      let id=item.id
+      
         createCheckBox(li,span,id);
 
 
@@ -614,8 +632,9 @@ if(!restoredUncompletedListData && !restoredCompletedListData){
 
         restoredCompletedListData.forEach((item,i)=>{
 
-        
+                        let id=item.id
                         let li=document.createElement("li");
+                        li.dataset.id=id
                         let span=document.createElement("span");
                         span.innerHTML=item.taskName;
                                 completedListContainer.appendChild(visual_completed_ul);
@@ -623,10 +642,10 @@ if(!restoredUncompletedListData && !restoredCompletedListData){
                         li.appendChild(span);
                
                         //チェックボックスを生成/////////////
-                        createCompletedCheckBox(li,span,item);
+                        createCompletedCheckBox(li,span,item,id);
 
                         //削除ボタンを生成//////////////////
-                        createCompletedDelButton(li,span);
+                        createCompletedDelButton(li,span,id);
 
 
 
