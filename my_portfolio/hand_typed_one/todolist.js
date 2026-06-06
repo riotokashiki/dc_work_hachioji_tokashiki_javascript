@@ -32,9 +32,7 @@ completed_header.classList.add("header");
 
 let radio_buttons=Array.from(document.querySelectorAll("input[type='radio']"));
 
-  let uncompletedList_true_array=uncompletedList.filter((item)=>{
-        return item.completed
-        })
+
 
 let yes_button=document.querySelector(".yes");
 let no_button=document.querySelector(".no");
@@ -552,17 +550,17 @@ addButton.addEventListener("click",()=>{
 restoreState()
 
 function restoreState(){
-let restoredUncompletedListData=JSON.parse(localStorage.getItem("savedUncompletedList"));//JSON.parseでJS配列に変換
-let restoredCompletedListData=JSON.parse(localStorage.getItem("savedCompletedList"));
+let restoredUncompletedListData=JSON.parse(localStorage.getItem("savedUncompletedList"))|| [];//JSON.parseでJS配列に変換
+let restoredCompletedListData=JSON.parse(localStorage.getItem("savedCompletedList"))||[];
 
 
 
 
 
-if(!restoredUncompletedListData && !restoredCompletedListData){
+if(restoredUncompletedListData.length===0 && restoredCompletedListData.length===0){
         console.log("There is no data.");
         return
-}else if(restoredUncompletedListData || restoredCompletedListData){
+}else{
         uncompletedList=restoredUncompletedListData;//JS配列にrestoredUncompletedListDataを入れる　じゃないとリフレッシュすると空になってしまう
         completedList=restoredCompletedListData;
         console.log("uncompletedList=");
@@ -619,19 +617,19 @@ if(!restoredUncompletedListData && !restoredCompletedListData){
         //completedListを復元//////////
 
         //     もし復元したcompletedリストにアイテムが存在したら
-          if(uncompletedList_true_array.length>0 && !isThereTheHeader){
+          if(restoredCompletedListData.length>0 && !isThereTheHeader){
                         
                         
 
                 
                       
-                        //ヘッダーを設置
+                   
                         completedListContainer.prepend(completed_header);
                         //ヘッダーが存在する　にtrueをセット
                         isThereTheHeader=true;  
                         console.log("debug A")
                         
-                }else if(uncompletedList_true_array.length>0 && isThereTheHeader){
+                }else if(restoredCompletedListData.length>0 && isThereTheHeader){
                          console.log("debug B")
                         return
                 }
