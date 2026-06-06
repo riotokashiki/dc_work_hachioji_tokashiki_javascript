@@ -373,7 +373,7 @@ li.prepend(checkBox);
                                 li.dataset.id=item.id;
                                 let span=document.createElement("span");
                                 span.innerHTML=item.taskName;
-
+                                li.classList.add("borderTransparent");
                                 if(Number(e.target.dataset.id)===item.id){
                                 //スムーズアニメーション↓↓////
                                 li.classList.add("smoothGrowing");
@@ -401,8 +401,13 @@ li.prepend(checkBox);
                                        }
                                 //チェックボックス生成/////////
                                 createCompletedCheckBox(li,span,item);
+                                
+                                //空ボタン生成////////////////
+                                createEmptyButton(li)
+
+
                                 //削除ボタン生成/////////////
-                                createCompletedDelButton(li,span,id);
+                                createCompletedDelButton(li,span,item.id);
                                 
 
 
@@ -493,6 +498,16 @@ radio_buttons.forEach((item)=>{
 })
 
 
+
+function createEmptyButton(li){
+
+             let emptyButton=document.createElement("button");
+                                li.appendChild(emptyButton);
+                                emptyButton.innerHTML="削除";
+                                emptyButton.classList.add("li_button");
+                                emptyButton.classList.add("visibilityHidden");
+
+}
 
 
 
@@ -644,9 +659,14 @@ if(!restoredUncompletedListData && !restoredCompletedListData){
                                 completedListContainer.appendChild(visual_completed_ul);
                         visual_completed_ul.appendChild(li);
                         li.appendChild(span);
+                        li.classList.add("borderTransparent");
                
                         //チェックボックスを生成/////////////
                         createCompletedCheckBox(li,span,item,id);
+
+                        //空ボタン生成////////////////
+                        createEmptyButton(li)
+
 
                         //削除ボタンを生成//////////////////
                         createCompletedDelButton(li,span,id);
