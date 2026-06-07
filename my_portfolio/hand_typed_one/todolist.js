@@ -550,8 +550,12 @@ addButton.addEventListener("click",()=>{
 restoreState()
 
 function restoreState(){
-let restoredUncompletedListData=JSON.parse(localStorage.getItem("savedUncompletedList"))|| [];//JSON.parseでJS配列に変換
-let restoredCompletedListData=JSON.parse(localStorage.getItem("savedCompletedList"))||[];
+let savedUncomp=localStorage.getItem("savedUncompletedList");
+let savedComp=localStorage.getItem("savedCompletedList");
+
+
+let restoredUncompletedListData=savedUncomp?JSON.parse(savedUncomp): [];//JSON.parseでJS配列に変換
+let restoredCompletedListData=savedComp?JSON.parse(savedComp):[];
 
 
 
