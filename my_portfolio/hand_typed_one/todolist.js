@@ -557,10 +557,8 @@ let restoredCompletedListData=JSON.parse(localStorage.getItem("savedCompletedLis
 
 
 
-if(restoredUncompletedListData.length===0 && restoredCompletedListData.length===0){
-        console.log("There is no data.");
-        return
-}else{
+
+
         uncompletedList=restoredUncompletedListData;//JS配列にrestoredUncompletedListDataを入れる　じゃないとリフレッシュすると空になってしまう
         completedList=restoredCompletedListData;
         console.log("uncompletedList=");
@@ -681,7 +679,7 @@ if(restoredUncompletedListData.length===0 && restoredCompletedListData.length===
 }
 
 
-}
+
 
 function reset_option(){
 reset_window.classList.remove("hide");
