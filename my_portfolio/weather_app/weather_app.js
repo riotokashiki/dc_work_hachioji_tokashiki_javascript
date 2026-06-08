@@ -1,10 +1,13 @@
 let text_field = document.querySelector("input");
 let decide_button = document.getElementById("submit");
+let city_name_li = document.getElementById("city_name");
+let temp_li = document.getElementById("temperature");
+let feelsLike_li = document.getElementById("feelsLike");
+let humidity_li=document.getElementById("feelsLike");
 
-
-
-
-
+let your_api ="3807063e9008b4510b520cbfa45c5059";
+let city_name=null;
+let humidity = null;
 
 
 window.addEventListener("keydown",(e)=>{
@@ -15,7 +18,7 @@ if(e.key=="Enter" && document.activeElement===text_field){
 
 
 
-function decide(){
+async function decide(){
 let input_value = text_field.value.trim();
 console.log("input_value is.."+input_value);
 
@@ -24,18 +27,39 @@ if(!input_value){
         alert("都市名を入力してください！");
 }
 
-fetch("https://api.openweathermap.org/data/2.5/weather?q=London&appid=3807063e9008b4510b520cbfa45c5059")
-.then((response)=>{
-console.log(response);
-return response.json();
-})
-.then((data)=>{
-console.log(data);
+function kel_to_cel(kelvin){
+        let cel_temp=Math.trunc(kelvin-273.15);
+        return cel_temp
+}
 
-})
-.catch((error)=>{
-        console.error(error);
-})
+
+await fetching();
+
+async function fetching(){
+let response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${input_value}&appid=${your_api}`)
+
+let resolved=await response.json();
+if(resolved.cod==="404"){
+        alert("都市が見つかりませんでした。")
+        text_field.value="";
+        return
+}
+
+console.log(resolved)
+console.log("sent value is..."+resolved)
+city_name = resolved.name;
+temperature=Number(resolved.main.temp);
+console.log(city_name);
+humidity=resolved.main.humidity;
+
+}
+
+city_name_li.innerHTML = city_name;
+temp_li.innerHTML = `${kel_to_cel(temperature)}${"&deg;C"}`;
+feelsLike_li.innerHTML="湿度 "+humidity+"%";
+
+
+
 
 text_field.value="";
 
