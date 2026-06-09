@@ -1,6 +1,7 @@
 let text_field = document.querySelector("input");
 let decide_button = document.getElementById("submit");
 let city_name_li = document.getElementById("city_name");
+let country_code_li=document.getElementById("country_code")
 let temp_li = document.getElementById("temperature");
 let feelsLike_li = document.getElementById("feelsLike");
 let humidity_li=document.getElementById("humidity");
@@ -9,6 +10,7 @@ let wind_li=document.getElementById("wind");
 
 let your_api_key ="3807063e9008b4510b520cbfa45c5059";
 let city_name=null;
+let country_code=null;
 let humidity = null;
 let wind=null;
 
@@ -38,27 +40,61 @@ function kel_to_cel(kelvin){
 
 await fetching();
 
-async function fetching(){
-let response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${input_value}&appid=${your_api_key}&lang=ja`)
 
-let resolved=await response.json();
-if(resolved.cod==="404"){
+
+
+
+async function fetching(){
+
+let geocoding_api_query= `https://api.openweathermap.org/geo/1.0/direct?q=${input_value}&limit=1&appid=${your_api_key}`      
+let geocoding_api_response= await fetch(geocoding_api_query);     
+
+let resolved1=await geocoding_api_response.json();
+
+
+if(resolved1.cod==="404"){
         alert("都市が見つかりませんでした。")
         text_field.value="";
         return
 }
 
-console.log(resolved)
-console.log("sent value is..."+resolved)
-city_name = resolved.name;
-temperature=Number(resolved.main.temp);
+
+
+console.log(resolved1)
+let latitude=resolved1[0].lat;
+let longitude=resolved1[0].lon;
+country_code=resolved1[0].country;
+console.log("country code is.."+country_code);
+console.log("latitude is..."+latitude);
+console.log("longitude is..."+longitude);
+
+let weather_api_query=`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${your_api_key}`
+let weather_api_response = await fetch(weather_api_query);
+console.log("sent query is.."+weather_api_query);
+
+let resolved2=await weather_api_response.json();
+if(resolved2.cod==="404"){
+        alert("都市が見つかりませんでした。")
+        text_field.value="";
+        return
+}
+
+
+
+
+
+console.log(resolved2);
+city_name = resolved2.name;
 console.log(city_name);
-humidity=resolved.main.humidity;
-wind=resolved.wind.speed
+// country_code=resolved2
+temperature=Number(resolved2.main.temp);
+humidity=resolved2.main.humidity;
+wind=resolved2.wind.speed
 
 }
 
-city_name_li.innerHTML = city_name;
+city_name_li.innerHTML = input_value;
+country_code_li.innerHTML="国コード："+country_code;
 temp_li.innerHTML = `${kel_to_cel(temperature)}${"&deg;C"}`;
 humidity_li.innerHTML="湿度 "+humidity+"%";
 wind_li.innerHTML="風速 "+wind+"m/s";
