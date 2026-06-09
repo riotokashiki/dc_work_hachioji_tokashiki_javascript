@@ -3,11 +3,14 @@ let decide_button = document.getElementById("submit");
 let city_name_li = document.getElementById("city_name");
 let temp_li = document.getElementById("temperature");
 let feelsLike_li = document.getElementById("feelsLike");
-let humidity_li=document.getElementById("feelsLike");
+let humidity_li=document.getElementById("humidity");
+let wind_li=document.getElementById("wind");
 
-let your_api ="3807063e9008b4510b520cbfa45c5059";
+
+let your_api_key ="3807063e9008b4510b520cbfa45c5059";
 let city_name=null;
 let humidity = null;
+let wind=null;
 
 
 window.addEventListener("keydown",(e)=>{
@@ -36,7 +39,7 @@ function kel_to_cel(kelvin){
 await fetching();
 
 async function fetching(){
-let response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${input_value}&appid=${your_api}`)
+let response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${input_value}&appid=${your_api_key}&lang=ja`)
 
 let resolved=await response.json();
 if(resolved.cod==="404"){
@@ -51,13 +54,14 @@ city_name = resolved.name;
 temperature=Number(resolved.main.temp);
 console.log(city_name);
 humidity=resolved.main.humidity;
+wind=resolved.wind.speed
 
 }
 
 city_name_li.innerHTML = city_name;
 temp_li.innerHTML = `${kel_to_cel(temperature)}${"&deg;C"}`;
-feelsLike_li.innerHTML="湿度 "+humidity+"%";
-
+humidity_li.innerHTML="湿度 "+humidity+"%";
+wind_li.innerHTML="風速 "+wind+"m/s";
 
 
 
