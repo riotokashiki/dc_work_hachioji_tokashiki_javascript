@@ -1,3 +1,6 @@
+// API KEYを別ファイルからインポート↓↓////
+import{API_KEY} from"./config.js";
+
 let text_field = document.querySelector("input");
 let decide_button = document.getElementById("submit");
 let city_name_li = document.getElementById("city_name");
@@ -13,13 +16,13 @@ let input_city=document.getElementById("input_city");
 let img=document.querySelector("img");
 
 
-let your_api_key ="3807063e9008b4510b520cbfa45c5059";
 let city_name=null;
 let country_code=null;
 let humidity = null;
 let wind=null;
 let weather=null;
-
+let temperature=null;
+let weather_id=null;
 
 window.addEventListener("keydown",(e)=>{
 if(e.key=="Enter" && document.activeElement===text_field){
@@ -81,7 +84,7 @@ await fetching();
 
 async function fetching(){
 
-let geocoding_api_query= `https://api.openweathermap.org/geo/1.0/direct?q=${input_value}&limit=1&appid=${your_api_key}`      
+let geocoding_api_query= `https://api.openweathermap.org/geo/1.0/direct?q=${input_value}&limit=1&appid=${API_KEY}`      
 let geocoding_api_response= await fetch(geocoding_api_query);     
 
 let resolved1=await geocoding_api_response.json();
@@ -105,7 +108,7 @@ if(resolved1.length>0){
         console.log("latitude is..."+latitude);
         console.log("longitude is..."+longitude);
 
-        let weather_api_query=`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&lang=ja&appid=${your_api_key}`
+        let weather_api_query=`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&lang=ja&appid=${API_KEY}`
         let weather_api_response = await fetch(weather_api_query);
         console.log("sent query is.."+weather_api_query);
 

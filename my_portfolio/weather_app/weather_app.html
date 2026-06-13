@@ -57,6 +57,7 @@
       #information_panel{
         width: 89%;
         margin: 1rem;
+            display: flex;
       }
 
 
@@ -119,11 +120,14 @@
             padding: 1rem;
                 font-size: 0.9rem;
                 width: 100%;
+                margin-right:1rem;
       }
       input:focus{
         outline:none;
       }
-
+      #input_container{
+        display: flex;
+      }
 
       ul{
         border-radius:15px;
@@ -131,7 +135,6 @@
         max-width: 100%;
         width: 100%;
         overflow: hidden;
-        box-shadow: 0px 0px 5px gray;
         background-color: transparent;
       }
      
@@ -155,6 +158,10 @@
     justify-content: center;
     align-items: center;
 }
+li#temperature {
+    font-size: 2rem;
+}
+
 
       .completed{
         text-decoration: line-through;
@@ -444,8 +451,10 @@ span {
       <div class="wholeContainer">
         
         <p class="title">気象アプリ</p>
+        <div id="input_container">
         <input type="text" placeholder="都市名を入力してください">
         <button id="submit">決定</button>
+        </div>
 
 
 
@@ -455,7 +464,12 @@ span {
             <li id="input_city" class="raws"></li>
             <li id="city_name" class="raws"></li>
             <li id="country_code" class="raws"></li>
-            <li id="weather_icon" class="raws">
+         
+            
+            <li id="updated_date" class="raws"></li>
+          </ul>
+          <ul id="right_pannel">
+               <li id="weather_icon" class="raws">
               <img src="" alt="">
             </li>
             <li id="weather" class="raws"></li>
@@ -463,7 +477,6 @@ span {
             <li id="feelsLike" class="raws"></li>
             <li id="humidity" class="raws"></li>
             <li id="wind" class="raws"></li>
-            <li id="updated_date" class="raws"></li>
           </ul>
 
 
@@ -483,6 +496,6 @@ span {
   </div>
 </div>
 
-  <script src="weather_app.js"></script><!--Where to put JS sheet is before the closing body tag.   -->
+  <script src="weather_app.js" type="module"></script><!--Where to put JS sheet is before the closing body tag.   -->
     </body>
 </html>
