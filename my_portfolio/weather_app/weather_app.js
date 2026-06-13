@@ -9,6 +9,9 @@ let wind_li=document.getElementById("wind");
 let weather_li=document.getElementById("weather");
 let the_ul=document.getElementById("ul");
 let all_lis=Array.from(document.querySelectorAll("li"));
+let input_city=document.getElementById("input_city");
+let img=document.querySelector("img");
+
 
 let your_api_key ="3807063e9008b4510b520cbfa45c5059";
 let city_name=null;
@@ -31,26 +34,27 @@ function kel_to_cel(kelvin){
         return cel_temp
 }
 
-function judge_weather(weather){
-        if(300>weather>=200){
-                return"雷雨";
-        }else if(500>weather>=300){
-                return"土砂降り";
-        }else if(600>weather>=500){
-                return"雨";
-        }else if(700>weather>=600){
-                return"雪";
-        }
-        else if(800>weather>=700){
-                return"霧";
 
-        }else if(weather==800){
-                return"晴れ";
-        }else if(weather>800){
-                return"くもり";
-        }else{
-                return"取得不能";
-        }
+
+function icon_decide(weather_id){
+if(200<=weather_id&&weather_id<300){
+        img.src="assets/images/compressed_images/icons8-storm-100.png"
+}else if(300<=weather_id&&weather_id<600){
+        img.src="assets/images/compressed_images/icons8-raining-96.png"
+}else if(600<=weather_id&&weather_id<700){
+         img.src="assets/images/compressed_images/icons8-cloud-100.png"
+
+}else if(700<=weather_li&&weather_id<800){
+        img.src="assets/images/compressed_images/icons8-mist-96.png"
+
+}else if(weather_id===800){
+         img.src="assets/images/compressed_images/icons8-sunny-100.png"
+
+}else if(800<weather_id){
+         img.src="assets/images/compressed_images/icons8-cloud-100.png"
+
+}
+
 
 
 }
@@ -101,7 +105,7 @@ if(resolved1.length>0){
         console.log("latitude is..."+latitude);
         console.log("longitude is..."+longitude);
 
-        let weather_api_query=`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${your_api_key}`
+        let weather_api_query=`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&lang=ja&appid=${your_api_key}`
         let weather_api_response = await fetch(weather_api_query);
         console.log("sent query is.."+weather_api_query);
 
@@ -123,17 +127,19 @@ if(resolved1.length>0){
         temperature=Number(resolved2.main.temp);
         humidity=resolved2.main.humidity;
         wind=resolved2.wind.speed;
-        weather=Number(resolved2.weather[0].id);
+        weather=resolved2.weather[0].description;
         console.log("weather code is..."+weather);
-
+        weather_id=Number(resolved2.weather[0].id);
+        console.log(weather_id);
+        icon_decide(weather_id);
         
-
-        city_name_li.innerHTML = input_value;
+        input_city.innerHTML=input_value
+        city_name_li.innerHTML = city_name;
         country_code_li.innerHTML="国コード："+country_code;
         temp_li.innerHTML = `${kel_to_cel(temperature)}${"&deg;C"}`;
         humidity_li.innerHTML="湿度 "+humidity+"%";
         wind_li.innerHTML="風速 "+wind+"m/s";
-        weather_li.innerHTML=judge_weather(weather);
+        weather_li.innerHTML=weather;
         text_field.value="";
 }else{      
 text_field.value="";

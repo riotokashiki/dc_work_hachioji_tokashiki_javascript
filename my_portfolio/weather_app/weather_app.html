@@ -23,6 +23,8 @@
             background: #3f3f9f;
         }
 
+
+        
       .wholeContainer{
         margin: 1rem;
         box-shadow: 0px 0px 5px gray;
@@ -34,7 +36,13 @@
         flex-direction: column;
         padding: 1rem 0;
         min-height: 20vh;
-            background: #a2d1e6;
+        background: #141533;
+        background-image:url(assets/images/compressed_images/abid-shah-sff8Ow-YiWY-unsplash.jpg);
+        background-repeat:no-repeat;                    
+        background-size:80%;
+         background-position: 50% 37%;
+
+
             z-index: 1;
       }
       .upperHalfContainer{
@@ -124,7 +132,7 @@
         width: 100%;
         overflow: hidden;
         box-shadow: 0px 0px 5px gray;
-            background: #a2cce2;
+        background-color: transparent;
       }
      
     
@@ -269,7 +277,9 @@
       }
 p.title{
   margin:1rem;
+  color: white;
 }
+
 
       .smoothDelete{
         animation :smoothDelete 0.15s ease;
@@ -339,6 +349,7 @@ flex-direction: column;
 
 .raws{
   text-align: center;
+  color:white;
 }
 
 .resetButtonContainer button {
@@ -429,8 +440,9 @@ span {
     </style>
     </head>
     <body>
-
+      <div class="image_container">
       <div class="wholeContainer">
+        
         <p class="title">気象アプリ</p>
         <input type="text" placeholder="都市名を入力してください">
         <button id="submit">決定</button>
@@ -440,9 +452,12 @@ span {
 
         <div id="information_panel" class="raws">
           <ul>
+            <li id="input_city" class="raws"></li>
             <li id="city_name" class="raws"></li>
             <li id="country_code" class="raws"></li>
-            <li id="weather_icon" class="raws"></li>
+            <li id="weather_icon" class="raws">
+              <img src="" alt="">
+            </li>
             <li id="weather" class="raws"></li>
             <li id="temperature" class="raws"></li>
             <li id="feelsLike" class="raws"></li>
@@ -456,7 +471,7 @@ span {
 
 
         </div>
-
+</div>
 </div>
 
 <button class="reset">リセット</button>
